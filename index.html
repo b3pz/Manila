@@ -10,36 +10,33 @@
 
   <meta
     name="description"
-    content="Lara Tinca, psicologa e psicoterapeuta a Montevarchi. Colloqui psicologici e percorsi di psicoterapia in presenza e online."
+    content="Dott.ssa Lara Tinca, psicologa e psicoterapeuta a Montevarchi. Colloqui psicologici e percorsi di psicoterapia in presenza e online."
   >
 
-  <meta name="theme-color" content="#61786a">
+  <meta name="theme-color" content="#123b5b">
 
-  <title>Lara Tinca | Psicologa e Psicoterapeuta a Montevarchi</title>
+  <title>
+    Dott.ssa Lara Tinca | Psicologa e Psicoterapeuta a Montevarchi
+  </title>
 
   <style>
     :root {
-      --background: #f6f2eb;
-      --background-soft: #e8eee9;
-      --surface: rgba(255, 255, 255, 0.78);
-      --surface-solid: #ffffff;
-
-      --text: #26342f;
-      --muted: #68756f;
-
-      --primary: #61786a;
-      --primary-dark: #3f5548;
-
-      --accent: #c98f6d;
-      --accent-soft: #edddd1;
-
-      --border: rgba(38, 52, 47, 0.13);
-      --shadow: 0 25px 70px rgba(54, 73, 63, 0.14);
-
+      --background: #fbfaf8;
+      --background-soft: #eef7f5;
+      --surface: rgba(255, 255, 255, 0.84);
+      --text: #17364b;
+      --muted: #627582;
+      --primary: #123b5b;
+      --primary-light: #315f78;
+      --mint: #b9dddd;
+      --mint-light: #e8f5f3;
+      --pink: #f3d7d5;
+      --peach: #f7dfc7;
+      --border: rgba(18, 59, 91, 0.12);
+      --shadow: 0 26px 70px rgba(18, 59, 91, 0.13);
       --radius-large: 34px;
       --radius-medium: 22px;
       --radius-small: 14px;
-
       --container: 1180px;
     }
 
@@ -56,19 +53,23 @@
     body {
       min-height: 100vh;
       overflow-x: hidden;
-
       color: var(--text);
 
       background:
         radial-gradient(
-          circle at 8% 5%,
-          rgba(201, 143, 109, 0.16),
-          transparent 27rem
+          circle at 5% 7%,
+          rgba(243, 215, 213, 0.55),
+          transparent 25rem
         ),
         radial-gradient(
-          circle at 92% 16%,
-          rgba(97, 120, 106, 0.17),
-          transparent 30rem
+          circle at 95% 12%,
+          rgba(185, 221, 221, 0.55),
+          transparent 28rem
+        ),
+        radial-gradient(
+          circle at 78% 90%,
+          rgba(247, 223, 199, 0.35),
+          transparent 25rem
         ),
         var(--background);
 
@@ -101,8 +102,8 @@
     }
 
     section {
-      padding: 120px 0;
-      scroll-margin-top: 90px;
+      padding: 115px 0;
+      scroll-margin-top: 100px;
     }
 
     .container {
@@ -114,9 +115,7 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-
-      color: var(--primary-dark);
-
+      color: var(--primary);
       font-size: 0.76rem;
       font-weight: 750;
       letter-spacing: 0.15em;
@@ -126,43 +125,36 @@
     .eyebrow::before {
       width: 34px;
       height: 1px;
-
-      background: var(--accent);
-
+      background: var(--primary);
       content: "";
     }
 
     .section-title {
-      max-width: 780px;
+      max-width: 790px;
       margin-top: 15px;
-
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.25rem, 5vw, 4.2rem);
+      font-size: clamp(2.25rem, 5vw, 4.15rem);
       font-weight: 400;
       letter-spacing: -0.04em;
       line-height: 1.08;
     }
 
     .section-description {
-      max-width: 680px;
+      max-width: 690px;
       margin-top: 22px;
-
       color: var(--muted);
-
       font-size: 1.05rem;
     }
 
-    /* Header */
+    /* HEADER */
 
     .site-header {
       position: fixed;
       top: 0;
       right: 0;
       left: 0;
-
       z-index: 100;
-
-      padding: 18px 0;
+      padding: 13px 0;
 
       transition:
         padding 0.25s ease,
@@ -171,11 +163,9 @@
     }
 
     .site-header.scrolled {
-      padding: 10px 0;
-
-      background: rgba(246, 242, 235, 0.92);
+      padding: 7px 0;
+      background: rgba(251, 250, 248, 0.93);
       backdrop-filter: blur(18px);
-
       box-shadow: 0 1px 0 var(--border);
     }
 
@@ -183,61 +173,32 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      gap: 26px;
+      gap: 24px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-
-      gap: 13px;
+      min-width: 0;
     }
 
-    .brand-symbol {
-      display: grid;
-      place-items: center;
-
-      width: 47px;
-      aspect-ratio: 1;
-
-      border-radius: 50%;
-
-      color: #ffffff;
-      background: var(--primary);
-
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.08rem;
-
-      box-shadow: 0 12px 30px rgba(63, 85, 72, 0.23);
-    }
-
-    .brand-copy strong {
+    .brand-logo {
       display: block;
-
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.1;
-    }
-
-    .brand-copy span {
-      color: var(--muted);
-
-      font-size: 0.74rem;
+      width: 275px;
+      max-width: 42vw;
+      height: 72px;
+      object-fit: contain;
+      object-position: left center;
+      mix-blend-mode: multiply;
     }
 
     .navigation-list {
       display: flex;
       align-items: center;
-
-      gap: 27px;
-
+      gap: 25px;
       list-style: none;
-
-      color: #3b4a44;
-
-      font-size: 0.9rem;
+      color: var(--primary);
+      font-size: 0.89rem;
       font-weight: 650;
     }
 
@@ -250,16 +211,11 @@
       right: 0;
       bottom: -7px;
       left: 0;
-
       height: 1px;
-
       background: var(--primary);
-
       content: "";
-
       transform: scaleX(0);
       transform-origin: right;
-
       transition: transform 0.2s ease;
     }
 
@@ -273,15 +229,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
+      gap: 9px;
       min-height: 50px;
       padding: 0 23px;
-
       border: 1px solid transparent;
       border-radius: 999px;
-
       cursor: pointer;
-
       font-weight: 720;
 
       transition:
@@ -293,15 +246,14 @@
     .navigation-button,
     .button-primary {
       color: #ffffff;
-      background: var(--primary-dark);
-
-      box-shadow: 0 14px 32px rgba(63, 85, 72, 0.22);
+      background: var(--primary);
+      box-shadow: 0 14px 34px rgba(18, 59, 91, 0.2);
     }
 
     .button-secondary {
       border-color: var(--border);
-
-      background: rgba(255, 255, 255, 0.56);
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.66);
       backdrop-filter: blur(10px);
     }
 
@@ -311,302 +263,207 @@
     }
 
     .button-primary:hover {
-      background: #33483b;
-
-      box-shadow: 0 18px 38px rgba(63, 85, 72, 0.28);
+      background: #0b304c;
+      box-shadow: 0 18px 40px rgba(18, 59, 91, 0.28);
     }
 
     .menu-button {
       display: none;
       place-items: center;
-
       width: 46px;
       height: 46px;
-
-      border: 0;
+      border: 1px solid var(--border);
       border-radius: 50%;
-
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.75);
-
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.8);
       cursor: pointer;
     }
 
-    /* Hero */
+    /* HERO */
 
     .hero {
       position: relative;
-
       display: grid;
       align-items: center;
-
       min-height: 100svh;
-      padding: 145px 0 90px;
-
+      padding: 135px 0 80px;
       isolation: isolate;
     }
 
     .hero::before {
       position: absolute;
-      top: 22%;
-      right: -11%;
-
+      top: 18%;
+      right: -12%;
       z-index: -1;
-
-      width: 470px;
+      width: 500px;
       aspect-ratio: 1;
-
-      border: 1px solid rgba(97, 120, 106, 0.2);
+      border: 1px solid rgba(18, 59, 91, 0.13);
       border-radius: 52% 48% 38% 62% / 62% 38% 62% 38%;
-
       content: "";
-
       transform: rotate(18deg);
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.06fr 0.94fr;
+      grid-template-columns: 1.02fr 0.98fr;
       align-items: center;
-
-      gap: clamp(48px, 8vw, 110px);
+      gap: clamp(45px, 8vw, 105px);
     }
 
     .hero h1 {
       max-width: 760px;
       margin-top: 18px;
-
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(3.55rem, 8vw, 7.3rem);
+      font-size: clamp(3.45rem, 8vw, 7rem);
       font-weight: 400;
       letter-spacing: -0.06em;
-      line-height: 0.94;
+      line-height: 0.96;
     }
 
     .hero h1 em {
-      color: var(--primary);
-
+      color: var(--primary-light);
       font-weight: 400;
     }
 
     .hero-description {
-      max-width: 640px;
+      max-width: 635px;
       margin-top: 30px;
-
       color: var(--muted);
-
-      font-size: clamp(1.05rem, 2vw, 1.19rem);
+      font-size: clamp(1.05rem, 2vw, 1.18rem);
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-
       gap: 14px;
-
       margin-top: 38px;
     }
 
     .availability {
       display: flex;
       align-items: center;
-
       gap: 12px;
-
-      margin-top: 28px;
-
+      margin-top: 27px;
       color: var(--muted);
-
       font-size: 0.9rem;
     }
 
     .availability-dot {
       width: 9px;
       height: 9px;
-
       border-radius: 50%;
-
-      background: #74a17f;
-
-      box-shadow: 0 0 0 7px rgba(116, 161, 127, 0.13);
+      background: #75aaa4;
+      box-shadow: 0 0 0 7px rgba(117, 170, 164, 0.14);
     }
 
     .portrait-area {
       position: relative;
-
-      min-height: 650px;
+      min-height: 630px;
     }
 
     .portrait-card {
       position: absolute;
-      inset: 0 46px 32px 0;
-
+      inset: 0 43px 32px 0;
       overflow: hidden;
-
-      border-radius: 180px 180px 38px 38px;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.06),
-          rgba(38, 52, 47, 0.13)
-        ),
-        linear-gradient(145deg, #cad4ca, #829588);
-
+      border: 9px solid rgba(255, 255, 255, 0.76);
+      border-radius: 190px 190px 42px 42px;
+      background: var(--mint-light);
       box-shadow: var(--shadow);
     }
 
-    .portrait-card::before {
-      position: absolute;
-      inset: 0;
-
-      background:
-        radial-gradient(
-          circle at 50% 32%,
-          rgba(255, 255, 255, 0.38) 0 7%,
-          transparent 7.5%
-        ),
-        radial-gradient(
-          ellipse at 50% 55%,
-          rgba(255, 255, 255, 0.22) 0 23%,
-          transparent 23.5%
-        ),
-        linear-gradient(
-          to top,
-          rgba(38, 52, 47, 0.28),
-          transparent 56%
-        );
-
-      content: "";
-    }
-
-    .portrait-card::after {
-      position: absolute;
-      right: 25px;
-      bottom: 25px;
-      left: 25px;
-
-      padding: 14px 18px;
-
-      border: 1px solid rgba(255, 255, 255, 0.31);
-      border-radius: 999px;
-
-      color: #ffffff;
-      background: rgba(38, 52, 47, 0.29);
-      backdrop-filter: blur(12px);
-
-      content: "Inserire qui una fotografia professionale";
-
-      font-size: 0.79rem;
-      letter-spacing: 0.04em;
-      text-align: center;
+    .portrait-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .hero-floating-card {
       position: absolute;
       right: 0;
       bottom: 0;
-
-      width: min(285px, 80%);
+      width: min(290px, 82%);
       padding: 25px;
-
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.8);
       border-radius: var(--radius-medium);
-
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.84);
       backdrop-filter: blur(18px);
-
-      box-shadow: 0 18px 55px rgba(54, 73, 63, 0.15);
+      box-shadow: 0 18px 55px rgba(18, 59, 91, 0.14);
     }
 
     .hero-floating-card strong {
       display: block;
-
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.35rem;
+      font-size: 1.34rem;
       font-weight: 400;
     }
 
     .hero-floating-card p {
       margin-top: 8px;
-
       color: var(--muted);
-
       font-size: 0.86rem;
     }
 
-    /* Citazione */
+    /* CITAZIONE */
 
     .quote-section {
-      padding: 38px 0;
-
+      padding: 40px 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
 
-      background: rgba(255, 255, 255, 0.28);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(243, 215, 213, 0.3),
+          rgba(185, 221, 221, 0.35)
+        );
     }
 
     .quote-section p {
       max-width: 920px;
       margin: 0 auto;
-
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.35rem, 3vw, 2.28rem);
+      font-size: clamp(1.35rem, 3vw, 2.25rem);
       line-height: 1.35;
       text-align: center;
     }
 
-    /* Chi sono */
+    /* CHI SONO */
 
     .about-grid {
       display: grid;
-      grid-template-columns: 0.86fr 1.14fr;
+      grid-template-columns: 0.85fr 1.15fr;
       align-items: start;
-
-      gap: clamp(45px, 8vw, 120px);
+      gap: clamp(45px, 8vw, 115px);
     }
 
-    .about-illustration {
+    .about-photo {
       position: sticky;
       top: 110px;
-
-      min-height: 500px;
+      min-height: 520px;
       overflow: hidden;
-
+      border: 8px solid rgba(255, 255, 255, 0.8);
       border-radius: var(--radius-large);
-
-      background:
-        radial-gradient(
-          circle at 30% 28%,
-          rgba(255, 255, 255, 0.75),
-          transparent 22%
-        ),
-        linear-gradient(145deg, var(--accent-soft), #d7e0d8);
-
+      background: var(--mint-light);
       box-shadow: var(--shadow);
     }
 
-    .about-illustration svg {
-      position: absolute;
-      inset: 7%;
-
-      width: 86%;
-      height: 86%;
-
-      color: rgba(63, 85, 72, 0.7);
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      object-fit: cover;
+      object-position: center;
     }
 
     .about-content p {
       margin-top: 24px;
-
       color: var(--muted);
-
       font-size: 1.03rem;
     }
 
     .professional-details {
       display: grid;
-
       margin-top: 35px;
     }
 
@@ -614,72 +471,76 @@
       display: grid;
       grid-template-columns: 46px 1fr;
       align-items: start;
-
       gap: 17px;
-
       padding: 21px 0;
-
       border-top: 1px solid var(--border);
     }
 
     .detail-number {
       display: grid;
       place-items: center;
-
       width: 43px;
       aspect-ratio: 1;
-
       border-radius: 50%;
-
-      color: var(--primary-dark);
-      background: var(--background-soft);
-
+      color: var(--primary);
+      background: var(--mint-light);
       font-weight: 750;
     }
 
     .professional-detail strong {
       display: block;
-
       margin-bottom: 3px;
-
       font-size: 0.97rem;
     }
 
     .professional-detail span {
       color: var(--muted);
-
       font-size: 0.9rem;
     }
 
-    /* Aree */
+    /* AREE */
 
     .areas-section {
+      position: relative;
+      overflow: hidden;
       color: #ffffff;
-      background: var(--primary-dark);
+      background: var(--primary);
+    }
+
+    .areas-section::before {
+      position: absolute;
+      top: -180px;
+      right: -170px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: rgba(185, 221, 221, 0.12);
+      content: "";
     }
 
     .areas-section .eyebrow,
     .areas-section .section-description {
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .areas-section .eyebrow::before {
+      background: var(--mint);
     }
 
     .areas-grid {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-
       gap: 18px;
-
       margin-top: 60px;
     }
 
     .area-card {
-      min-height: 260px;
+      min-height: 255px;
       padding: 29px;
-
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: var(--radius-medium);
-
-      background: rgba(255, 255, 255, 0.055);
+      background: rgba(255, 255, 255, 0.06);
 
       transition:
         transform 0.25s ease,
@@ -688,61 +549,50 @@
 
     .area-card:hover {
       transform: translateY(-6px);
-
-      background: rgba(255, 255, 255, 0.095);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .area-card-number {
-      color: var(--accent);
-
+      color: var(--mint);
       font-family: Georgia, "Times New Roman", serif;
       font-size: 1.25rem;
     }
 
     .area-card h3 {
-      margin-top: 45px;
-
+      margin-top: 44px;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.48rem;
+      font-size: 1.46rem;
       font-weight: 400;
     }
 
     .area-card p {
       margin-top: 13px;
-
-      color: rgba(255, 255, 255, 0.67);
-
+      color: rgba(255, 255, 255, 0.69);
       font-size: 0.93rem;
     }
 
-    /* Percorso */
+    /* PERCORSO */
 
     .process-grid {
       display: grid;
       grid-template-columns: 0.9fr 1.1fr;
       align-items: start;
-
-      gap: clamp(45px, 8vw, 110px);
+      gap: clamp(45px, 8vw, 105px);
     }
 
     .steps {
       display: grid;
-
       gap: 18px;
     }
 
     .step {
       display: grid;
       grid-template-columns: 65px 1fr;
-
       gap: 21px;
-
       padding: 27px;
-
       border: 1px solid var(--border);
       border-radius: var(--radius-medium);
-
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.67);
 
       transition:
         transform 0.2s ease,
@@ -750,23 +600,18 @@
     }
 
     .step:hover {
-      border-color: rgba(97, 120, 106, 0.35);
-
+      border-color: rgba(18, 59, 91, 0.3);
       transform: translateX(5px);
     }
 
     .step-number {
       display: grid;
       place-items: center;
-
       width: 57px;
       height: 57px;
-
       border-radius: 50%;
-
-      color: #ffffff;
-      background: var(--primary);
-
+      color: var(--primary);
+      background: var(--mint);
       font-family: Georgia, "Times New Roman", serif;
       font-size: 1.2rem;
     }
@@ -779,24 +624,25 @@
 
     .step p {
       margin-top: 8px;
-
       color: var(--muted);
-
       font-size: 0.94rem;
     }
 
-    /* Studio */
+    /* STUDIO */
 
     .studio-section {
-      background: var(--background-soft);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(232, 245, 243, 0.9),
+          rgba(250, 240, 239, 0.72)
+        );
     }
 
     .studio-grid {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
-
       gap: 36px;
-
       margin-top: 58px;
     }
 
@@ -804,11 +650,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
       padding: 35px;
-
       border-radius: var(--radius-large);
-
       color: #ffffff;
       background: var(--primary);
     }
@@ -822,103 +665,79 @@
 
     .studio-information p {
       margin-top: 19px;
-
       color: rgba(255, 255, 255, 0.77);
     }
 
     .studio-details {
       display: grid;
-
       gap: 19px;
-
       margin-top: 50px;
     }
 
     .studio-detail {
       display: flex;
       align-items: flex-start;
-
       gap: 14px;
-
       font-size: 0.94rem;
     }
 
     .studio-detail svg {
       flex: 0 0 auto;
-
       margin-top: 3px;
     }
 
     .map-container {
       min-height: 520px;
       overflow: hidden;
-
+      border: 8px solid rgba(255, 255, 255, 0.78);
       border-radius: var(--radius-large);
-
-      background: #dfe5df;
-
+      background: #dfe8e7;
       box-shadow: var(--shadow);
     }
 
     .map-container iframe {
       width: 100%;
       height: 100%;
-      min-height: 520px;
-
+      min-height: 504px;
       border: 0;
 
       filter:
-        grayscale(0.25)
-        saturate(0.78)
-        contrast(0.95);
+        grayscale(0.2)
+        saturate(0.85)
+        contrast(0.96);
     }
 
-    /* Contatti */
+    /* CONTATTI */
 
     .contact-section {
       position: relative;
-
       overflow: hidden;
-    }
-
-    .contact-section::before {
-      position: absolute;
-      top: 80px;
-      left: -180px;
-
-      width: 360px;
-      aspect-ratio: 1;
-
-      border: 1px solid rgba(201, 143, 109, 0.28);
-      border-radius: 42% 58% 62% 38% / 47% 38% 62% 53%;
-
-      content: "";
     }
 
     .contact-panel {
       position: relative;
-
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
-
       gap: 56px;
-
       padding: clamp(35px, 7vw, 82px);
-
-      border: 1px solid rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.8);
       border-radius: 40px;
 
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(17px);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.84),
+          rgba(232, 245, 243, 0.7)
+        );
 
+      backdrop-filter: blur(17px);
       box-shadow: var(--shadow);
     }
 
     .contact-panel h2 {
       margin-top: 14px;
-
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.45rem, 5vw, 4.8rem);
+      font-size: clamp(2.45rem, 5vw, 4.7rem);
       font-weight: 400;
       letter-spacing: -0.045em;
       line-height: 1.04;
@@ -926,14 +745,12 @@
 
     .contact-panel p {
       margin-top: 23px;
-
       color: var(--muted);
     }
 
     .contact-links {
       display: grid;
       align-content: center;
-
       gap: 14px;
     }
 
@@ -941,32 +758,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 18px;
-
       padding: 21px 23px;
-
       border: 1px solid var(--border);
       border-radius: var(--radius-small);
-
-      background: rgba(255, 255, 255, 0.74);
+      background: rgba(255, 255, 255, 0.8);
 
       transition:
         transform 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        background 0.2s ease;
     }
 
     .contact-link:hover {
-      border-color: rgba(97, 120, 106, 0.38);
-
+      border-color: rgba(18, 59, 91, 0.28);
+      background: #ffffff;
       transform: translateX(5px);
     }
 
     .contact-link small {
       display: block;
-
       color: var(--muted);
-
       font-size: 0.72rem;
       letter-spacing: 0.11em;
       text-transform: uppercase;
@@ -974,40 +786,34 @@
 
     .contact-link strong {
       display: block;
-
       margin-top: 3px;
-
       font-size: 0.97rem;
     }
 
     .contact-arrow {
+      color: var(--primary);
       font-size: 1.35rem;
     }
 
-    /* Footer */
+    /* FOOTER */
 
     footer {
       padding: 37px 0;
-
       border-top: 1px solid var(--border);
     }
 
     .footer-content {
       display: flex;
       justify-content: space-between;
-
       gap: 25px;
-
       color: var(--muted);
-
       font-size: 0.8rem;
     }
 
-    /* Animazioni */
+    /* ANIMAZIONI */
 
     .reveal {
       opacity: 0;
-
       transform: translateY(25px);
 
       transition:
@@ -1017,11 +823,10 @@
 
     .reveal.visible {
       opacity: 1;
-
       transform: none;
     }
 
-    /* Tablet */
+    /* TABLET */
 
     @media (max-width: 920px) {
       .menu-button {
@@ -1030,24 +835,18 @@
 
       .navigation-list {
         position: fixed;
-        top: 79px;
+        top: 88px;
         right: 20px;
         left: 20px;
-
         display: none;
         flex-direction: column;
         align-items: stretch;
-
         gap: 4px;
-
         padding: 20px;
-
-        border: 1px solid rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.8);
         border-radius: 23px;
-
-        background: rgba(246, 242, 235, 0.97);
+        background: rgba(251, 250, 248, 0.97);
         backdrop-filter: blur(18px);
-
         box-shadow: var(--shadow);
       }
 
@@ -1057,7 +856,6 @@
 
       .navigation-list a {
         display: block;
-
         padding: 12px 14px;
       }
 
@@ -1078,14 +876,17 @@
       }
 
       .portrait-area {
-        min-height: 560px;
+        min-height: 570px;
       }
 
-      .about-illustration {
+      .about-photo {
         position: relative;
         top: auto;
+        min-height: 480px;
+      }
 
-        min-height: 410px;
+      .about-photo img {
+        min-height: 480px;
       }
 
       .areas-grid {
@@ -1097,7 +898,7 @@
       }
     }
 
-    /* Smartphone */
+    /* SMARTPHONE */
 
     @media (max-width: 620px) {
       .container {
@@ -1108,16 +909,26 @@
         padding: 88px 0;
       }
 
-      .brand-copy span {
-        display: none;
+      .site-header {
+        padding: 8px 0;
+      }
+
+      .brand-logo {
+        width: 205px;
+        max-width: 64vw;
+        height: 62px;
+      }
+
+      .navigation-list {
+        top: 77px;
       }
 
       .hero {
-        padding-top: 120px;
+        padding-top: 110px;
       }
 
       .hero h1 {
-        font-size: clamp(3.15rem, 16vw, 4.55rem);
+        font-size: clamp(3.05rem, 15vw, 4.45rem);
       }
 
       .hero-buttons {
@@ -1134,12 +945,17 @@
 
       .portrait-card {
         inset: 0 18px 35px 0;
-
-        border-radius: 120px 120px 30px 30px;
+        border-width: 6px;
+        border-radius: 125px 125px 30px 30px;
       }
 
       .hero-floating-card {
-        width: 79%;
+        width: 82%;
+      }
+
+      .about-photo,
+      .about-photo img {
+        min-height: 410px;
       }
 
       .areas-grid {
@@ -1157,7 +973,6 @@
       .studio-information,
       .contact-panel {
         padding: 29px;
-
         border-radius: 27px;
       }
 
@@ -1185,7 +1000,6 @@
 
       .reveal {
         opacity: 1;
-
         transform: none;
       }
     }
@@ -1193,6 +1007,7 @@
 </head>
 
 <body>
+
   <header class="site-header" id="siteHeader">
     <div class="container navigation">
 
@@ -1201,12 +1016,11 @@
         href="#home"
         aria-label="Torna alla pagina iniziale"
       >
-        <span class="brand-symbol">LT</span>
-
-        <span class="brand-copy">
-          <strong>Lara Tinca</strong>
-          <span>Psicologa · Psicoterapeuta</span>
-        </span>
+        <img
+          class="brand-logo"
+          src="logo.jpg.jpg"
+          alt="Dott.ssa Lara Tinca, psicologa e psicoterapeuta"
+        >
       </a>
 
       <button
@@ -1235,6 +1049,7 @@
 
       <nav aria-label="Navigazione principale">
         <ul class="navigation-list" id="navigationList">
+
           <li>
             <a href="#chi-sono">Chi sono</a>
           </li>
@@ -1259,6 +1074,7 @@
               Contattami
             </a>
           </li>
+
         </ul>
       </nav>
 
@@ -1271,6 +1087,7 @@
       <div class="container hero-grid">
 
         <div class="reveal">
+
           <span class="eyebrow">
             Psicologia e psicoterapia
           </span>
@@ -1287,6 +1104,7 @@
           </p>
 
           <div class="hero-buttons">
+
             <a
               class="button button-primary"
               href="#contatti"
@@ -1301,9 +1119,11 @@
             >
               Scopri il mio approccio
             </a>
+
           </div>
 
           <div class="availability">
+
             <span
               class="availability-dot"
               aria-hidden="true"
@@ -1311,16 +1131,25 @@
             </span>
 
             Colloqui in presenza a Montevarchi e online
+
           </div>
+
         </div>
 
         <div
           class="portrait-area reveal"
-          aria-label="Spazio dedicato alla fotografia professionale di Lara Tinca"
+          aria-label="Fotografia della Dott.ssa Lara Tinca"
         >
-          <div class="portrait-card"></div>
+
+          <div class="portrait-card">
+            <img
+              src="lara.jpg.PNG"
+              alt="Dott.ssa Lara Tinca, psicologa e psicoterapeuta"
+            >
+          </div>
 
           <div class="hero-floating-card">
+
             <strong>
               Ascolto, cura, autenticità.
             </strong>
@@ -1329,7 +1158,9 @@
               Ogni percorso viene costruito rispettando la storia,
               i bisogni e i tempi della persona.
             </p>
+
           </div>
+
         </div>
 
       </div>
@@ -1337,88 +1168,31 @@
 
     <div class="quote-section">
       <div class="container">
+
         <p>
           “Non è necessario avere già tutte le risposte.
           A volte il primo passo è trovare uno spazio in cui
           poter formulare le domande giuste.”
         </p>
+
       </div>
     </div>
 
     <section id="chi-sono">
       <div class="container about-grid">
 
-        <div
-          class="about-illustration reveal"
-          aria-hidden="true"
-        >
-          <svg
-            viewBox="0 0 400 400"
-            fill="none"
+        <div class="about-photo reveal">
+
+          <img
+            src="lara.jpg.PNG"
+            alt="Dott.ssa Lara Tinca"
+            loading="lazy"
           >
-            <path
-              d="M202 52C140 65 98 114 99 179C100 241 142 277 184 321C195 333 206 345 212 359"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-            </path>
 
-            <path
-              d="M204 52C270 60 307 110 300 172C294 223 263 246 237 279C218 303 210 330 212 359"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-            </path>
-
-            <path
-              d="M112 188C145 178 172 187 192 208"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-            </path>
-
-            <path
-              d="M290 184C256 177 229 188 209 209"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-            </path>
-
-            <path
-              d="M152 111C170 124 186 143 194 166"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-            </path>
-
-            <path
-              d="M251 108C230 123 214 143 207 166"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-            </path>
-
-            <circle
-              cx="201"
-              cy="201"
-              r="145"
-              stroke="currentColor"
-              stroke-opacity="0.22"
-            >
-            </circle>
-
-            <circle
-              cx="201"
-              cy="201"
-              r="112"
-              stroke="currentColor"
-              stroke-opacity="0.14"
-            >
-            </circle>
-          </svg>
         </div>
 
         <div class="about-content reveal">
+
           <span class="eyebrow">
             Chi sono
           </span>
@@ -1444,51 +1218,52 @@
           <div class="professional-details">
 
             <div class="professional-detail">
+
               <div class="detail-number">01</div>
 
               <div>
-                <strong>
-                  Ascolto professionale
-                </strong>
+                <strong>Ascolto professionale</strong>
 
                 <span>
                   Uno spazio protetto e riservato in cui potersi
                   esprimere liberamente.
                 </span>
               </div>
+
             </div>
 
             <div class="professional-detail">
+
               <div class="detail-number">02</div>
 
               <div>
-                <strong>
-                  Percorso personalizzato
-                </strong>
+                <strong>Percorso personalizzato</strong>
 
                 <span>
                   Ogni percorso viene definito sulla base delle
                   necessità e degli obiettivi della persona.
                 </span>
               </div>
+
             </div>
 
             <div class="professional-detail">
+
               <div class="detail-number">03</div>
 
               <div>
-                <strong>
-                  Colloqui in presenza e online
-                </strong>
+                <strong>Colloqui in presenza e online</strong>
 
                 <span>
                   Ricevimento su appuntamento a Montevarchi
                   e possibilità di colloqui da remoto.
                 </span>
               </div>
+
             </div>
 
           </div>
+
         </div>
 
       </div>
@@ -1515,10 +1290,7 @@
 
           <article class="area-card reveal">
             <span class="area-card-number">01</span>
-
-            <h3>
-              Ansia e stress
-            </h3>
+            <h3>Ansia e stress</h3>
 
             <p>
               Comprendere i segnali di tensione e sviluppare
@@ -1528,10 +1300,7 @@
 
           <article class="area-card reveal">
             <span class="area-card-number">02</span>
-
-            <h3>
-              Autostima
-            </h3>
+            <h3>Autostima</h3>
 
             <p>
               Riconoscere il proprio valore e costruire un rapporto
@@ -1541,10 +1310,7 @@
 
           <article class="area-card reveal">
             <span class="area-card-number">03</span>
-
-            <h3>
-              Relazioni
-            </h3>
+            <h3>Relazioni</h3>
 
             <p>
               Esplorare difficoltà affettive, familiari o
@@ -1555,10 +1321,7 @@
 
           <article class="area-card reveal">
             <span class="area-card-number">04</span>
-
-            <h3>
-              Cambiamenti di vita
-            </h3>
+            <h3>Cambiamenti di vita</h3>
 
             <p>
               Affrontare separazioni, lutti, trasferimenti,
@@ -1568,10 +1331,7 @@
 
           <article class="area-card reveal">
             <span class="area-card-number">05</span>
-
-            <h3>
-              Gestione emotiva
-            </h3>
+            <h3>Gestione emotiva</h3>
 
             <p>
               Imparare a riconoscere e attraversare emozioni
@@ -1581,10 +1341,7 @@
 
           <article class="area-card reveal">
             <span class="area-card-number">06</span>
-
-            <h3>
-              Crescita personale
-            </h3>
+            <h3>Crescita personale</h3>
 
             <p>
               Conoscere meglio bisogni, risorse e schemi personali
@@ -1593,6 +1350,7 @@
           </article>
 
         </div>
+
       </div>
     </section>
 
@@ -1600,6 +1358,7 @@
       <div class="container process-grid">
 
         <div class="reveal">
+
           <span class="eyebrow">
             Come funziona
           </span>
@@ -1614,17 +1373,17 @@
             comprendere la richiesta e valutare insieme
             come procedere.
           </p>
+
         </div>
 
         <div class="steps">
 
           <article class="step reveal">
+
             <div class="step-number">1</div>
 
             <div>
-              <h3>
-                Primo contatto
-              </h3>
+              <h3>Primo contatto</h3>
 
               <p>
                 Puoi chiamarmi, scrivermi su WhatsApp oppure
@@ -1632,15 +1391,15 @@
                 o concordare un appuntamento.
               </p>
             </div>
+
           </article>
 
           <article class="step reveal">
+
             <div class="step-number">2</div>
 
             <div>
-              <h3>
-                Primo colloquio
-              </h3>
+              <h3>Primo colloquio</h3>
 
               <p>
                 Un incontro iniziale per conoscerci,
@@ -1648,15 +1407,15 @@
                 il percorso più adatto.
               </p>
             </div>
+
           </article>
 
           <article class="step reveal">
+
             <div class="step-number">3</div>
 
             <div>
-              <h3>
-                Il percorso
-              </h3>
+              <h3>Il percorso</h3>
 
               <p>
                 Vengono definiti obiettivi, modalità e frequenza
@@ -1664,9 +1423,11 @@
                 e condiviso.
               </p>
             </div>
+
           </article>
 
         </div>
+
       </div>
     </section>
 
@@ -1686,6 +1447,7 @@
           <div class="studio-information reveal">
 
             <div>
+
               <h3>
                 Studio di Psicologia<br>
                 Montevarchi
@@ -1696,11 +1458,13 @@
                 e accogliente, pensato per garantire privacy,
                 ascolto e comfort.
               </p>
+
             </div>
 
             <div class="studio-details">
 
               <div class="studio-detail">
+
                 <svg
                   width="20"
                   height="20"
@@ -1729,9 +1493,11 @@
                   Via G. Natta 16<br>
                   52025 Montevarchi, Italia
                 </span>
+
               </div>
 
               <div class="studio-detail">
+
                 <svg
                   width="20"
                   height="20"
@@ -1760,9 +1526,11 @@
                 <span>
                   Ricevimento su appuntamento
                 </span>
+
               </div>
 
               <div class="studio-detail">
+
                 <svg
                   width="20"
                   height="20"
@@ -1783,12 +1551,15 @@
                   Facilmente raggiungibile in auto
                   e dai principali collegamenti di Montevarchi
                 </span>
+
               </div>
 
             </div>
+
           </div>
 
           <div class="map-container reveal">
+
             <iframe
               title="Mappa dello studio di Lara Tinca a Montevarchi"
               loading="lazy"
@@ -1797,9 +1568,11 @@
               src="https://www.google.com/maps?q=Via%20G.%20Natta%2016%2C%20Montevarchi%2C%20Italy&output=embed"
             >
             </iframe>
+
           </div>
 
         </div>
+
       </div>
     </section>
 
@@ -1809,6 +1582,7 @@
         <div class="contact-panel reveal">
 
           <div>
+
             <span class="eyebrow">
               Contatti
             </span>
@@ -1823,6 +1597,7 @@
               tramite WhatsApp oppure via email.
               Ti risponderò appena possibile.
             </p>
+
           </div>
 
           <div class="contact-links">
@@ -1832,13 +1607,8 @@
               href="tel:+393386604248"
             >
               <span>
-                <small>
-                  Telefono
-                </small>
-
-                <strong>
-                  338 660 4248
-                </strong>
+                <small>Telefono</small>
+                <strong>338 660 4248</strong>
               </span>
 
               <span
@@ -1856,13 +1626,8 @@
               rel="noopener noreferrer"
             >
               <span>
-                <small>
-                  WhatsApp
-                </small>
-
-                <strong>
-                  Scrivi un messaggio
-                </strong>
+                <small>WhatsApp</small>
+                <strong>Scrivi un messaggio</strong>
               </span>
 
               <span
@@ -1878,13 +1643,8 @@
               href="mailto:laratinca78@gmail.com?subject=Richiesta%20primo%20colloquio"
             >
               <span>
-                <small>
-                  Email
-                </small>
-
-                <strong>
-                  laratinca78@gmail.com
-                </strong>
+                <small>Email</small>
+                <strong>laratinca78@gmail.com</strong>
               </span>
 
               <span
@@ -1902,13 +1662,8 @@
               rel="noopener noreferrer"
             >
               <span>
-                <small>
-                  Indicazioni
-                </small>
-
-                <strong>
-                  Apri in Google Maps
-                </strong>
+                <small>Indicazioni</small>
+                <strong>Apri in Google Maps</strong>
               </span>
 
               <span
@@ -1920,6 +1675,7 @@
             </a>
 
           </div>
+
         </div>
 
       </div>
@@ -1932,54 +1688,68 @@
 
       <p>
         © <span id="currentYear"></span>
-        Lara Tinca · Psicologa e Psicoterapeuta
+        Dott.ssa Lara Tinca · Psicologa e Psicoterapeuta
       </p>
 
       <p>
-        Via G. Natta 16, Montevarchi ·
-        Informativa privacy · Cookie policy
+        Via G. Natta 16, Montevarchi
       </p>
 
     </div>
   </footer>
 
   <script>
-    const siteHeader = document.getElementById("siteHeader");
-    const menuButton = document.getElementById("menuButton");
-    const navigationList = document.getElementById("navigationList");
+    const siteHeader =
+      document.getElementById("siteHeader");
+
+    const menuButton =
+      document.getElementById("menuButton");
+
+    const navigationList =
+      document.getElementById("navigationList");
 
     function updateHeader() {
-      if (window.scrollY > 20) {
-        siteHeader.classList.add("scrolled");
-      } else {
-        siteHeader.classList.remove("scrolled");
-      }
+      siteHeader.classList.toggle(
+        "scrolled",
+        window.scrollY > 20
+      );
     }
 
     function closeMenu() {
       navigationList.classList.remove("open");
       document.body.classList.remove("menu-open");
-      menuButton.setAttribute("aria-expanded", "false");
-    }
-
-    menuButton.addEventListener("click", function () {
-      const menuIsOpen = navigationList.classList.toggle("open");
-
-      document.body.classList.toggle(
-        "menu-open",
-        menuIsOpen
-      );
 
       menuButton.setAttribute(
         "aria-expanded",
-        String(menuIsOpen)
+        "false"
       );
-    });
+    }
+
+    menuButton.addEventListener(
+      "click",
+      function () {
+        const menuIsOpen =
+          navigationList.classList.toggle("open");
+
+        document.body.classList.toggle(
+          "menu-open",
+          menuIsOpen
+        );
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          String(menuIsOpen)
+        );
+      }
+    );
 
     navigationList
       .querySelectorAll("a")
       .forEach(function (link) {
-        link.addEventListener("click", closeMenu);
+        link.addEventListener(
+          "click",
+          closeMenu
+        );
       });
 
     window.addEventListener(
@@ -1990,35 +1760,49 @@
 
     updateHeader();
 
-    document.getElementById("currentYear").textContent =
-      new Date().getFullYear();
+    document.getElementById(
+      "currentYear"
+    ).textContent = new Date().getFullYear();
 
     const revealElements =
       document.querySelectorAll(".reveal");
 
     if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.12
+      const observer =
+        new IntersectionObserver(
+          function (entries) {
+            entries.forEach(
+              function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add(
+                    "visible"
+                  );
+
+                  observer.unobserve(
+                    entry.target
+                  );
+                }
+              }
+            );
+          },
+          {
+            threshold: 0.12
+          }
+        );
+
+      revealElements.forEach(
+        function (element) {
+          observer.observe(element);
         }
       );
-
-      revealElements.forEach(function (element) {
-        observer.observe(element);
-      });
     } else {
-      revealElements.forEach(function (element) {
-        element.classList.add("visible");
-      });
+      revealElements.forEach(
+        function (element) {
+          element.classList.add("visible");
+        }
+      );
     }
   </script>
+
 </body>
 </html>
