@@ -795,7 +795,10 @@
       font-size: 1.35rem;
     }
 
-    /* FOOTER */
+    /* TASTO TORNA SU */
+.back-to-top{position:fixed;right:22px;bottom:22px;width:54px;height:54px;border:none;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 35px rgba(18,59,91,.28);opacity:0;visibility:hidden;transform:translateY(20px);transition:.25s;z-index:999}.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}.back-to-top:hover{background:var(--primary-light);transform:translateY(-4px)}.back-to-top svg{width:22px;height:22px}
+
+/* FOOTER */
 
     footer {
       padding: 37px 0;
@@ -1698,6 +1701,8 @@
     </div>
   </footer>
 
+<button id="backToTop" class="back-to-top" aria-label="Torna in cima"><svg viewBox="0 0 24 24" fill="none"><path d="M12 18V6M12 6L6 12M12 6L18 12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
   <script>
     const siteHeader =
       document.getElementById("siteHeader");
@@ -1708,11 +1713,12 @@
     const navigationList =
       document.getElementById("navigationList");
 
+    const backToTop =
+      document.getElementById("backToTop");
+
     function updateHeader() {
-      siteHeader.classList.toggle(
-        "scrolled",
-        window.scrollY > 20
-      );
+      siteHeader.classList.toggle("scrolled", window.scrollY > 20);
+      backToTop.classList.toggle("visible", window.scrollY > 450);
     }
 
     function closeMenu() {
@@ -1751,6 +1757,8 @@
           closeMenu
         );
       });
+
+    backToTop.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
 
     window.addEventListener(
       "scroll",
