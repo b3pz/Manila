@@ -190,6 +190,19 @@
       object-fit: contain;
       object-position: left center;
       mix-blend-mode: multiply;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease,
+        transform 0.28s ease;
+    }
+
+    .site-header.scrolled .brand-logo {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
     .navigation-list {
@@ -308,6 +321,18 @@
       grid-template-columns: 1.02fr 0.98fr;
       align-items: center;
       gap: clamp(45px, 8vw, 105px);
+    }
+
+    .hero-logo {
+      display: block;
+      width: clamp(270px, 34vw, 430px);
+      max-width: 100%;
+      height: auto;
+      margin: 0 0 34px;
+      object-fit: contain;
+      object-position: left center;
+      mix-blend-mode: multiply;
+      filter: drop-shadow(0 12px 28px rgba(18, 59, 91, 0.08));
     }
 
     .hero h1 {
@@ -930,6 +955,11 @@
         padding-top: 110px;
       }
 
+      .hero-logo {
+        width: min(310px, 82vw);
+        margin-bottom: 27px;
+      }
+
       .hero h1 {
         font-size: clamp(3.05rem, 15vw, 4.45rem);
       }
@@ -1090,6 +1120,12 @@
       <div class="container hero-grid">
 
         <div class="reveal">
+
+          <img
+            class="hero-logo"
+            src="logo.jpg.jpg"
+            alt="Dott.ssa Lara Tinca, psicologa e psicoterapeuta"
+          >
 
           <span class="eyebrow">
             Psicologia e psicoterapia
