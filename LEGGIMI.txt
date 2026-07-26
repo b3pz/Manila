@@ -1,14 +1,12 @@
-CARICA NELLA STESSA CARTELLA DELLA REPOSITORY:
+Carica TUTTI i file di questa cartella nella cartella principale della repository GitHub.
 
-index.html
-man.html
-woman.html
-kids.html
-product.html
-styles.css
-script.js
-Logomanila.png
-Skatemani.PNG
+Il sito include:
+- intro animata ENTER THE LAB
+- pagine Man, Woman e Kids
+- articoli cliccabili
+- carrello demo
+- WhatsApp 3383449189
+- email milanog91@gmail.com
+- indicazioni Figline Valdarno
 
-Nota: Logomanila.png non è incluso perché il file non era disponibile in questa esecuzione.
-Usa esattamente maiuscole e minuscole indicate.
+Non rinominare i file: GitHub distingue maiuscole e minuscole.

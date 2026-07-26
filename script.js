@@ -1,88 +1,31 @@
 
-const catalog = {
-  man: [
-    {id:"man-1",name:"Crystal Crown Tee",price:39,tag:"Black / Oversize",crop:"crop-left"},
-    {id:"man-2",name:"Experiment Hoodie",price:79,tag:"Washed / Heavyweight",crop:"crop-center"},
-    {id:"man-3",name:"Lab Crewneck",price:65,tag:"Olive / Relaxed",crop:"crop-right"}
-  ],
-  woman: [
-    {id:"woman-1",name:"Dark Lab Tee",price:38,tag:"Brown / Boxy",crop:"crop-center"},
-    {id:"woman-2",name:"Crystal Hoodie",price:76,tag:"Deep Purple / Soft",crop:"crop-left"},
-    {id:"woman-3",name:"Stone Oversize Tee",price:42,tag:"Stone / Oversize",crop:"crop-right"}
-  ],
-  kids: [
-    {id:"kids-1",name:"Mini Crown Tee",price:25,tag:"Cream / Kids",crop:"crop-left"},
-    {id:"kids-2",name:"MDL Kids Hoodie",price:49,tag:"Olive / Soft Cotton",crop:"crop-center"},
-    {id:"kids-3",name:"Urban Play Crew",price:42,tag:"Brown / Play",crop:"crop-right"}
-  ]
+const catalog={
+ man:[
+  {id:"man-1",name:"Celestial Oversize Hoodie",price:89,tag:"Black / Heavyweight",image:"man-hoodie-celestial.jpg"},
+  {id:"man-2",name:"Atropa Skull Tee",price:45,tag:"Vintage Black / Oversize",image:"man-tee-skull.jpg"},
+  {id:"man-3",name:"Good News Hoodie",price:95,tag:"Black / Back Print",image:"man-hoodie-cross.jpg"}
+ ],
+ woman:[
+  {id:"woman-1",name:"Lunar Alignment Tee",price:42,tag:"White / Oversize",image:"woman-tee-white.jpg"},
+  {id:"woman-2",name:"Moon Phases Tee",price:44,tag:"Black / Relaxed",image:"woman-tee-black.jpg"},
+  {id:"woman-3",name:"The Magician Tee",price:46,tag:"Vintage Black / Tarot",image:"woman-tee-tarot.jpg"}
+ ],
+ kids:[
+  {id:"kids-1",name:"Mini Lab Graphic Tee",price:27,tag:"Kids / Graphic",image:"ambient-lab.jpg"},
+  {id:"kids-2",name:"Skate Experiment Hoodie",price:52,tag:"Kids / Soft Cotton",image:"ambient-skate.jpg"},
+  {id:"kids-3",name:"Coffee Bones Crew",price:39,tag:"Kids / Play",image:"ambient-coffee.jpg"}
+ ]
 };
-const euro = new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR"});
-const cart = [];
-const overlay = document.getElementById("overlay");
-const cartDrawer = document.getElementById("cartDrawer");
-const mobileMenu = document.getElementById("mobileMenu");
-const toast = document.getElementById("toast");
-
-function productCard(p,group){
-  return `
-    <article class="product">
-      <a href="product.html?id=${encodeURIComponent(p.id)}&group=${group}" aria-label="Apri ${p.name}">
-        <div class="product-image">
-          <img class="${p.crop}" src="Skatemani.PNG" alt="${p.name}">
-          <span class="product-tag">${p.tag}</span>
-        </div>
-      </a>
-      <div class="product-info">
-        <div class="product-line">${group} · Experiment 001</div>
-        <h3 class="product-title"><a href="product.html?id=${encodeURIComponent(p.id)}&group=${group}">${p.name}</a></h3>
-        <div class="product-bottom">
-          <span class="price">${euro.format(p.price)}</span>
-          <button class="add" data-id="${p.id}" data-group="${group}">Aggiungi</button>
-        </div>
-      </div>
-    </article>`;
-}
-function renderGroup(group,targetId){
-  const target=document.getElementById(targetId);
-  if(!target)return;
-  target.innerHTML=catalog[group].map(p=>productCard(p,group)).join("");
-}
-function findProduct(group,id){return (catalog[group]||[]).find(p=>p.id===id)}
-function addToCart(group,id){
-  const p=findProduct(group,id);if(!p)return;
-  cart.push({...p,group});updateCart();showToast(p.name+" aggiunto");
-}
-function updateCart(){
-  const count=document.getElementById("cartCount");if(count)count.textContent=cart.length;
-  const list=document.getElementById("cartItems");if(!list)return;
-  if(!cart.length){list.innerHTML='<p class="empty">Il carrello è vuoto.</p>'}
-  else{
-    list.innerHTML=cart.map((p,i)=>`<div class="cart-item"><div><strong>${p.name}</strong><span>${euro.format(p.price)}</span></div><button class="remove" data-index="${i}">×</button></div>`).join("");
-    list.querySelectorAll(".remove").forEach(b=>b.addEventListener("click",()=>{cart.splice(Number(b.dataset.index),1);updateCart()}));
-  }
-  const total=document.getElementById("cartTotal");if(total)total.textContent=euro.format(cart.reduce((s,p)=>s+p.price,0));
-}
-function openPanel(panel){if(!panel)return;panel.classList.add("open");overlay?.classList.add("show");document.body.classList.add("locked")}
-function closePanels(){cartDrawer?.classList.remove("open");mobileMenu?.classList.remove("open");overlay?.classList.remove("show");document.body.classList.remove("locked")}
-function showToast(message){if(!toast)return;toast.textContent=message;toast.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove("show"),1800)}
-document.addEventListener("click",e=>{
-  const add=e.target.closest(".add");
-  if(add){addToCart(add.dataset.group,add.dataset.id)}
-});
-document.getElementById("cartOpen")?.addEventListener("click",()=>openPanel(cartDrawer));
-document.getElementById("cartClose")?.addEventListener("click",closePanels);
-document.getElementById("menuOpen")?.addEventListener("click",()=>openPanel(mobileMenu));
-document.getElementById("menuClose")?.addEventListener("click",closePanels);
-overlay?.addEventListener("click",closePanels);
-document.querySelectorAll(".mobile-links a").forEach(a=>a.addEventListener("click",closePanels));
-document.getElementById("checkoutButton")?.addEventListener("click",()=>{
-  if(!cart.length){showToast("Il carrello è vuoto");return}
-  const rows=cart.map(p=>`• ${p.name} — ${euro.format(p.price)}`).join("\n");
-  const total=cart.reduce((s,p)=>s+p.price,0);
-  const msg=encodeURIComponent(`Ciao Manila Dark Lab, vorrei ordinare:\n${rows}\n\nTotale: ${euro.format(total)}`);
-  window.open(`https://wa.me/393383449189?text=${msg}`,"_blank");
-});
-renderGroup("man","manProducts");
-renderGroup("woman","womanProducts");
-renderGroup("kids","kidsProducts");
-updateCart();
+const euro=new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR"}),cart=[];
+const overlay=document.getElementById("overlay"),cartDrawer=document.getElementById("cartDrawer"),mobileMenu=document.getElementById("mobileMenu"),toast=document.getElementById("toast");
+function productCard(p,g){return `<article class="product"><a href="product.html?id=${p.id}&group=${g}"><div class="product-image"><img src="${p.image}" alt="${p.name}"><span class="product-tag">${p.tag}</span></div></a><div class="product-info"><div class="product-line">${g} · Experiment 001</div><h3 class="product-title"><a href="product.html?id=${p.id}&group=${g}">${p.name}</a></h3><div class="product-bottom"><span class="price">${euro.format(p.price)}</span><button class="add" data-id="${p.id}" data-group="${g}">Aggiungi</button></div></div></article>`}
+function render(g,id){const el=document.getElementById(id);if(el)el.innerHTML=catalog[g].map(p=>productCard(p,g)).join("")}
+function findProduct(g,id){return (catalog[g]||[]).find(p=>p.id===id)}
+function addToCart(g,id){const p=findProduct(g,id);if(!p)return;cart.push({...p,group:g});updateCart();showToast(p.name+" aggiunto")}
+function updateCart(){const c=document.getElementById("cartCount");if(c)c.textContent=cart.length;const l=document.getElementById("cartItems");if(!l)return;if(!cart.length)l.innerHTML='<p class="empty">Il carrello è vuoto.</p>';else{l.innerHTML=cart.map((p,i)=>`<div class="cart-item"><div><strong>${p.name}</strong><span>${euro.format(p.price)}</span></div><button class="remove" data-index="${i}">×</button></div>`).join("");l.querySelectorAll(".remove").forEach(b=>b.onclick=()=>{cart.splice(+b.dataset.index,1);updateCart()})}document.getElementById("cartTotal").textContent=euro.format(cart.reduce((s,p)=>s+p.price,0))}
+function openPanel(p){p?.classList.add("open");overlay?.classList.add("show");document.body.classList.add("locked")}function closePanels(){cartDrawer?.classList.remove("open");mobileMenu?.classList.remove("open");overlay?.classList.remove("show");document.body.classList.remove("locked")}
+function showToast(m){if(!toast)return;toast.textContent=m;toast.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>toast.classList.remove("show"),1800)}
+document.addEventListener("click",e=>{const b=e.target.closest(".add");if(b)addToCart(b.dataset.group,b.dataset.id)});
+document.getElementById("cartOpen")?.addEventListener("click",()=>openPanel(cartDrawer));document.getElementById("cartClose")?.addEventListener("click",closePanels);document.getElementById("menuOpen")?.addEventListener("click",()=>openPanel(mobileMenu));document.getElementById("menuClose")?.addEventListener("click",closePanels);overlay?.addEventListener("click",closePanels);document.querySelectorAll(".mobile-links a").forEach(a=>a.addEventListener("click",closePanels));
+document.getElementById("checkoutButton")?.addEventListener("click",()=>{if(!cart.length){showToast("Il carrello è vuoto");return}const rows=cart.map(p=>`• ${p.name} — ${euro.format(p.price)}`).join("\n"),tot=cart.reduce((s,p)=>s+p.price,0),msg=encodeURIComponent(`Ciao Manila Dark Lab, vorrei ordinare:\n${rows}\n\nTotale: ${euro.format(tot)}`);window.open(`https://wa.me/393383449189?text=${msg}`,"_blank")});
+render("man","manProducts");render("woman","womanProducts");render("kids","kidsProducts");updateCart();
