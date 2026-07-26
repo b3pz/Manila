@@ -1,21 +1,22 @@
-VERSIONE 5 — FORM + WHATSAPP
+VERSIONE 7 — SCHEDA PRODOTTO CORRETTA
 
-Il cliente:
-1. aggiunge i prodotti al carrello;
-2. compila nome, email, telefono, indirizzo e note/taglie;
-3. preme “Continua su WhatsApp”;
-4. WhatsApp si apre con il riepilogo completo già compilato;
-5. il cliente deve soltanto premere Invia.
+Correzioni:
+- la fotografia del prodotto viene visualizzata correttamente;
+- nome, descrizione e prezzo vengono caricati correttamente;
+- rimosso il pulsante Instagram dalla scheda prodotto;
+- il cliente seleziona la taglia;
+- “Aggiungi al carrello” salva prodotto e taglia;
+- il carrello resta memorizzato passando da una pagina all’altra;
+- nel riepilogo WhatsApp compare la taglia di ogni articolo;
+- dopo l’aggiunta si apre direttamente il carrello.
 
-Il messaggio contiene:
-- dati del cliente;
-- elenco articoli;
-- totale;
-- note e taglie.
+Carica e sostituisci almeno:
+index.html
+man.html
+woman.html
+kids.html
+product.html
+script.js
+styles.css
 
-Contatti:
-- WhatsApp: +39 393 492 7764
-- Email: Manila.colaci@gmail.com
-
-Carica e sostituisci tutti i file nella repository.
-La versione usa styles.css?v=5 e script.js?v=5 per evitare la cache.
+La versione usa script.js?v=7 e styles.css?v=7 per evitare la cache.

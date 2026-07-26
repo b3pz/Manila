@@ -172,3 +172,8 @@ footer{padding:38px 4vw;border-top:1px solid var(--line);text-align:center;color
   .form-grid{grid-template-columns:1fr}
   .order-form .full-field{grid-column:auto}
 }
+
+.product-actions{display:block;margin-top:18px}
+.product-actions .btn{width:100%}
+.product-detail-image img{object-position:center}
+#detailAdd:disabled{opacity:.45;cursor:not-allowed}
