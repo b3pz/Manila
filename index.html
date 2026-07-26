@@ -1,50 +1,199 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MAN.DA.LA — Manila Dark Lab. Urban streetwear adult, woman and kids." />
-  <title>MAN.DA.LA — Manila Dark Lab</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="Manila Dark Lab — Experimental Urban Apparel. Lab Series 001.">
+  <title>Manila Dark Lab — Experiment 001</title>
 
   <style>
     :root{
-      --bg:#0b0b0b;
-      --panel:#131313;
-      --soft:#1a1a1a;
-      --text:#f4f1eb;
-      --muted:#9b9b9b;
-      --line:#2d2d2d;
-      --accent:#d7d0c4;
-      --max:1400px;
+      --bg:#080808;
+      --panel:#101010;
+      --panel-2:#151515;
+      --text:#f4f1ea;
+      --muted:#969696;
+      --line:#292929;
+      --accent:#d8d0c3;
+      --danger:#b24444;
+      --max:1440px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      background:var(--bg);
       color:var(--text);
+      background:
+        radial-gradient(circle at 50% -20%,rgba(255,255,255,.06),transparent 40%),
+        var(--bg);
       font-family:Arial, Helvetica, sans-serif;
+      overflow-x:hidden;
     }
 
-    body.menu-open,
-    body.cart-open{overflow:hidden}
+    body.locked{overflow:hidden}
+    img{display:block;max-width:100%}
+    button,input,select{font:inherit}
+    button,a{color:inherit}
+    a{text-decoration:none}
 
-    img{display:block;width:100%}
-    button,a{font:inherit}
-    a{color:inherit;text-decoration:none}
+    .noise{
+      position:fixed;
+      inset:0;
+      z-index:999;
+      pointer-events:none;
+      opacity:.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
 
-    .announcement{
-      padding:9px 20px;
+    /* INTRO */
+    .intro{
+      position:fixed;
+      inset:0;
+      z-index:200;
+      display:grid;
+      place-items:center;
+      background:#050505;
+      transition:opacity .75s ease, visibility .75s ease;
+    }
+
+    .intro.hidden{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    .intro-inner{
+      width:min(900px,92vw);
       text-align:center;
-      border-bottom:1px solid var(--line);
-      color:#d4d4d4;
+      padding:24px;
+    }
+
+    .intro-status{
+      margin-bottom:24px;
+      color:#8f8f8f;
+      font-size:10px;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      animation:statusBlink 1.6s infinite;
+    }
+
+    .intro-logo{
+      width:min(500px,72vw);
+      max-height:42vh;
+      margin:0 auto;
+      object-fit:contain;
+      filter:invert(1) grayscale(1) contrast(1.12);
+      mix-blend-mode:screen;
+      animation:logoEnter 1.5s cubic-bezier(.2,.8,.2,1) both,
+                logoBreathe 5s ease-in-out 1.5s infinite;
+    }
+
+    .intro h1{
+      margin:24px 0 7px;
+      font-size:clamp(38px,7vw,90px);
+      line-height:.9;
+      letter-spacing:-.045em;
+      text-transform:uppercase;
+      animation:revealUp .9s .55s both;
+    }
+
+    .intro-sub{
+      margin:0;
+      color:#a8a8a8;
       font-size:11px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      animation:revealUp .9s .75s both;
+    }
+
+    .enter{
+      position:relative;
+      margin-top:34px;
+      min-width:220px;
+      min-height:52px;
+      padding:0 25px;
+      border:1px solid #f0ede7;
+      background:transparent;
+      color:#f0ede7;
+      cursor:pointer;
+      overflow:hidden;
+      text-transform:uppercase;
       letter-spacing:.18em;
+      font-size:11px;
+      font-weight:800;
+      animation:revealUp .9s .95s both;
+    }
+
+    .enter::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:#f0ede7;
+      transform:translateX(-102%);
+      transition:transform .35s ease;
+    }
+
+    .enter span{position:relative;z-index:1}
+    .enter:hover::before{transform:translateX(0)}
+    .enter:hover{color:#050505}
+    .enter .arrow{
+      display:inline-block;
+      margin-left:9px;
+      transition:transform .3s ease;
+    }
+    .enter:hover .arrow{transform:translateX(6px)}
+
+    .loader{
+      width:min(400px,72vw);
+      height:2px;
+      margin:30px auto 0;
+      overflow:hidden;
+      background:#1f1f1f;
+    }
+
+    .loader span{
+      display:block;
+      width:100%;
+      height:100%;
+      transform:translateX(-100%);
+      background:#e7e3db;
+      animation:load 2s .2s forwards;
+    }
+
+    @keyframes logoEnter{
+      from{opacity:0;transform:scale(.92);filter:invert(1) blur(12px)}
+      to{opacity:1;transform:scale(1);filter:invert(1) grayscale(1) contrast(1.12) blur(0)}
+    }
+
+    @keyframes logoBreathe{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.018)}
+    }
+
+    @keyframes revealUp{
+      from{opacity:0;transform:translateY(24px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @keyframes statusBlink{50%{opacity:.35}}
+    @keyframes load{to{transform:translateX(0)}}
+
+    /* MAIN */
+    .site{opacity:0;transition:opacity .8s ease}
+    .site.visible{opacity:1}
+
+    .topline{
+      padding:8px 20px;
+      border-bottom:1px solid var(--line);
+      text-align:center;
+      color:#a5a5a5;
+      font-size:9px;
+      letter-spacing:.22em;
       text-transform:uppercase;
     }
 
-    .header{
+    header{
       position:sticky;
       top:0;
       z-index:40;
@@ -53,103 +202,111 @@
       justify-content:space-between;
       min-height:74px;
       padding:0 4vw;
-      background:rgba(11,11,11,.94);
+      background:rgba(8,8,8,.9);
       border-bottom:1px solid var(--line);
       backdrop-filter:blur(14px);
     }
 
     .brand{
       display:flex;
-      flex-direction:column;
-      line-height:.9;
-      font-weight:900;
-      letter-spacing:.08em;
-    }
-
-    .brand-main{font-size:25px}
-    .brand-sub{
-      margin-top:7px;
-      font-size:9px;
-      font-weight:500;
-      letter-spacing:.25em;
-      color:var(--muted);
-    }
-
-    .desktop-nav{
-      display:flex;
       align-items:center;
-      gap:28px;
-      font-size:12px;
-      letter-spacing:.14em;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand img{
+      width:48px;
+      height:48px;
+      object-fit:contain;
+      filter:invert(1) grayscale(1);
+    }
+
+    .brand-copy strong{
+      display:block;
+      font-size:19px;
+      line-height:1;
+      letter-spacing:.05em;
       text-transform:uppercase;
     }
 
-    .desktop-nav a:hover{color:var(--accent)}
+    .brand-copy small{
+      display:block;
+      margin-top:6px;
+      color:#919191;
+      font-size:8px;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+    }
 
-    .header-actions{
+    nav{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:26px;
+      font-size:10px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
     }
+
+    nav a{transition:color .2s}
+    nav a:hover{color:var(--accent)}
+
+    .header-actions{display:flex;gap:9px}
 
     .icon-btn,
     .menu-btn{
-      border:1px solid var(--line);
-      background:transparent;
-      color:var(--text);
       min-width:42px;
       height:42px;
+      padding:0 12px;
+      border:1px solid var(--line);
+      background:transparent;
       cursor:pointer;
+      font-size:10px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
     }
 
     .menu-btn{display:none}
 
     .hero{
-      min-height:76vh;
       position:relative;
-      display:flex;
-      align-items:flex-end;
+      min-height:82vh;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
       overflow:hidden;
-      background:#151515;
+      border-bottom:1px solid var(--line);
     }
 
-    .hero-media{
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.15) 55%,rgba(0,0,0,.52)),
-        url("images/hero.jpg") center/cover no-repeat;
-    }
-
-    .hero-content{
+    .hero-copy{
       position:relative;
       z-index:2;
-      max-width:760px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
       padding:8vw 6vw;
     }
 
-    .eyebrow{
-      margin:0 0 14px;
-      color:#d1cbc1;
-      font-size:11px;
-      letter-spacing:.28em;
+    .kicker{
+      margin:0 0 18px;
+      color:#a79f93;
+      font-size:10px;
+      letter-spacing:.3em;
       text-transform:uppercase;
     }
 
-    h1{
+    .hero h2{
       margin:0;
-      font-size:clamp(52px,9vw,140px);
-      line-height:.83;
-      letter-spacing:-.055em;
+      font-size:clamp(60px,9vw,150px);
+      line-height:.78;
+      letter-spacing:-.07em;
       text-transform:uppercase;
     }
 
-    .hero-subtitle{
-      max-width:570px;
-      margin:24px 0 0;
-      color:#d6d6d6;
-      font-size:clamp(15px,2vw,20px);
-      line-height:1.6;
+    .hero p{
+      max-width:600px;
+      margin:27px 0 0;
+      color:#b7b7b7;
+      line-height:1.7;
+      font-size:15px;
     }
 
     .hero-actions{
@@ -164,51 +321,137 @@
       align-items:center;
       justify-content:center;
       min-height:48px;
-      padding:0 24px;
-      border:1px solid var(--text);
-      background:var(--text);
-      color:#0b0b0b;
+      padding:0 23px;
+      border:1px solid #f1eee7;
+      background:#f1eee7;
+      color:#080808;
       cursor:pointer;
       text-transform:uppercase;
-      letter-spacing:.13em;
-      font-size:11px;
+      letter-spacing:.14em;
+      font-size:10px;
       font-weight:800;
     }
 
-    .btn.secondary{
+    .btn.alt{
       background:transparent;
-      color:var(--text);
+      color:#f1eee7;
     }
+
+    .hero-art{
+      position:relative;
+      display:grid;
+      place-items:center;
+      min-height:600px;
+      background:
+        linear-gradient(135deg,#111,#070707),
+        #0d0d0d;
+      overflow:hidden;
+    }
+
+    .hero-art::before,
+    .hero-art::after{
+      content:"";
+      position:absolute;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:50%;
+    }
+
+    .hero-art::before{
+      width:70%;
+      aspect-ratio:1;
+      animation:rotate 40s linear infinite;
+    }
+
+    .hero-art::after{
+      width:48%;
+      aspect-ratio:1;
+      border-style:dashed;
+      animation:rotateReverse 28s linear infinite;
+    }
+
+    .hero-art img{
+      position:relative;
+      z-index:2;
+      width:min(560px,78%);
+      max-height:68vh;
+      object-fit:contain;
+      filter:invert(1) grayscale(1) contrast(1.12);
+      animation:heroFloat 7s ease-in-out infinite;
+    }
+
+    .hero-code{
+      position:absolute;
+      right:22px;
+      bottom:18px;
+      z-index:3;
+      color:#6e6e6e;
+      font-family:monospace;
+      font-size:9px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      writing-mode:vertical-rl;
+    }
+
+    @keyframes rotate{to{transform:rotate(360deg)}}
+    @keyframes rotateReverse{to{transform:rotate(-360deg)}}
+    @keyframes heroFloat{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-14px)}
+    }
+
+    .ticker{
+      overflow:hidden;
+      border-bottom:1px solid var(--line);
+      background:#0d0d0d;
+      white-space:nowrap;
+    }
+
+    .ticker-track{
+      display:inline-flex;
+      min-width:max-content;
+      animation:ticker 24s linear infinite;
+    }
+
+    .ticker-track span{
+      padding:17px 34px;
+      color:#c2c2c2;
+      font-size:10px;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+    }
+
+    @keyframes ticker{to{transform:translateX(-50%)}}
 
     .section{
       max-width:var(--max);
       margin:auto;
-      padding:95px 4vw;
+      padding:100px 4vw;
     }
 
     .section-head{
       display:flex;
-      align-items:end;
       justify-content:space-between;
-      gap:24px;
-      margin-bottom:34px;
-      border-bottom:1px solid var(--line);
+      align-items:end;
+      gap:30px;
+      margin-bottom:35px;
       padding-bottom:18px;
+      border-bottom:1px solid var(--line);
     }
 
     .section h2{
       margin:0;
-      font-size:clamp(32px,5vw,66px);
-      letter-spacing:-.04em;
+      font-size:clamp(36px,6vw,78px);
+      line-height:.9;
+      letter-spacing:-.05em;
       text-transform:uppercase;
     }
 
-    .section-note{
-      max-width:520px;
+    .section-description{
+      max-width:500px;
       margin:0;
       color:var(--muted);
-      line-height:1.6;
-      font-size:14px;
+      line-height:1.65;
+      font-size:13px;
     }
 
     .products{
@@ -218,55 +461,109 @@
     }
 
     .product{
-      position:relative;
       border:1px solid var(--line);
       background:var(--panel);
       overflow:hidden;
+      transform:translateY(28px);
+      opacity:0;
+      transition:transform .75s ease,opacity .75s ease,border-color .25s;
     }
 
-    .product-image{
+    .product.revealed{
+      transform:translateY(0);
+      opacity:1;
+    }
+
+    .product:hover{border-color:#555}
+
+    .product-visual{
       position:relative;
       aspect-ratio:4/5;
+      display:grid;
+      place-items:center;
       overflow:hidden;
-      background:linear-gradient(145deg,#222,#0f0f0f);
+      background:
+        radial-gradient(circle at 50% 35%,rgba(255,255,255,.07),transparent 32%),
+        linear-gradient(150deg,#1a1a1a,#0c0c0c);
     }
 
-    .product-image img{
-      height:100%;
-      object-fit:cover;
-      transition:transform .6s ease;
+    .garment{
+      position:relative;
+      width:70%;
+      height:72%;
+      filter:drop-shadow(0 22px 26px rgba(0,0,0,.55));
+      transition:transform .45s ease;
     }
 
-    .product:hover .product-image img{transform:scale(1.035)}
+    .product:hover .garment{transform:scale(1.035) rotate(-1deg)}
 
-    .product-badge{
+    .garment.tee{
+      clip-path:polygon(25% 5%,39% 0,43% 10%,57% 10%,61% 0,75% 5%,100% 18%,87% 38%,76% 31%,76% 100%,24% 100%,24% 31%,13% 38%,0 18%);
+    }
+
+    .garment.hoodie{
+      clip-path:polygon(35% 1%,50% 10%,65% 1%,76% 7%,100% 20%,89% 43%,78% 35%,79% 100%,21% 100%,22% 35%,11% 43%,0 20%,24% 7%);
+    }
+
+    .garment.crew{
+      clip-path:polygon(30% 3%,42% 0,46% 8%,54% 8%,58% 0,70% 3%,100% 17%,88% 39%,76% 32%,76% 100%,24% 100%,24% 32%,12% 39%,0 17%);
+    }
+
+    .black{background:#111}
+    .washed{background:#242424}
+    .stone{background:#b8aa96}
+    .olive{background:#394234}
+    .brown{background:#4a3028}
+    .purple{background:#382a43}
+    .cream{background:#ded2bd}
+
+    .garment-logo{
       position:absolute;
-      top:12px;
-      left:12px;
-      padding:7px 9px;
-      background:#0d0d0d;
-      border:1px solid rgba(255,255,255,.2);
-      font-size:9px;
-      letter-spacing:.15em;
+      inset:18% 20% auto;
+      z-index:3;
+      display:grid;
+      place-items:center;
+      pointer-events:none;
+    }
+
+    .garment-logo img{
+      width:100%;
+      max-height:185px;
+      object-fit:contain;
+      filter:invert(1) grayscale(1);
+      opacity:.9;
+    }
+
+    .dark-logo img{filter:none;mix-blend-mode:multiply}
+
+    .garment-name{
+      position:absolute;
+      left:15px;
+      top:14px;
+      z-index:4;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.42);
+      font-size:8px;
+      letter-spacing:.16em;
       text-transform:uppercase;
     }
 
     .product-info{padding:17px}
-    .product-category{
-      color:var(--muted);
-      font-size:10px;
+    .product-line{
+      color:#888;
+      font-size:9px;
       letter-spacing:.18em;
       text-transform:uppercase;
     }
 
     .product-title{
-      margin:7px 0 6px;
+      margin:8px 0 13px;
       font-size:18px;
       text-transform:uppercase;
-      letter-spacing:.02em;
     }
 
-    .product-meta{
+    .product-bottom{
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -274,154 +571,144 @@
     }
 
     .price{font-weight:800}
-
-    .add-btn{
-      border:0;
-      border-bottom:1px solid var(--text);
+    .add{
       padding:5px 0;
+      border:0;
+      border-bottom:1px solid currentColor;
       background:transparent;
-      color:var(--text);
       cursor:pointer;
-      font-size:10px;
-      letter-spacing:.14em;
+      font-size:9px;
+      letter-spacing:.15em;
       text-transform:uppercase;
     }
 
-    .manifesto{
+    .lab{
       display:grid;
-      grid-template-columns:1.15fr .85fr;
-      min-height:540px;
+      grid-template-columns:.9fr 1.1fr;
+      min-height:620px;
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
+      background:#0e0e0e;
     }
 
-    .manifesto-image{
-      min-height:460px;
+    .lab-art{
+      position:relative;
+      display:grid;
+      place-items:center;
+      min-height:500px;
+      overflow:hidden;
       background:
-        linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.45)),
-        url("images/manifesto.jpg") center/cover no-repeat;
+        repeating-linear-gradient(0deg,transparent 0 39px,rgba(255,255,255,.035) 40px),
+        repeating-linear-gradient(90deg,transparent 0 39px,rgba(255,255,255,.035) 40px),
+        #0b0b0b;
     }
 
-    .manifesto-copy{
+    .lab-art img{
+      width:min(500px,72%);
+      filter:invert(1) grayscale(1);
+      animation:logoBreathe 6s ease-in-out infinite;
+    }
+
+    .lab-copy{
       display:flex;
       flex-direction:column;
       justify-content:center;
-      padding:7vw;
-      background:var(--soft);
+      padding:8vw;
     }
 
-    .manifesto-copy h2{
+    .lab-copy h2{
       margin:0;
-      font-size:clamp(38px,6vw,78px);
-      line-height:.93;
-      letter-spacing:-.04em;
+      font-size:clamp(42px,7vw,95px);
+      line-height:.86;
+      letter-spacing:-.06em;
       text-transform:uppercase;
     }
 
-    .manifesto-copy p{
-      max-width:560px;
-      color:#c7c7c7;
-      line-height:1.7;
+    .lab-copy p{
+      max-width:600px;
+      color:#b4b4b4;
+      line-height:1.75;
     }
 
-    .newsletter{
-      max-width:var(--max);
-      margin:auto;
-      padding:85px 4vw;
-      text-align:center;
-    }
-
-    .newsletter h2{
-      margin:0;
-      font-size:clamp(32px,5vw,64px);
-      text-transform:uppercase;
-    }
-
-    .newsletter p{color:var(--muted)}
-    .newsletter-form{
-      display:flex;
-      max-width:650px;
-      margin:28px auto 0;
-    }
-
-    .newsletter input{
-      flex:1;
-      min-width:0;
-      padding:16px;
-      border:1px solid var(--line);
-      border-right:0;
-      background:#101010;
-      color:var(--text);
-    }
-
-    .newsletter button{
-      border:1px solid var(--text);
-      padding:0 22px;
-      background:var(--text);
-      color:#000;
-      cursor:pointer;
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-
-    footer{
-      padding:42px 4vw;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-    }
-
-    .footer-inner{
+    .contact-grid{
       max-width:var(--max);
       margin:auto;
       display:grid;
-      grid-template-columns:1fr auto;
-      gap:30px;
-      align-items:end;
+      grid-template-columns:repeat(3,1fr);
+      border-left:1px solid var(--line);
+      border-top:1px solid var(--line);
     }
 
-    .footer-logo{
-      color:var(--text);
-      font-size:28px;
-      font-weight:900;
-      letter-spacing:.08em;
+    .contact-card{
+      min-height:220px;
+      padding:35px;
+      border-right:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:#0d0d0d;
+      transition:background .25s;
     }
 
-    .footer-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:20px;
-      font-size:11px;
-      letter-spacing:.13em;
+    .contact-card:hover{background:#151515}
+    .contact-card small{
+      color:#888;
+      font-size:9px;
+      letter-spacing:.18em;
       text-transform:uppercase;
     }
 
-    .drawer,
-    .mobile-menu{
-      position:fixed;
-      inset:0 0 0 auto;
-      width:min(430px,100%);
-      z-index:70;
-      padding:26px;
-      background:#0e0e0e;
-      border-left:1px solid var(--line);
-      transform:translateX(100%);
-      transition:transform .3s ease;
+    .contact-card h3{
+      margin:30px 0 8px;
+      font-size:clamp(22px,3vw,38px);
+      line-height:1;
+      text-transform:uppercase;
     }
 
-    .drawer.open,
-    .mobile-menu.open{transform:translateX(0)}
+    .contact-card p{margin:0;color:#999}
 
+    footer{
+      padding:40px 4vw;
+      color:#858585;
+      text-align:center;
+      font-size:9px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    /* DRAWERS */
     .overlay{
       position:fixed;
       inset:0;
-      z-index:60;
+      z-index:70;
       display:none;
       background:rgba(0,0,0,.72);
     }
 
     .overlay.show{display:block}
+
+    .drawer,
+    .mobile-menu{
+      position:fixed;
+      top:0;
+      right:0;
+      z-index:80;
+      width:min(440px,100%);
+      height:100%;
+      padding:25px;
+      background:#0d0d0d;
+      border-left:1px solid var(--line);
+      transform:translateX(100%);
+      transition:transform .3s ease;
+    }
+
+    .drawer.open{transform:translateX(0)}
+    .mobile-menu{
+      right:auto;
+      left:0;
+      transform:translateX(-100%);
+      border-left:0;
+      border-right:1px solid var(--line);
+    }
+    .mobile-menu.open{transform:translateX(0)}
 
     .drawer-head{
       display:flex;
@@ -433,81 +720,66 @@
 
     .drawer-head h2{
       margin:0;
-      font-size:24px;
+      font-size:25px;
       text-transform:uppercase;
     }
 
-    .close-btn{
+    .close{
       border:0;
       background:transparent;
-      color:var(--text);
-      font-size:27px;
       cursor:pointer;
+      font-size:28px;
     }
 
     .cart-items{
       display:grid;
       gap:12px;
-      margin-top:22px;
+      margin-top:20px;
       max-height:58vh;
       overflow:auto;
     }
 
+    .empty{color:#888}
+
     .cart-item{
       display:grid;
-      grid-template-columns:70px 1fr auto;
-      gap:12px;
-      padding-bottom:12px;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      padding:13px 0;
       border-bottom:1px solid var(--line);
     }
 
-    .cart-item img{
-      width:70px;
-      height:86px;
-      object-fit:cover;
-      background:#222;
-    }
-
-    .cart-item h3{
-      margin:4px 0;
-      font-size:13px;
+    .cart-item strong{
+      display:block;
+      font-size:12px;
       text-transform:uppercase;
     }
 
+    .cart-item span{font-size:12px;color:#aaa}
     .remove{
       border:0;
       background:transparent;
-      color:#aaa;
+      color:#999;
       cursor:pointer;
     }
 
     .cart-total{
       display:flex;
       justify-content:space-between;
-      margin:24px 0 16px;
+      margin:25px 0 17px;
       font-size:20px;
       font-weight:800;
     }
 
     .checkout{width:100%}
 
-    .mobile-menu{
-      inset:0 auto 0 0;
-      transform:translateX(-100%);
-      border-right:1px solid var(--line);
-      border-left:0;
-    }
-
-    .mobile-menu.open{transform:translateX(0)}
-
     .mobile-links{
       display:grid;
-      gap:0;
-      margin-top:25px;
+      margin-top:24px;
     }
 
     .mobile-links a{
-      padding:19px 0;
+      padding:18px 0;
       border-bottom:1px solid var(--line);
       font-size:28px;
       text-transform:uppercase;
@@ -516,180 +788,232 @@
     .toast{
       position:fixed;
       left:50%;
-      bottom:28px;
-      z-index:90;
-      transform:translate(-50%,30px);
+      bottom:24px;
+      z-index:100;
+      transform:translate(-50%,25px);
       opacity:0;
       padding:13px 18px;
-      background:var(--text);
-      color:#080808;
-      font-size:12px;
+      background:#eeeae3;
+      color:#060606;
+      font-size:10px;
       font-weight:800;
-      letter-spacing:.1em;
+      letter-spacing:.14em;
       text-transform:uppercase;
       transition:.25s;
       pointer-events:none;
     }
 
     .toast.show{
-      transform:translate(-50%,0);
       opacity:1;
+      transform:translate(-50%,0);
     }
 
-    @media(max-width:900px){
-      .desktop-nav{display:none}
-      .menu-btn{display:block}
-      .header{padding:0 18px}
-      .hero{min-height:70vh}
-      .hero-content{padding:80px 24px 58px}
-      .section{padding:72px 18px}
-      .section-head{align-items:start;flex-direction:column}
+    @media(max-width:1000px){
+      nav{display:none}
+      .menu-btn{display:inline-block}
+      .hero{grid-template-columns:1fr}
+      .hero-copy{padding:85px 24px 55px}
+      .hero-art{min-height:500px}
       .products{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .manifesto{grid-template-columns:1fr}
-      .manifesto-copy{padding:60px 24px}
-      .footer-inner{grid-template-columns:1fr}
+      .lab{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .section{padding:78px 20px}
+      .section-head{align-items:start;flex-direction:column}
     }
 
-    @media(max-width:580px){
-      .brand-main{font-size:19px}
-      .brand-sub{font-size:7px}
+    @media(max-width:620px){
+      header{padding:0 14px}
+      .brand-copy strong{font-size:15px}
+      .brand-copy small{font-size:7px}
+      .brand img{width:40px;height:40px}
+      .hero-art{min-height:420px}
       .products{grid-template-columns:1fr}
-      .product-image{aspect-ratio:1/1.18}
-      .newsletter-form{display:grid}
-      .newsletter input{border-right:1px solid var(--line);border-bottom:0}
-      .newsletter button{min-height:48px}
-      .footer-links{display:grid}
+      .product-visual{aspect-ratio:1/1.1}
+      .lab-copy{padding:65px 24px}
+      .contact-card{padding:28px 22px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+      }
     }
   </style>
 </head>
 
-<body>
-  <div class="announcement">Demo collection 001 · Spedizione gratuita sopra € 100</div>
+<body class="locked">
+  <div class="noise"></div>
 
-  <header class="header">
-    <button class="menu-btn" id="menuOpen" aria-label="Apri menu">☰</button>
-
-    <a class="brand" href="#home" aria-label="MAN.DA.LA home">
-      <span class="brand-main">MAN.DA.LA</span>
-      <span class="brand-sub">MANILA DARK LAB</span>
-    </a>
-
-    <nav class="desktop-nav" aria-label="Menu principale">
-      <a href="#uomo">Uomo</a>
-      <a href="#donna">Donna</a>
-      <a href="#kids">Kids</a>
-      <a href="#brand">Il laboratorio</a>
-    </nav>
-
-    <div class="header-actions">
-      <button class="icon-btn" id="cartOpen" aria-label="Apri carrello">
-        Bag <span id="cartCount">0</span>
+  <section class="intro" id="intro" aria-label="Ingresso Manila Dark Lab">
+    <div class="intro-inner">
+      <div class="intro-status">Initializing experiment 001</div>
+      <img class="intro-logo" src="Logomanila.png" alt="Logo Manila Dark Lab">
+      <h1>Manila Dark Lab</h1>
+      <p class="intro-sub">Lab Series 001 · Experimental Urban Apparel</p>
+      <div class="loader"><span></span></div>
+      <button class="enter" id="enterButton">
+        <span>Enter the lab <span class="arrow">→</span></span>
       </button>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-media"></div>
-      <div class="hero-content">
-        <p class="eyebrow">Lab Series 001 · Experimental Apparel</p>
-        <h1>Create.<br>Test.<br>Evolve.</h1>
-        <p class="hero-subtitle">
-          Streetwear urban nata tra cristalli, simboli e cultura skate.
-          Una demo e-commerce con nove capi MAN.DA.LA.
-        </p>
-        <div class="hero-actions">
-          <a class="btn" href="#uomo">Scopri la collezione</a>
-          <a class="btn secondary" href="#brand">Brand concept</a>
+  <div class="site" id="site">
+    <div class="topline">Experiment 001 · Limited demo collection · Florida</div>
+
+    <header>
+      <button class="menu-btn" id="menuOpen" aria-label="Apri menu">Menu</button>
+
+      <a class="brand" href="#home" aria-label="Torna alla home">
+        <img src="Logomanila.png" alt="">
+        <div class="brand-copy">
+          <strong>Manila Dark Lab</strong>
+          <small>Experiment 001</small>
         </div>
-      </div>
-    </section>
+      </a>
 
-    <section class="section" id="uomo">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Urban Adult</p>
-          <h2>Uomo</h2>
-        </div>
-        <p class="section-note">
-          Vestibilità oversize, palette scura e grafiche MAN.DA.LA pensate per un utilizzo quotidiano.
-        </p>
-      </div>
-      <div class="products" id="menProducts"></div>
-    </section>
-
-    <section class="section" id="donna">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Woman / Unisex</p>
-          <h2>Donna</h2>
-        </div>
-        <p class="section-note">
-          Capi morbidi e ampi, costruiti per essere indossati liberamente e combinati tra loro.
-        </p>
-      </div>
-      <div class="products" id="womenProducts"></div>
-    </section>
-
-    <section class="section" id="kids">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Urban Play</p>
-          <h2>Kids</h2>
-        </div>
-        <p class="section-note">
-          La stessa identità del brand, adattata a una linea più morbida, pratica e giocosa.
-        </p>
-      </div>
-      <div class="products" id="kidsProducts"></div>
-    </section>
-
-    <section class="manifesto" id="brand">
-      <div class="manifesto-image" role="img" aria-label="Scena industriale MAN.DA.LA"></div>
-      <div class="manifesto-copy">
-        <p class="eyebrow">Manila Dark Lab</p>
-        <h2>Il buio genera forma.</h2>
-        <p>
-          MAN.DA.LA nasce come laboratorio creativo urban. La corona di cristalli
-          e il teschio rappresentano trasformazione, identità e ribellione.
-          Il logo resta essenziale; le grafiche costruiscono il mondo del brand.
-        </p>
-        <a class="btn secondary" href="#home">Torna all'inizio</a>
-      </div>
-    </section>
-
-    <section class="newsletter">
-      <p class="eyebrow">Accesso anticipato</p>
-      <h2>Entra nel laboratorio</h2>
-      <p>Ricevi aggiornamenti sulle prossime capsule e sui nuovi drop.</p>
-      <div class="newsletter-form">
-        <input type="email" id="newsletterEmail" placeholder="La tua email" aria-label="La tua email">
-        <button type="button" id="newsletterButton">Iscriviti</button>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <div class="footer-logo">MAN.DA.LA</div>
-        <p>MANILA DARK LAB · LAB SERIES 001</p>
-      </div>
-      <div class="footer-links">
+      <nav aria-label="Menu principale">
         <a href="#uomo">Uomo</a>
         <a href="#donna">Donna</a>
         <a href="#kids">Kids</a>
-        <a href="mailto:info@maniladarklab.it">Contatti</a>
+        <a href="#lab">The Lab</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button>
       </div>
-    </div>
-  </footer>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="kicker">Lab Series 001 · Urban / Experimental / Premium</p>
+          <h2>Built in<br>the dark.</h2>
+          <p>
+            Una capsule demo Manila Dark Lab composta da nove capi urban:
+            tre uomo, tre donna e tre kids. Un'identità nata nel laboratorio
+            e portata per strada.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#uomo">Esplora il drop</a>
+            <a class="btn alt" href="#lab">Scopri il concept</a>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <img src="Logomanila.png" alt="Simbolo Manila Dark Lab">
+          <div class="hero-code">MDL / EXP-001 / ACTIVE</div>
+        </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>Experiment 001</span><span>Dark Technical Minimal</span><span>Manila Dark Lab</span><span>Create Test Evolve</span>
+          <span>Experiment 001</span><span>Dark Technical Minimal</span><span>Manila Dark Lab</span><span>Create Test Evolve</span>
+        </div>
+      </div>
+
+      <section class="section" id="uomo">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Urban Adult</p>
+            <h2>Uomo</h2>
+          </div>
+          <p class="section-description">
+            Tre pezzi essenziali con vestibilità ampia, tonalità scure e logo Manila Dark Lab.
+          </p>
+        </div>
+        <div class="products" id="menProducts"></div>
+      </section>
+
+      <section class="section" id="donna">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Woman / Unisex</p>
+            <h2>Donna</h2>
+          </div>
+          <p class="section-description">
+            Silhouette morbide e colori terrosi, pensati per una linea urban contemporanea.
+          </p>
+        </div>
+        <div class="products" id="womenProducts"></div>
+      </section>
+
+      <section class="section" id="kids">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Urban Play</p>
+            <h2>Kids</h2>
+          </div>
+          <p class="section-description">
+            La stessa identità del marchio in una versione più morbida, pratica e giocosa.
+          </p>
+        </div>
+        <div class="products" id="kidsProducts"></div>
+      </section>
+
+      <section class="lab" id="lab">
+        <div class="lab-art">
+          <img src="Logomanila.png" alt="Logo Manila Dark Lab">
+        </div>
+        <div class="lab-copy">
+          <p class="kicker">Manila Dark Lab</p>
+          <h2>Create.<br>Test.<br>Evolve.</h2>
+          <p>
+            Manila Dark Lab è un laboratorio di idee, sperimentazione e street culture.
+            Il teschio e la corona di cristalli raccontano trasformazione, identità
+            e ribellione. Il primo esperimento è la capsule 001.
+          </p>
+          <a class="btn alt" href="#contatti">Contatta il laboratorio</a>
+        </div>
+      </section>
+
+      <section class="section" id="contatti">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Open Channel</p>
+            <h2>Contatti</h2>
+          </div>
+          <p class="section-description">
+            Questa è una demo. I pulsanti permettono di testare contatto, posizione e ordine WhatsApp.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="https://wa.me/393383449189" target="_blank" rel="noopener">
+            <small>WhatsApp</small>
+            <h3>338 344 9189</h3>
+            <p>Scrivi direttamente al laboratorio →</p>
+          </a>
+
+          <a class="contact-card" href="mailto:milanog91@gmail.com">
+            <small>Email</small>
+            <h3>milanog91@gmail.com</h3>
+            <p>Richiedi informazioni sulla collezione →</p>
+          </a>
+
+          <a class="contact-card" href="https://www.google.com/maps/search/?api=1&query=Florida" target="_blank" rel="noopener">
+            <small>Google Maps</small>
+            <h3>Florida</h3>
+            <p>Apri la posizione su Google Maps →</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Manila Dark Lab · Experiment 001 · Demo site hosted on GitHub Pages
+    </footer>
+  </div>
 
   <div class="overlay" id="overlay"></div>
 
   <aside class="drawer" id="cartDrawer" aria-label="Carrello">
     <div class="drawer-head">
-      <h2>Carrello</h2>
-      <button class="close-btn" id="cartClose" aria-label="Chiudi carrello">×</button>
+      <h2>Bag</h2>
+      <button class="close" id="cartClose" aria-label="Chiudi carrello">×</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-total">
@@ -701,61 +1025,70 @@
 
   <aside class="mobile-menu" id="mobileMenu" aria-label="Menu mobile">
     <div class="drawer-head">
-      <div class="brand">
-        <span class="brand-main">MAN.DA.LA</span>
-        <span class="brand-sub">MANILA DARK LAB</span>
-      </div>
-      <button class="close-btn" id="menuClose" aria-label="Chiudi menu">×</button>
+      <h2>Navigation</h2>
+      <button class="close" id="menuClose" aria-label="Chiudi menu">×</button>
     </div>
-    <nav class="mobile-links">
+    <div class="mobile-links">
       <a href="#uomo">Uomo</a>
       <a href="#donna">Donna</a>
       <a href="#kids">Kids</a>
-      <a href="#brand">Il laboratorio</a>
-    </nav>
+      <a href="#lab">The Lab</a>
+      <a href="#contatti">Contatti</a>
+    </div>
   </aside>
 
   <div class="toast" id="toast" aria-live="polite"></div>
 
   <script>
     const products = [
-      {id:1, group:"men", category:"Uomo", name:"Crystal Crown Tee", price:39, image:"images/uomo-1.jpg", badge:"New"},
-      {id:2, group:"men", category:"Uomo", name:"Lab Heavy Hoodie", price:79, image:"images/uomo-2.jpg", badge:"Heavyweight"},
-      {id:3, group:"men", category:"Uomo", name:"Test Subject Crewneck", price:65, image:"images/uomo-3.jpg", badge:"Oversize"},
+      {id:1, group:"men", line:"Uomo", name:"Crystal Crown Tee", price:39, type:"tee", color:"black", logoDark:false, label:"Black / Oversize"},
+      {id:2, group:"men", line:"Uomo", name:"Experiment Hoodie", price:79, type:"hoodie", color:"washed", logoDark:false, label:"Washed / Heavyweight"},
+      {id:3, group:"men", line:"Uomo", name:"Lab Crewneck", price:65, type:"crew", color:"olive", logoDark:false, label:"Olive / Relaxed"},
 
-      {id:4, group:"women", category:"Donna", name:"Dark Lab Crop Tee", price:36, image:"images/donna-1.jpg", badge:"Woman"},
-      {id:5, group:"women", category:"Donna", name:"Mandala Washed Hoodie", price:76, image:"images/donna-2.jpg", badge:"Washed"},
-      {id:6, group:"women", category:"Donna", name:"Crystal Oversize Tee", price:42, image:"images/donna-3.jpg", badge:"Unisex"},
+      {id:4, group:"women", line:"Donna", name:"Dark Lab Tee", price:38, type:"tee", color:"brown", logoDark:false, label:"Brown / Boxy"},
+      {id:5, group:"women", line:"Donna", name:"Crystal Hoodie", price:76, type:"hoodie", color:"purple", logoDark:false, label:"Deep Purple / Soft"},
+      {id:6, group:"women", line:"Donna", name:"Stone Oversize Tee", price:42, type:"tee", color:"stone", logoDark:true, label:"Stone / Oversize"},
 
-      {id:7, group:"kids", category:"Kids", name:"Mini Crown Tee", price:25, image:"images/kids-1.jpg", badge:"Kids"},
-      {id:8, group:"kids", category:"Kids", name:"MDL Kids Hoodie", price:49, image:"images/kids-2.jpg", badge:"Soft Cotton"},
-      {id:9, group:"kids", category:"Kids", name:"Urban Play Crewneck", price:42, image:"images/kids-3.jpg", badge:"Play"}
+      {id:7, group:"kids", line:"Kids", name:"Mini Crown Tee", price:25, type:"tee", color:"cream", logoDark:true, label:"Cream / Kids"},
+      {id:8, group:"kids", line:"Kids", name:"MDL Kids Hoodie", price:49, type:"hoodie", color:"olive", logoDark:false, label:"Olive / Soft Cotton"},
+      {id:9, group:"kids", line:"Kids", name:"Urban Play Crew", price:42, type:"crew", color:"brown", logoDark:false, label:"Brown / Play"}
     ];
 
     const cart = [];
-    const money = new Intl.NumberFormat("it-IT", {style:"currency", currency:"EUR"});
+    const euro = new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR"});
 
-    const menProducts = document.getElementById("menProducts");
-    const womenProducts = document.getElementById("womenProducts");
-    const kidsProducts = document.getElementById("kidsProducts");
+    const intro = document.getElementById("intro");
+    const site = document.getElementById("site");
+    const overlay = document.getElementById("overlay");
     const cartDrawer = document.getElementById("cartDrawer");
     const mobileMenu = document.getElementById("mobileMenu");
-    const overlay = document.getElementById("overlay");
     const toast = document.getElementById("toast");
 
-    function productCard(product){
+    function enterSite(){
+      intro.classList.add("hidden");
+      site.classList.add("visible");
+      document.body.classList.remove("locked");
+      setTimeout(() => intro.remove(), 900);
+    }
+
+    document.getElementById("enterButton").addEventListener("click", enterSite);
+
+    function productCard(p){
       return `
         <article class="product">
-          <div class="product-image">
-            <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
-            <span class="product-badge">${product.badge}</span>
+          <div class="product-visual">
+            <span class="garment-name">${p.label}</span>
+            <div class="garment ${p.type} ${p.color}"></div>
+            <div class="garment-logo ${p.logoDark ? "dark-logo" : ""}">
+              <img src="Logomanila.png" alt="">
+            </div>
           </div>
           <div class="product-info">
-            <div class="product-category">${product.category} · MAN.DA.LA</div>
-            <h3 class="product-title">${product.name}</h3>
-            <div class="product-meta">
-              <span class="price">${money.format(product.price)}</span>
-              <button class="add-btn" data-id="${product.id}">Aggiungi</button>
+            <div class="product-line">${p.line} · Experiment 001</div>
+            <h3 class="product-title">${p.name}</h3>
+            <div class="product-bottom">
+              <span class="price">${euro.format(p.price)}</span>
+              <button class="add" data-id="${p.id}">Aggiungi</button>
             </div>
           </div>
         </article>
@@ -763,114 +1096,115 @@
     }
 
     function renderProducts(){
-      menProducts.innerHTML = products.filter(p => p.group === "men").map(productCard).join("");
-      womenProducts.innerHTML = products.filter(p => p.group === "women").map(productCard).join("");
-      kidsProducts.innerHTML = products.filter(p => p.group === "kids").map(productCard).join("");
+      document.getElementById("menProducts").innerHTML =
+        products.filter(p => p.group === "men").map(productCard).join("");
+      document.getElementById("womenProducts").innerHTML =
+        products.filter(p => p.group === "women").map(productCard).join("");
+      document.getElementById("kidsProducts").innerHTML =
+        products.filter(p => p.group === "kids").map(productCard).join("");
 
-      document.querySelectorAll(".add-btn").forEach(button => {
-        button.addEventListener("click", () => addToCart(Number(button.dataset.id)));
+      document.querySelectorAll(".add").forEach(btn => {
+        btn.addEventListener("click", () => addToCart(Number(btn.dataset.id)));
       });
     }
 
     function addToCart(id){
-      const product = products.find(item => item.id === id);
-      if(!product) return;
-      cart.push(product);
+      const item = products.find(p => p.id === id);
+      if(!item) return;
+      cart.push(item);
       updateCart();
-      showToast(product.name + " aggiunto");
+      showToast(item.name + " aggiunto");
     }
 
     function removeFromCart(index){
-      cart.splice(index, 1);
+      cart.splice(index,1);
       updateCart();
     }
 
     function updateCart(){
       document.getElementById("cartCount").textContent = cart.length;
-      const cartItems = document.getElementById("cartItems");
+      const list = document.getElementById("cartItems");
 
-      if(cart.length === 0){
-        cartItems.innerHTML = "<p style='color:#999'>Il carrello è vuoto.</p>";
-      } else {
-        cartItems.innerHTML = cart.map((item, index) => `
+      if(!cart.length){
+        list.innerHTML = '<p class="empty">Il carrello è vuoto.</p>';
+      }else{
+        list.innerHTML = cart.map((item,index) => `
           <div class="cart-item">
-            <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
             <div>
-              <h3>${item.name}</h3>
-              <div>${money.format(item.price)}</div>
+              <strong>${item.name}</strong>
+              <span>${euro.format(item.price)}</span>
             </div>
             <button class="remove" data-index="${index}" aria-label="Rimuovi">×</button>
           </div>
         `).join("");
 
-        document.querySelectorAll(".remove").forEach(button => {
-          button.addEventListener("click", () => removeFromCart(Number(button.dataset.index)));
+        document.querySelectorAll(".remove").forEach(btn => {
+          btn.addEventListener("click", () => removeFromCart(Number(btn.dataset.index)));
         });
       }
 
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      document.getElementById("cartTotal").textContent = money.format(total);
+      const total = cart.reduce((sum,item) => sum + item.price,0);
+      document.getElementById("cartTotal").textContent = euro.format(total);
     }
 
-    function openPanel(panel, bodyClass){
+    function openPanel(panel){
       panel.classList.add("open");
       overlay.classList.add("show");
-      document.body.classList.add(bodyClass);
+      document.body.classList.add("locked");
     }
 
     function closePanels(){
       cartDrawer.classList.remove("open");
       mobileMenu.classList.remove("open");
       overlay.classList.remove("show");
-      document.body.classList.remove("cart-open","menu-open");
+      document.body.classList.remove("locked");
     }
+
+    document.getElementById("cartOpen").addEventListener("click", () => openPanel(cartDrawer));
+    document.getElementById("cartClose").addEventListener("click", closePanels);
+    document.getElementById("menuOpen").addEventListener("click", () => openPanel(mobileMenu));
+    document.getElementById("menuClose").addEventListener("click", closePanels);
+    overlay.addEventListener("click", closePanels);
+    document.querySelectorAll(".mobile-links a").forEach(a => a.addEventListener("click", closePanels));
 
     function showToast(message){
       toast.textContent = message;
       toast.classList.add("show");
       clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+      window.toastTimer = setTimeout(() => toast.classList.remove("show"),1800);
     }
 
-    document.getElementById("cartOpen").addEventListener("click", () => openPanel(cartDrawer, "cart-open"));
-    document.getElementById("cartClose").addEventListener("click", closePanels);
-    document.getElementById("menuOpen").addEventListener("click", () => openPanel(mobileMenu, "menu-open"));
-    document.getElementById("menuClose").addEventListener("click", closePanels);
-    overlay.addEventListener("click", closePanels);
-
-    document.querySelectorAll(".mobile-links a").forEach(link => {
-      link.addEventListener("click", closePanels);
-    });
-
-    document.getElementById("newsletterButton").addEventListener("click", () => {
-      const email = document.getElementById("newsletterEmail").value.trim();
-      if(!email || !email.includes("@")){
-        showToast("Inserisci un'email valida");
-        return;
-      }
-      showToast("Iscrizione registrata");
-      document.getElementById("newsletterEmail").value = "";
-    });
-
     document.getElementById("checkoutButton").addEventListener("click", () => {
-      if(cart.length === 0){
+      if(!cart.length){
         showToast("Il carrello è vuoto");
         return;
       }
 
-      const rows = cart.map(item => `• ${item.name} - ${money.format(item.price)}`).join("\n");
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      const message = encodeURIComponent(
-        `Ciao, vorrei ordinare:\n${rows}\n\nTotale: ${money.format(total)}`
+      const rows = cart.map(item => `• ${item.name} — ${euro.format(item.price)}`).join("\n");
+      const total = cart.reduce((sum,item) => sum + item.price,0);
+      const text = encodeURIComponent(
+        `Ciao Manila Dark Lab, vorrei ordinare:\n${rows}\n\nTotale: ${euro.format(total)}`
       );
 
-      // Sostituisci il numero qui sotto con il tuo numero WhatsApp, senza + e senza spazi.
-      const whatsappNumber = "390000000000";
-      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+      window.open(`https://wa.me/393383449189?text=${text}`,"_blank");
     });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("revealed");
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12});
 
     renderProducts();
     updateCart();
+
+    document.querySelectorAll(".product").forEach((card,index) => {
+      card.style.transitionDelay = `${(index % 3) * 90}ms`;
+      observer.observe(card);
+    });
   </script>
 </body>
 </html>
