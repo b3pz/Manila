@@ -1,1852 +1,876 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="Dott.ssa Lara Tinca, psicologa e psicoterapeuta a Montevarchi. Colloqui psicologici e percorsi di psicoterapia in presenza e online."
-  >
-
-  <meta name="theme-color" content="#123b5b">
-
-  <title>
-    Dott.ssa Lara Tinca | Psicologa e Psicoterapeuta a Montevarchi
-  </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MAN.DA.LA — Manila Dark Lab. Urban streetwear adult, woman and kids." />
+  <title>MAN.DA.LA — Manila Dark Lab</title>
 
   <style>
-    :root {
-      --background: #fbfaf8;
-      --background-soft: #eef7f5;
-      --surface: rgba(255, 255, 255, 0.84);
-      --text: #17364b;
-      --muted: #627582;
-      --primary: #123b5b;
-      --primary-light: #315f78;
-      --mint: #b9dddd;
-      --mint-light: #e8f5f3;
-      --pink: #f3d7d5;
-      --peach: #f7dfc7;
-      --border: rgba(18, 59, 91, 0.12);
-      --shadow: 0 26px 70px rgba(18, 59, 91, 0.13);
-      --radius-large: 34px;
-      --radius-medium: 22px;
-      --radius-small: 14px;
-      --container: 1180px;
+    :root{
+      --bg:#0b0b0b;
+      --panel:#131313;
+      --soft:#1a1a1a;
+      --text:#f4f1eb;
+      --muted:#9b9b9b;
+      --line:#2d2d2d;
+      --accent:#d7d0c4;
+      --max:1400px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
+    body.menu-open,
+    body.cart-open{overflow:hidden}
+
+    img{display:block;width:100%}
+    button,a{font:inherit}
+    a{color:inherit;text-decoration:none}
+
+    .announcement{
+      padding:9px 20px;
+      text-align:center;
+      border-bottom:1px solid var(--line);
+      color:#d4d4d4;
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
     }
 
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--text);
+    .header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:74px;
+      padding:0 4vw;
+      background:rgba(11,11,11,.94);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(14px);
+    }
 
+    .brand{
+      display:flex;
+      flex-direction:column;
+      line-height:.9;
+      font-weight:900;
+      letter-spacing:.08em;
+    }
+
+    .brand-main{font-size:25px}
+    .brand-sub{
+      margin-top:7px;
+      font-size:9px;
+      font-weight:500;
+      letter-spacing:.25em;
+      color:var(--muted);
+    }
+
+    .desktop-nav{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .desktop-nav a:hover{color:var(--accent)}
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .icon-btn,
+    .menu-btn{
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      min-width:42px;
+      height:42px;
+      cursor:pointer;
+    }
+
+    .menu-btn{display:none}
+
+    .hero{
+      min-height:76vh;
+      position:relative;
+      display:flex;
+      align-items:flex-end;
+      overflow:hidden;
+      background:#151515;
+    }
+
+    .hero-media{
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(
-          circle at 5% 7%,
-          rgba(243, 215, 213, 0.55),
-          transparent 25rem
-        ),
-        radial-gradient(
-          circle at 95% 12%,
-          rgba(185, 221, 221, 0.55),
-          transparent 28rem
-        ),
-        radial-gradient(
-          circle at 78% 90%,
-          rgba(247, 223, 199, 0.35),
-          transparent 25rem
-        ),
-        var(--background);
-
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-      line-height: 1.7;
+        linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.15) 55%,rgba(0,0,0,.52)),
+        url("images/hero.jpg") center/cover no-repeat;
     }
 
-    body.menu-open {
-      overflow: hidden;
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:760px;
+      padding:8vw 6vw;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .eyebrow{
+      margin:0 0 14px;
+      color:#d1cbc1;
+      font-size:11px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
     }
 
-    button {
-      font: inherit;
+    h1{
+      margin:0;
+      font-size:clamp(52px,9vw,140px);
+      line-height:.83;
+      letter-spacing:-.055em;
+      text-transform:uppercase;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
+    .hero-subtitle{
+      max-width:570px;
+      margin:24px 0 0;
+      color:#d6d6d6;
+      font-size:clamp(15px,2vw,20px);
+      line-height:1.6;
     }
 
-    section {
-      padding: 115px 0;
-      scroll-margin-top: 100px;
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:30px;
     }
 
-    .container {
-      width: min(calc(100% - 40px), var(--container));
-      margin: 0 auto;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 24px;
+      border:1px solid var(--text);
+      background:var(--text);
+      color:#0b0b0b;
+      cursor:pointer;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-size:11px;
+      font-weight:800;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--primary);
-      font-size: 0.76rem;
-      font-weight: 750;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .btn.secondary{
+      background:transparent;
+      color:var(--text);
     }
 
-    .eyebrow::before {
-      width: 34px;
-      height: 1px;
-      background: var(--primary);
-      content: "";
+    .section{
+      max-width:var(--max);
+      margin:auto;
+      padding:95px 4vw;
     }
 
-    .section-title {
-      max-width: 790px;
-      margin-top: 15px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.25rem, 5vw, 4.15rem);
-      font-weight: 400;
-      letter-spacing: -0.04em;
-      line-height: 1.08;
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:34px;
+      border-bottom:1px solid var(--line);
+      padding-bottom:18px;
     }
 
-    .section-description {
-      max-width: 690px;
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 1.05rem;
+    .section h2{
+      margin:0;
+      font-size:clamp(32px,5vw,66px);
+      letter-spacing:-.04em;
+      text-transform:uppercase;
     }
 
-    /* HEADER */
-
-    .site-header {
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 100;
-      padding: 13px 0;
-
-      transition:
-        padding 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
+    .section-note{
+      max-width:520px;
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
     }
 
-    .site-header.scrolled {
-      padding: 7px 0;
-      background: rgba(251, 250, 248, 0.93);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 1px 0 var(--border);
+    .products{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
     }
 
-    .navigation {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+    .product{
+      position:relative;
+      border:1px solid var(--line);
+      background:var(--panel);
+      overflow:hidden;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      min-width: 0;
+    .product-image{
+      position:relative;
+      aspect-ratio:4/5;
+      overflow:hidden;
+      background:linear-gradient(145deg,#222,#0f0f0f);
     }
 
-    .brand-logo {
-      display: block;
-      width: 275px;
-      max-width: 42vw;
-      height: 72px;
-      object-fit: contain;
-      object-position: left center;
-      mix-blend-mode: multiply;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition:
-        opacity 0.28s ease,
-        visibility 0.28s ease,
-        transform 0.28s ease;
+    .product-image img{
+      height:100%;
+      object-fit:cover;
+      transition:transform .6s ease;
     }
 
-    .site-header.scrolled .brand-logo {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+    .product:hover .product-image img{transform:scale(1.035)}
+
+    .product-badge{
+      position:absolute;
+      top:12px;
+      left:12px;
+      padding:7px 9px;
+      background:#0d0d0d;
+      border:1px solid rgba(255,255,255,.2);
+      font-size:9px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
     }
 
-    .navigation-list {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      list-style: none;
-      color: var(--primary);
-      font-size: 0.89rem;
-      font-weight: 650;
+    .product-info{padding:17px}
+    .product-category{
+      color:var(--muted);
+      font-size:10px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
     }
 
-    .navigation-list a {
-      position: relative;
+    .product-title{
+      margin:7px 0 6px;
+      font-size:18px;
+      text-transform:uppercase;
+      letter-spacing:.02em;
     }
 
-    .navigation-list a:not(.navigation-button)::after {
-      position: absolute;
-      right: 0;
-      bottom: -7px;
-      left: 0;
-      height: 1px;
-      background: var(--primary);
-      content: "";
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.2s ease;
+    .product-meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
     }
 
-    .navigation-list a:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
+    .price{font-weight:800}
+
+    .add-btn{
+      border:0;
+      border-bottom:1px solid var(--text);
+      padding:5px 0;
+      background:transparent;
+      color:var(--text);
+      cursor:pointer;
+      font-size:10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
     }
 
-    .navigation-button,
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      min-height: 50px;
-      padding: 0 23px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 720;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+    .manifesto{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      min-height:540px;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
-    .navigation-button,
-    .button-primary {
-      color: #ffffff;
-      background: var(--primary);
-      box-shadow: 0 14px 34px rgba(18, 59, 91, 0.2);
-    }
-
-    .button-secondary {
-      border-color: var(--border);
-      color: var(--primary);
-      background: rgba(255, 255, 255, 0.66);
-      backdrop-filter: blur(10px);
-    }
-
-    .navigation-button:hover,
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button-primary:hover {
-      background: #0b304c;
-      box-shadow: 0 18px 40px rgba(18, 59, 91, 0.28);
-    }
-
-    .menu-button {
-      display: none;
-      place-items: center;
-      width: 46px;
-      height: 46px;
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      color: var(--primary);
-      background: rgba(255, 255, 255, 0.8);
-      cursor: pointer;
-    }
-
-    /* HERO */
-
-    .hero {
-      position: relative;
-      display: grid;
-      align-items: center;
-      min-height: 100svh;
-      padding: 135px 0 80px;
-      isolation: isolate;
-    }
-
-    .hero::before {
-      position: absolute;
-      top: 18%;
-      right: -12%;
-      z-index: -1;
-      width: 500px;
-      aspect-ratio: 1;
-      border: 1px solid rgba(18, 59, 91, 0.13);
-      border-radius: 52% 48% 38% 62% / 62% 38% 62% 38%;
-      content: "";
-      transform: rotate(18deg);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      align-items: center;
-      gap: clamp(45px, 8vw, 105px);
-    }
-
-    .hero-logo {
-      display: block;
-      width: clamp(270px, 34vw, 430px);
-      max-width: 100%;
-      height: auto;
-      margin: 0 0 34px;
-      object-fit: contain;
-      object-position: left center;
-      mix-blend-mode: multiply;
-      filter: drop-shadow(0 12px 28px rgba(18, 59, 91, 0.08));
-    }
-
-    .hero h1 {
-      max-width: 760px;
-      margin-top: 18px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(3.45rem, 8vw, 7rem);
-      font-weight: 400;
-      letter-spacing: -0.06em;
-      line-height: 0.96;
-    }
-
-    .hero h1 em {
-      color: var(--primary-light);
-      font-weight: 400;
-    }
-
-    .hero-description {
-      max-width: 635px;
-      margin-top: 30px;
-      color: var(--muted);
-      font-size: clamp(1.05rem, 2vw, 1.18rem);
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 38px;
-    }
-
-    .availability {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 27px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .availability-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #75aaa4;
-      box-shadow: 0 0 0 7px rgba(117, 170, 164, 0.14);
-    }
-
-    .portrait-area {
-      position: relative;
-      min-height: 630px;
-    }
-
-    .portrait-card {
-      position: absolute;
-      inset: 0 43px 32px 0;
-      overflow: hidden;
-      border: 9px solid rgba(255, 255, 255, 0.76);
-      border-radius: 190px 190px 42px 42px;
-      background: var(--mint-light);
-      box-shadow: var(--shadow);
-    }
-
-    .portrait-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .hero-floating-card {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      width: min(290px, 82%);
-      padding: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: var(--radius-medium);
-      background: rgba(255, 255, 255, 0.84);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 18px 55px rgba(18, 59, 91, 0.14);
-    }
-
-    .hero-floating-card strong {
-      display: block;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.34rem;
-      font-weight: 400;
-    }
-
-    .hero-floating-card p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 0.86rem;
-    }
-
-    /* CITAZIONE */
-
-    .quote-section {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-
+    .manifesto-image{
+      min-height:460px;
       background:
-        linear-gradient(
-          90deg,
-          rgba(243, 215, 213, 0.3),
-          rgba(185, 221, 221, 0.35)
-        );
+        linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.45)),
+        url("images/manifesto.jpg") center/cover no-repeat;
     }
 
-    .quote-section p {
-      max-width: 920px;
-      margin: 0 auto;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.35rem, 3vw, 2.25rem);
-      line-height: 1.35;
-      text-align: center;
+    .manifesto-copy{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:7vw;
+      background:var(--soft);
     }
 
-    /* CHI SONO */
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      align-items: start;
-      gap: clamp(45px, 8vw, 115px);
+    .manifesto-copy h2{
+      margin:0;
+      font-size:clamp(38px,6vw,78px);
+      line-height:.93;
+      letter-spacing:-.04em;
+      text-transform:uppercase;
     }
 
-    .about-photo {
-      position: sticky;
-      top: 110px;
-      min-height: 520px;
-      overflow: hidden;
-      border: 8px solid rgba(255, 255, 255, 0.8);
-      border-radius: var(--radius-large);
-      background: var(--mint-light);
-      box-shadow: var(--shadow);
+    .manifesto-copy p{
+      max-width:560px;
+      color:#c7c7c7;
+      line-height:1.7;
     }
 
-    .about-photo img {
-      width: 100%;
-      height: 100%;
-      min-height: 520px;
-      object-fit: cover;
-      object-position: center;
+    .newsletter{
+      max-width:var(--max);
+      margin:auto;
+      padding:85px 4vw;
+      text-align:center;
     }
 
-    .about-content p {
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 1.03rem;
+    .newsletter h2{
+      margin:0;
+      font-size:clamp(32px,5vw,64px);
+      text-transform:uppercase;
     }
 
-    .professional-details {
-      display: grid;
-      margin-top: 35px;
+    .newsletter p{color:var(--muted)}
+    .newsletter-form{
+      display:flex;
+      max-width:650px;
+      margin:28px auto 0;
     }
 
-    .professional-detail {
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      align-items: start;
-      gap: 17px;
-      padding: 21px 0;
-      border-top: 1px solid var(--border);
+    .newsletter input{
+      flex:1;
+      min-width:0;
+      padding:16px;
+      border:1px solid var(--line);
+      border-right:0;
+      background:#101010;
+      color:var(--text);
     }
 
-    .detail-number {
-      display: grid;
-      place-items: center;
-      width: 43px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      color: var(--primary);
-      background: var(--mint-light);
-      font-weight: 750;
+    .newsletter button{
+      border:1px solid var(--text);
+      padding:0 22px;
+      background:var(--text);
+      color:#000;
+      cursor:pointer;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
 
-    .professional-detail strong {
-      display: block;
-      margin-bottom: 3px;
-      font-size: 0.97rem;
+    footer{
+      padding:42px 4vw;
+      border-top:1px solid var(--line);
+      color:var(--muted);
     }
 
-    .professional-detail span {
-      color: var(--muted);
-      font-size: 0.9rem;
+    .footer-inner{
+      max-width:var(--max);
+      margin:auto;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:30px;
+      align-items:end;
     }
 
-    /* AREE */
-
-    .areas-section {
-      position: relative;
-      overflow: hidden;
-      color: #ffffff;
-      background: var(--primary);
+    .footer-logo{
+      color:var(--text);
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:.08em;
     }
 
-    .areas-section::before {
-      position: absolute;
-      top: -180px;
-      right: -170px;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      background: rgba(185, 221, 221, 0.12);
-      content: "";
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px;
+      font-size:11px;
+      letter-spacing:.13em;
+      text-transform:uppercase;
     }
 
-    .areas-section .eyebrow,
-    .areas-section .section-description {
-      color: rgba(255, 255, 255, 0.75);
+    .drawer,
+    .mobile-menu{
+      position:fixed;
+      inset:0 0 0 auto;
+      width:min(430px,100%);
+      z-index:70;
+      padding:26px;
+      background:#0e0e0e;
+      border-left:1px solid var(--line);
+      transform:translateX(100%);
+      transition:transform .3s ease;
     }
 
-    .areas-section .eyebrow::before {
-      background: var(--mint);
+    .drawer.open,
+    .mobile-menu.open{transform:translateX(0)}
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      z-index:60;
+      display:none;
+      background:rgba(0,0,0,.72);
     }
 
-    .areas-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 60px;
+    .overlay.show{display:block}
+
+    .drawer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding-bottom:20px;
+      border-bottom:1px solid var(--line);
     }
 
-    .area-card {
-      min-height: 255px;
-      padding: 29px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: var(--radius-medium);
-      background: rgba(255, 255, 255, 0.06);
-
-      transition:
-        transform 0.25s ease,
-        background 0.25s ease;
+    .drawer-head h2{
+      margin:0;
+      font-size:24px;
+      text-transform:uppercase;
     }
 
-    .area-card:hover {
-      transform: translateY(-6px);
-      background: rgba(255, 255, 255, 0.1);
+    .close-btn{
+      border:0;
+      background:transparent;
+      color:var(--text);
+      font-size:27px;
+      cursor:pointer;
     }
 
-    .area-card-number {
-      color: var(--mint);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.25rem;
+    .cart-items{
+      display:grid;
+      gap:12px;
+      margin-top:22px;
+      max-height:58vh;
+      overflow:auto;
     }
 
-    .area-card h3 {
-      margin-top: 44px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.46rem;
-      font-weight: 400;
+    .cart-item{
+      display:grid;
+      grid-template-columns:70px 1fr auto;
+      gap:12px;
+      padding-bottom:12px;
+      border-bottom:1px solid var(--line);
     }
 
-    .area-card p {
-      margin-top: 13px;
-      color: rgba(255, 255, 255, 0.69);
-      font-size: 0.93rem;
+    .cart-item img{
+      width:70px;
+      height:86px;
+      object-fit:cover;
+      background:#222;
     }
 
-    /* PERCORSO */
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      align-items: start;
-      gap: clamp(45px, 8vw, 105px);
+    .cart-item h3{
+      margin:4px 0;
+      font-size:13px;
+      text-transform:uppercase;
     }
 
-    .steps {
-      display: grid;
-      gap: 18px;
+    .remove{
+      border:0;
+      background:transparent;
+      color:#aaa;
+      cursor:pointer;
     }
 
-    .step {
-      display: grid;
-      grid-template-columns: 65px 1fr;
-      gap: 21px;
-      padding: 27px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-medium);
-      background: rgba(255, 255, 255, 0.67);
-
-      transition:
-        transform 0.2s ease,
-        border-color 0.2s ease;
+    .cart-total{
+      display:flex;
+      justify-content:space-between;
+      margin:24px 0 16px;
+      font-size:20px;
+      font-weight:800;
     }
 
-    .step:hover {
-      border-color: rgba(18, 59, 91, 0.3);
-      transform: translateX(5px);
+    .checkout{width:100%}
+
+    .mobile-menu{
+      inset:0 auto 0 0;
+      transform:translateX(-100%);
+      border-right:1px solid var(--line);
+      border-left:0;
     }
 
-    .step-number {
-      display: grid;
-      place-items: center;
-      width: 57px;
-      height: 57px;
-      border-radius: 50%;
-      color: var(--primary);
-      background: var(--mint);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.2rem;
+    .mobile-menu.open{transform:translateX(0)}
+
+    .mobile-links{
+      display:grid;
+      gap:0;
+      margin-top:25px;
     }
 
-    .step h3 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.34rem;
-      font-weight: 400;
+    .mobile-links a{
+      padding:19px 0;
+      border-bottom:1px solid var(--line);
+      font-size:28px;
+      text-transform:uppercase;
     }
 
-    .step p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 0.94rem;
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:28px;
+      z-index:90;
+      transform:translate(-50%,30px);
+      opacity:0;
+      padding:13px 18px;
+      background:var(--text);
+      color:#080808;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      transition:.25s;
+      pointer-events:none;
     }
 
-    /* STUDIO */
-
-    .studio-section {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(232, 245, 243, 0.9),
-          rgba(250, 240, 239, 0.72)
-        );
+    .toast.show{
+      transform:translate(-50%,0);
+      opacity:1;
     }
 
-    .studio-grid {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 36px;
-      margin-top: 58px;
+    @media(max-width:900px){
+      .desktop-nav{display:none}
+      .menu-btn{display:block}
+      .header{padding:0 18px}
+      .hero{min-height:70vh}
+      .hero-content{padding:80px 24px 58px}
+      .section{padding:72px 18px}
+      .section-head{align-items:start;flex-direction:column}
+      .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .manifesto{grid-template-columns:1fr}
+      .manifesto-copy{padding:60px 24px}
+      .footer-inner{grid-template-columns:1fr}
     }
 
-    .studio-information {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 35px;
-      border-radius: var(--radius-large);
-      color: #ffffff;
-      background: var(--primary);
-    }
-
-    .studio-information h3 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 2.05rem;
-      font-weight: 400;
-      line-height: 1.2;
-    }
-
-    .studio-information p {
-      margin-top: 19px;
-      color: rgba(255, 255, 255, 0.77);
-    }
-
-    .studio-details {
-      display: grid;
-      gap: 19px;
-      margin-top: 50px;
-    }
-
-    .studio-detail {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 0.94rem;
-    }
-
-    .studio-detail svg {
-      flex: 0 0 auto;
-      margin-top: 3px;
-    }
-
-    .map-container {
-      min-height: 520px;
-      overflow: hidden;
-      border: 8px solid rgba(255, 255, 255, 0.78);
-      border-radius: var(--radius-large);
-      background: #dfe8e7;
-      box-shadow: var(--shadow);
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      min-height: 504px;
-      border: 0;
-
-      filter:
-        grayscale(0.2)
-        saturate(0.85)
-        contrast(0.96);
-    }
-
-    /* CONTATTI */
-
-    .contact-section {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-panel {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 56px;
-      padding: clamp(35px, 7vw, 82px);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 40px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.84),
-          rgba(232, 245, 243, 0.7)
-        );
-
-      backdrop-filter: blur(17px);
-      box-shadow: var(--shadow);
-    }
-
-    .contact-panel h2 {
-      margin-top: 14px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.45rem, 5vw, 4.7rem);
-      font-weight: 400;
-      letter-spacing: -0.045em;
-      line-height: 1.04;
-    }
-
-    .contact-panel p {
-      margin-top: 23px;
-      color: var(--muted);
-    }
-
-    .contact-links {
-      display: grid;
-      align-content: center;
-      gap: 14px;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 21px 23px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-small);
-      background: rgba(255, 255, 255, 0.8);
-
-      transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .contact-link:hover {
-      border-color: rgba(18, 59, 91, 0.28);
-      background: #ffffff;
-      transform: translateX(5px);
-    }
-
-    .contact-link small {
-      display: block;
-      color: var(--muted);
-      font-size: 0.72rem;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-    }
-
-    .contact-link strong {
-      display: block;
-      margin-top: 3px;
-      font-size: 0.97rem;
-    }
-
-    .contact-arrow {
-      color: var(--primary);
-      font-size: 1.35rem;
-    }
-
-    /* TASTO TORNA SU */
-.back-to-top{position:fixed;right:22px;bottom:22px;width:54px;height:54px;border:none;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 35px rgba(18,59,91,.28);opacity:0;visibility:hidden;transform:translateY(20px);transition:.25s;z-index:999}.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}.back-to-top:hover{background:var(--primary-light);transform:translateY(-4px)}.back-to-top svg{width:22px;height:22px}
-
-/* FOOTER */
-
-    footer {
-      padding: 37px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      gap: 25px;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    /* ANIMAZIONI */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(25px);
-
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* TABLET */
-
-    @media (max-width: 920px) {
-      .menu-button {
-        display: grid;
-      }
-
-      .navigation-list {
-        position: fixed;
-        top: 88px;
-        right: 20px;
-        left: 20px;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 4px;
-        padding: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        border-radius: 23px;
-        background: rgba(251, 250, 248, 0.97);
-        backdrop-filter: blur(18px);
-        box-shadow: var(--shadow);
-      }
-
-      .navigation-list.open {
-        display: flex;
-      }
-
-      .navigation-list a {
-        display: block;
-        padding: 12px 14px;
-      }
-
-      .navigation-list .navigation-button {
-        margin-top: 7px;
-      }
-
-      .hero-grid,
-      .about-grid,
-      .process-grid,
-      .studio-grid,
-      .contact-panel {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-      }
-
-      .portrait-area {
-        min-height: 570px;
-      }
-
-      .about-photo {
-        position: relative;
-        top: auto;
-        min-height: 480px;
-      }
-
-      .about-photo img {
-        min-height: 480px;
-      }
-
-      .areas-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .studio-information {
-        min-height: 430px;
-      }
-    }
-
-    /* SMARTPHONE */
-
-    @media (max-width: 620px) {
-      .container {
-        width: min(calc(100% - 26px), var(--container));
-      }
-
-      section {
-        padding: 88px 0;
-      }
-
-      .site-header {
-        padding: 8px 0;
-      }
-
-      .brand-logo {
-        width: 205px;
-        max-width: 64vw;
-        height: 62px;
-      }
-
-      .navigation-list {
-        top: 77px;
-      }
-
-      .hero {
-        padding-top: 110px;
-      }
-
-      .hero-logo {
-        width: min(310px, 82vw);
-        margin-bottom: 27px;
-      }
-
-      .hero h1 {
-        font-size: clamp(3.05rem, 15vw, 4.45rem);
-      }
-
-      .hero-buttons {
-        display: grid;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .portrait-area {
-        min-height: 480px;
-      }
-
-      .portrait-card {
-        inset: 0 18px 35px 0;
-        border-width: 6px;
-        border-radius: 125px 125px 30px 30px;
-      }
-
-      .hero-floating-card {
-        width: 82%;
-      }
-
-      .about-photo,
-      .about-photo img {
-        min-height: 410px;
-      }
-
-      .areas-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .area-card {
-        min-height: 225px;
-      }
-
-      .step {
-        grid-template-columns: 1fr;
-      }
-
-      .studio-information,
-      .contact-panel {
-        padding: 29px;
-        border-radius: 27px;
-      }
-
-      .contact-link strong {
-        overflow-wrap: anywhere;
-      }
-
-      .footer-content {
-        flex-direction: column;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
+    @media(max-width:580px){
+      .brand-main{font-size:19px}
+      .brand-sub{font-size:7px}
+      .products{grid-template-columns:1fr}
+      .product-image{aspect-ratio:1/1.18}
+      .newsletter-form{display:grid}
+      .newsletter input{border-right:1px solid var(--line);border-bottom:0}
+      .newsletter button{min-height:48px}
+      .footer-links{display:grid}
     }
   </style>
 </head>
 
 <body>
+  <div class="announcement">Demo collection 001 · Spedizione gratuita sopra € 100</div>
 
-  <header class="site-header" id="siteHeader">
-    <div class="container navigation">
+  <header class="header">
+    <button class="menu-btn" id="menuOpen" aria-label="Apri menu">☰</button>
 
-      <a
-        class="brand"
-        href="#home"
-        aria-label="Torna alla pagina iniziale"
-      >
-        <img
-          class="brand-logo"
-          src="logo.jpg.jpg"
-          alt="Dott.ssa Lara Tinca, psicologa e psicoterapeuta"
-        >
-      </a>
+    <a class="brand" href="#home" aria-label="MAN.DA.LA home">
+      <span class="brand-main">MAN.DA.LA</span>
+      <span class="brand-sub">MANILA DARK LAB</span>
+    </a>
 
-      <button
-        class="menu-button"
-        id="menuButton"
-        type="button"
-        aria-label="Apri il menu"
-        aria-expanded="false"
-      >
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M4 7H20M4 12H20M4 17H20"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-          >
-          </path>
-        </svg>
+    <nav class="desktop-nav" aria-label="Menu principale">
+      <a href="#uomo">Uomo</a>
+      <a href="#donna">Donna</a>
+      <a href="#kids">Kids</a>
+      <a href="#brand">Il laboratorio</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="cartOpen" aria-label="Apri carrello">
+        Bag <span id="cartCount">0</span>
       </button>
-
-      <nav aria-label="Navigazione principale">
-        <ul class="navigation-list" id="navigationList">
-
-          <li>
-            <a href="#chi-sono">Chi sono</a>
-          </li>
-
-          <li>
-            <a href="#aree">Di cosa mi occupo</a>
-          </li>
-
-          <li>
-            <a href="#percorso">Il percorso</a>
-          </li>
-
-          <li>
-            <a href="#studio">Lo studio</a>
-          </li>
-
-          <li>
-            <a
-              class="navigation-button"
-              href="#contatti"
-            >
-              Contattami
-            </a>
-          </li>
-
-        </ul>
-      </nav>
-
     </div>
   </header>
 
   <main>
-
     <section class="hero" id="home">
-      <div class="container hero-grid">
-
-        <div class="reveal">
-
-          <img
-            class="hero-logo"
-            src="logo.jpg.jpg"
-            alt="Dott.ssa Lara Tinca, psicologa e psicoterapeuta"
-          >
-
-          <span class="eyebrow">
-            Psicologia e psicoterapia
-          </span>
-
-          <h1>
-            Uno spazio per
-            <em>ritrovarti.</em>
-          </h1>
-
-          <p class="hero-description">
-            Uno spazio protetto e non giudicante in cui comprendere
-            ciò che stai vivendo, ascoltare le tue emozioni e costruire
-            nuovi strumenti per affrontare difficoltà e cambiamenti.
-          </p>
-
-          <div class="hero-buttons">
-
-            <a
-              class="button button-primary"
-              href="#contatti"
-            >
-              Richiedi un primo colloquio
-              <span aria-hidden="true">↗</span>
-            </a>
-
-            <a
-              class="button button-secondary"
-              href="#chi-sono"
-            >
-              Scopri il mio approccio
-            </a>
-
-          </div>
-
-          <div class="availability">
-
-            <span
-              class="availability-dot"
-              aria-hidden="true"
-            >
-            </span>
-
-            Colloqui in presenza a Montevarchi e online
-
-          </div>
-
+      <div class="hero-media"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Lab Series 001 · Experimental Apparel</p>
+        <h1>Create.<br>Test.<br>Evolve.</h1>
+        <p class="hero-subtitle">
+          Streetwear urban nata tra cristalli, simboli e cultura skate.
+          Una demo e-commerce con nove capi MAN.DA.LA.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#uomo">Scopri la collezione</a>
+          <a class="btn secondary" href="#brand">Brand concept</a>
         </div>
-
-        <div
-          class="portrait-area reveal"
-          aria-label="Fotografia della Dott.ssa Lara Tinca"
-        >
-
-          <div class="portrait-card">
-            <img
-              src="lara.jpg.PNG"
-              alt="Dott.ssa Lara Tinca, psicologa e psicoterapeuta"
-            >
-          </div>
-
-          <div class="hero-floating-card">
-
-            <strong>
-              Ascolto, cura, autenticità.
-            </strong>
-
-            <p>
-              Ogni percorso viene costruito rispettando la storia,
-              i bisogni e i tempi della persona.
-            </p>
-
-          </div>
-
-        </div>
-
       </div>
     </section>
 
-    <div class="quote-section">
-      <div class="container">
+    <section class="section" id="uomo">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Urban Adult</p>
+          <h2>Uomo</h2>
+        </div>
+        <p class="section-note">
+          Vestibilità oversize, palette scura e grafiche MAN.DA.LA pensate per un utilizzo quotidiano.
+        </p>
+      </div>
+      <div class="products" id="menProducts"></div>
+    </section>
 
+    <section class="section" id="donna">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Woman / Unisex</p>
+          <h2>Donna</h2>
+        </div>
+        <p class="section-note">
+          Capi morbidi e ampi, costruiti per essere indossati liberamente e combinati tra loro.
+        </p>
+      </div>
+      <div class="products" id="womenProducts"></div>
+    </section>
+
+    <section class="section" id="kids">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Urban Play</p>
+          <h2>Kids</h2>
+        </div>
+        <p class="section-note">
+          La stessa identità del brand, adattata a una linea più morbida, pratica e giocosa.
+        </p>
+      </div>
+      <div class="products" id="kidsProducts"></div>
+    </section>
+
+    <section class="manifesto" id="brand">
+      <div class="manifesto-image" role="img" aria-label="Scena industriale MAN.DA.LA"></div>
+      <div class="manifesto-copy">
+        <p class="eyebrow">Manila Dark Lab</p>
+        <h2>Il buio genera forma.</h2>
         <p>
-          “Non è necessario avere già tutte le risposte.
-          A volte il primo passo è trovare uno spazio in cui
-          poter formulare le domande giuste.”
+          MAN.DA.LA nasce come laboratorio creativo urban. La corona di cristalli
+          e il teschio rappresentano trasformazione, identità e ribellione.
+          Il logo resta essenziale; le grafiche costruiscono il mondo del brand.
         </p>
-
-      </div>
-    </div>
-
-    <section id="chi-sono">
-      <div class="container about-grid">
-
-        <div class="about-photo reveal">
-
-          <img
-            src="lara.jpg.PNG"
-            alt="Dott.ssa Lara Tinca"
-            loading="lazy"
-          >
-
-        </div>
-
-        <div class="about-content reveal">
-
-          <span class="eyebrow">
-            Chi sono
-          </span>
-
-          <h2 class="section-title">
-            Accogliere la persona, prima del problema.
-          </h2>
-
-          <p>
-            Sono Lara Tinca, psicologa e psicoterapeuta.
-            Mi occupo di sostegno psicologico e psicoterapia,
-            accompagnando le persone nei momenti di difficoltà,
-            cambiamento o disorientamento.
-          </p>
-
-          <p>
-            Il mio lavoro mette al centro la relazione,
-            l’ascolto non giudicante e la costruzione condivisa
-            di un percorso rispettoso della storia e delle esigenze
-            di ciascuno.
-          </p>
-
-          <div class="professional-details">
-
-            <div class="professional-detail">
-
-              <div class="detail-number">01</div>
-
-              <div>
-                <strong>Ascolto professionale</strong>
-
-                <span>
-                  Uno spazio protetto e riservato in cui potersi
-                  esprimere liberamente.
-                </span>
-              </div>
-
-            </div>
-
-            <div class="professional-detail">
-
-              <div class="detail-number">02</div>
-
-              <div>
-                <strong>Percorso personalizzato</strong>
-
-                <span>
-                  Ogni percorso viene definito sulla base delle
-                  necessità e degli obiettivi della persona.
-                </span>
-              </div>
-
-            </div>
-
-            <div class="professional-detail">
-
-              <div class="detail-number">03</div>
-
-              <div>
-                <strong>Colloqui in presenza e online</strong>
-
-                <span>
-                  Ricevimento su appuntamento a Montevarchi
-                  e possibilità di colloqui da remoto.
-                </span>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
+        <a class="btn secondary" href="#home">Torna all'inizio</a>
       </div>
     </section>
 
-    <section class="areas-section" id="aree">
-      <div class="container">
-
-        <span class="eyebrow">
-          Aree di intervento
-        </span>
-
-        <h2 class="section-title">
-          Possiamo lavorare insieme su ciò che oggi pesa di più.
-        </h2>
-
-        <p class="section-description">
-          Ogni esperienza è diversa. Questi sono alcuni dei temi
-          che possono essere affrontati durante un percorso
-          psicologico o psicoterapeutico.
-        </p>
-
-        <div class="areas-grid">
-
-          <article class="area-card reveal">
-            <span class="area-card-number">01</span>
-            <h3>Ansia e stress</h3>
-
-            <p>
-              Comprendere i segnali di tensione e sviluppare
-              strumenti per gestire i momenti più complessi.
-            </p>
-          </article>
-
-          <article class="area-card reveal">
-            <span class="area-card-number">02</span>
-            <h3>Autostima</h3>
-
-            <p>
-              Riconoscere il proprio valore e costruire un rapporto
-              più gentile e consapevole con se stessi.
-            </p>
-          </article>
-
-          <article class="area-card reveal">
-            <span class="area-card-number">03</span>
-            <h3>Relazioni</h3>
-
-            <p>
-              Esplorare difficoltà affettive, familiari o
-              interpersonali e comprendere meglio le proprie
-              modalità relazionali.
-            </p>
-          </article>
-
-          <article class="area-card reveal">
-            <span class="area-card-number">04</span>
-            <h3>Cambiamenti di vita</h3>
-
-            <p>
-              Affrontare separazioni, lutti, trasferimenti,
-              maternità, scelte personali o professionali.
-            </p>
-          </article>
-
-          <article class="area-card reveal">
-            <span class="area-card-number">05</span>
-            <h3>Gestione emotiva</h3>
-
-            <p>
-              Imparare a riconoscere e attraversare emozioni
-              intense senza sentirsi sopraffatti.
-            </p>
-          </article>
-
-          <article class="area-card reveal">
-            <span class="area-card-number">06</span>
-            <h3>Crescita personale</h3>
-
-            <p>
-              Conoscere meglio bisogni, risorse e schemi personali
-              per compiere scelte più autentiche.
-            </p>
-          </article>
-
-        </div>
-
+    <section class="newsletter">
+      <p class="eyebrow">Accesso anticipato</p>
+      <h2>Entra nel laboratorio</h2>
+      <p>Ricevi aggiornamenti sulle prossime capsule e sui nuovi drop.</p>
+      <div class="newsletter-form">
+        <input type="email" id="newsletterEmail" placeholder="La tua email" aria-label="La tua email">
+        <button type="button" id="newsletterButton">Iscriviti</button>
       </div>
     </section>
-
-    <section id="percorso">
-      <div class="container process-grid">
-
-        <div class="reveal">
-
-          <span class="eyebrow">
-            Come funziona
-          </span>
-
-          <h2 class="section-title">
-            Un percorso costruito insieme, un passo alla volta.
-          </h2>
-
-          <p class="section-description">
-            Non esiste un percorso uguale per tutti.
-            Il primo colloquio serve a conoscerci,
-            comprendere la richiesta e valutare insieme
-            come procedere.
-          </p>
-
-        </div>
-
-        <div class="steps">
-
-          <article class="step reveal">
-
-            <div class="step-number">1</div>
-
-            <div>
-              <h3>Primo contatto</h3>
-
-              <p>
-                Puoi chiamarmi, scrivermi su WhatsApp oppure
-                inviarmi una email per richiedere informazioni
-                o concordare un appuntamento.
-              </p>
-            </div>
-
-          </article>
-
-          <article class="step reveal">
-
-            <div class="step-number">2</div>
-
-            <div>
-              <h3>Primo colloquio</h3>
-
-              <p>
-                Un incontro iniziale per conoscerci,
-                comprendere i bisogni e valutare insieme
-                il percorso più adatto.
-              </p>
-            </div>
-
-          </article>
-
-          <article class="step reveal">
-
-            <div class="step-number">3</div>
-
-            <div>
-              <h3>Il percorso</h3>
-
-              <p>
-                Vengono definiti obiettivi, modalità e frequenza
-                degli incontri, mantenendo il percorso flessibile
-                e condiviso.
-              </p>
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <section class="studio-section" id="studio">
-      <div class="container">
-
-        <span class="eyebrow">
-          Lo studio
-        </span>
-
-        <h2 class="section-title">
-          Un ambiente riservato e facilmente raggiungibile.
-        </h2>
-
-        <div class="studio-grid">
-
-          <div class="studio-information reveal">
-
-            <div>
-
-              <h3>
-                Studio di Psicologia<br>
-                Montevarchi
-              </h3>
-
-              <p>
-                Gli incontri si svolgono in uno spazio tranquillo
-                e accogliente, pensato per garantire privacy,
-                ascolto e comfort.
-              </p>
-
-            </div>
-
-            <div class="studio-details">
-
-              <div class="studio-detail">
-
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 21C12 21 19 15.4 19 9.5C19 5.36 15.87 3 12 3C8.13 3 5 5.36 5 9.5C5 15.4 12 21 12 21Z"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                  </path>
-
-                  <circle
-                    cx="12"
-                    cy="9.5"
-                    r="2.3"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                  </circle>
-                </svg>
-
-                <span>
-                  Via G. Natta 16<br>
-                  52025 Montevarchi, Italia
-                </span>
-
-              </div>
-
-              <div class="studio-detail">
-
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="8.5"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                  </circle>
-
-                  <path
-                    d="M12 7.5V12L15.2 14"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  >
-                  </path>
-                </svg>
-
-                <span>
-                  Ricevimento su appuntamento
-                </span>
-
-              </div>
-
-              <div class="studio-detail">
-
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M4 15.5H20M6 15.5L7.5 8.5H16.5L18 15.5M7 18.5H7.01M17 18.5H17.01"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  >
-                  </path>
-                </svg>
-
-                <span>
-                  Facilmente raggiungibile in auto
-                  e dai principali collegamenti di Montevarchi
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="map-container reveal">
-
-            <iframe
-              title="Mappa dello studio di Lara Tinca a Montevarchi"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Via%20G.%20Natta%2016%2C%20Montevarchi%2C%20Italy&output=embed"
-            >
-            </iframe>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <section class="contact-section" id="contatti">
-      <div class="container">
-
-        <div class="contact-panel reveal">
-
-          <div>
-
-            <span class="eyebrow">
-              Contatti
-            </span>
-
-            <h2>
-              Possiamo iniziare da una semplice conversazione.
-            </h2>
-
-            <p>
-              Per ricevere informazioni o richiedere un primo
-              colloquio puoi contattarmi telefonicamente,
-              tramite WhatsApp oppure via email.
-              Ti risponderò appena possibile.
-            </p>
-
-          </div>
-
-          <div class="contact-links">
-
-            <a
-              class="contact-link"
-              href="tel:+393386604248"
-            >
-              <span>
-                <small>Telefono</small>
-                <strong>338 660 4248</strong>
-              </span>
-
-              <span
-                class="contact-arrow"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </a>
-
-            <a
-              class="contact-link"
-              href="https://wa.me/393386604248?text=Buongiorno%20Dott.ssa%20Tinca%2C%20vorrei%20ricevere%20informazioni%20per%20un%20primo%20colloquio."
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>
-                <small>WhatsApp</small>
-                <strong>Scrivi un messaggio</strong>
-              </span>
-
-              <span
-                class="contact-arrow"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </a>
-
-            <a
-              class="contact-link"
-              href="mailto:laratinca78@gmail.com?subject=Richiesta%20primo%20colloquio"
-            >
-              <span>
-                <small>Email</small>
-                <strong>laratinca78@gmail.com</strong>
-              </span>
-
-              <span
-                class="contact-arrow"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </a>
-
-            <a
-              class="contact-link"
-              href="https://www.google.com/maps/search/?api=1&query=Via%20G.%20Natta%2016%2C%20Montevarchi%2C%20Italy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>
-                <small>Indicazioni</small>
-                <strong>Apri in Google Maps</strong>
-              </span>
-
-              <span
-                class="contact-arrow"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
   </main>
 
   <footer>
-    <div class="container footer-content">
-
-      <p>
-        © <span id="currentYear"></span>
-        Dott.ssa Lara Tinca · Psicologa e Psicoterapeuta
-      </p>
-
-      <p>
-        Via G. Natta 16, Montevarchi
-      </p>
-
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">MAN.DA.LA</div>
+        <p>MANILA DARK LAB · LAB SERIES 001</p>
+      </div>
+      <div class="footer-links">
+        <a href="#uomo">Uomo</a>
+        <a href="#donna">Donna</a>
+        <a href="#kids">Kids</a>
+        <a href="mailto:info@maniladarklab.it">Contatti</a>
+      </div>
     </div>
   </footer>
 
-<button id="backToTop" class="back-to-top" aria-label="Torna in cima"><svg viewBox="0 0 24 24" fill="none"><path d="M12 18V6M12 6L6 12M12 6L18 12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="drawer" id="cartDrawer" aria-label="Carrello">
+    <div class="drawer-head">
+      <h2>Carrello</h2>
+      <button class="close-btn" id="cartClose" aria-label="Chiudi carrello">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total">
+      <span>Totale</span>
+      <span id="cartTotal">€ 0,00</span>
+    </div>
+    <button class="btn checkout" id="checkoutButton">Ordina su WhatsApp</button>
+  </aside>
+
+  <aside class="mobile-menu" id="mobileMenu" aria-label="Menu mobile">
+    <div class="drawer-head">
+      <div class="brand">
+        <span class="brand-main">MAN.DA.LA</span>
+        <span class="brand-sub">MANILA DARK LAB</span>
+      </div>
+      <button class="close-btn" id="menuClose" aria-label="Chiudi menu">×</button>
+    </div>
+    <nav class="mobile-links">
+      <a href="#uomo">Uomo</a>
+      <a href="#donna">Donna</a>
+      <a href="#kids">Kids</a>
+      <a href="#brand">Il laboratorio</a>
+    </nav>
+  </aside>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
 
   <script>
-    const siteHeader =
-      document.getElementById("siteHeader");
+    const products = [
+      {id:1, group:"men", category:"Uomo", name:"Crystal Crown Tee", price:39, image:"images/uomo-1.jpg", badge:"New"},
+      {id:2, group:"men", category:"Uomo", name:"Lab Heavy Hoodie", price:79, image:"images/uomo-2.jpg", badge:"Heavyweight"},
+      {id:3, group:"men", category:"Uomo", name:"Test Subject Crewneck", price:65, image:"images/uomo-3.jpg", badge:"Oversize"},
 
-    const menuButton =
-      document.getElementById("menuButton");
+      {id:4, group:"women", category:"Donna", name:"Dark Lab Crop Tee", price:36, image:"images/donna-1.jpg", badge:"Woman"},
+      {id:5, group:"women", category:"Donna", name:"Mandala Washed Hoodie", price:76, image:"images/donna-2.jpg", badge:"Washed"},
+      {id:6, group:"women", category:"Donna", name:"Crystal Oversize Tee", price:42, image:"images/donna-3.jpg", badge:"Unisex"},
 
-    const navigationList =
-      document.getElementById("navigationList");
+      {id:7, group:"kids", category:"Kids", name:"Mini Crown Tee", price:25, image:"images/kids-1.jpg", badge:"Kids"},
+      {id:8, group:"kids", category:"Kids", name:"MDL Kids Hoodie", price:49, image:"images/kids-2.jpg", badge:"Soft Cotton"},
+      {id:9, group:"kids", category:"Kids", name:"Urban Play Crewneck", price:42, image:"images/kids-3.jpg", badge:"Play"}
+    ];
 
-    const backToTop =
-      document.getElementById("backToTop");
+    const cart = [];
+    const money = new Intl.NumberFormat("it-IT", {style:"currency", currency:"EUR"});
 
-    function updateHeader() {
-      siteHeader.classList.toggle("scrolled", window.scrollY > 20);
-      backToTop.classList.toggle("visible", window.scrollY > 450);
+    const menProducts = document.getElementById("menProducts");
+    const womenProducts = document.getElementById("womenProducts");
+    const kidsProducts = document.getElementById("kidsProducts");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    const toast = document.getElementById("toast");
+
+    function productCard(product){
+      return `
+        <article class="product">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
+            <span class="product-badge">${product.badge}</span>
+          </div>
+          <div class="product-info">
+            <div class="product-category">${product.category} · MAN.DA.LA</div>
+            <h3 class="product-title">${product.name}</h3>
+            <div class="product-meta">
+              <span class="price">${money.format(product.price)}</span>
+              <button class="add-btn" data-id="${product.id}">Aggiungi</button>
+            </div>
+          </div>
+        </article>
+      `;
     }
 
-    function closeMenu() {
-      navigationList.classList.remove("open");
-      document.body.classList.remove("menu-open");
+    function renderProducts(){
+      menProducts.innerHTML = products.filter(p => p.group === "men").map(productCard).join("");
+      womenProducts.innerHTML = products.filter(p => p.group === "women").map(productCard).join("");
+      kidsProducts.innerHTML = products.filter(p => p.group === "kids").map(productCard).join("");
 
-      menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-    }
-
-    menuButton.addEventListener(
-      "click",
-      function () {
-        const menuIsOpen =
-          navigationList.classList.toggle("open");
-
-        document.body.classList.toggle(
-          "menu-open",
-          menuIsOpen
-        );
-
-        menuButton.setAttribute(
-          "aria-expanded",
-          String(menuIsOpen)
-        );
-      }
-    );
-
-    navigationList
-      .querySelectorAll("a")
-      .forEach(function (link) {
-        link.addEventListener(
-          "click",
-          closeMenu
-        );
+      document.querySelectorAll(".add-btn").forEach(button => {
+        button.addEventListener("click", () => addToCart(Number(button.dataset.id)));
       });
-
-    backToTop.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
-
-    window.addEventListener(
-      "scroll",
-      updateHeader,
-      { passive: true }
-    );
-
-    updateHeader();
-
-    document.getElementById(
-      "currentYear"
-    ).textContent = new Date().getFullYear();
-
-    const revealElements =
-      document.querySelectorAll(".reveal");
-
-    if ("IntersectionObserver" in window) {
-      const observer =
-        new IntersectionObserver(
-          function (entries) {
-            entries.forEach(
-              function (entry) {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add(
-                    "visible"
-                  );
-
-                  observer.unobserve(
-                    entry.target
-                  );
-                }
-              }
-            );
-          },
-          {
-            threshold: 0.12
-          }
-        );
-
-      revealElements.forEach(
-        function (element) {
-          observer.observe(element);
-        }
-      );
-    } else {
-      revealElements.forEach(
-        function (element) {
-          element.classList.add("visible");
-        }
-      );
     }
-  </script>
 
+    function addToCart(id){
+      const product = products.find(item => item.id === id);
+      if(!product) return;
+      cart.push(product);
+      updateCart();
+      showToast(product.name + " aggiunto");
+    }
+
+    function removeFromCart(index){
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function updateCart(){
+      document.getElementById("cartCount").textContent = cart.length;
+      const cartItems = document.getElementById("cartItems");
+
+      if(cart.length === 0){
+        cartItems.innerHTML = "<p style='color:#999'>Il carrello è vuoto.</p>";
+      } else {
+        cartItems.innerHTML = cart.map((item, index) => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+            <div>
+              <h3>${item.name}</h3>
+              <div>${money.format(item.price)}</div>
+            </div>
+            <button class="remove" data-index="${index}" aria-label="Rimuovi">×</button>
+          </div>
+        `).join("");
+
+        document.querySelectorAll(".remove").forEach(button => {
+          button.addEventListener("click", () => removeFromCart(Number(button.dataset.index)));
+        });
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById("cartTotal").textContent = money.format(total);
+    }
+
+    function openPanel(panel, bodyClass){
+      panel.classList.add("open");
+      overlay.classList.add("show");
+      document.body.classList.add(bodyClass);
+    }
+
+    function closePanels(){
+      cartDrawer.classList.remove("open");
+      mobileMenu.classList.remove("open");
+      overlay.classList.remove("show");
+      document.body.classList.remove("cart-open","menu-open");
+    }
+
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    document.getElementById("cartOpen").addEventListener("click", () => openPanel(cartDrawer, "cart-open"));
+    document.getElementById("cartClose").addEventListener("click", closePanels);
+    document.getElementById("menuOpen").addEventListener("click", () => openPanel(mobileMenu, "menu-open"));
+    document.getElementById("menuClose").addEventListener("click", closePanels);
+    overlay.addEventListener("click", closePanels);
+
+    document.querySelectorAll(".mobile-links a").forEach(link => {
+      link.addEventListener("click", closePanels);
+    });
+
+    document.getElementById("newsletterButton").addEventListener("click", () => {
+      const email = document.getElementById("newsletterEmail").value.trim();
+      if(!email || !email.includes("@")){
+        showToast("Inserisci un'email valida");
+        return;
+      }
+      showToast("Iscrizione registrata");
+      document.getElementById("newsletterEmail").value = "";
+    });
+
+    document.getElementById("checkoutButton").addEventListener("click", () => {
+      if(cart.length === 0){
+        showToast("Il carrello è vuoto");
+        return;
+      }
+
+      const rows = cart.map(item => `• ${item.name} - ${money.format(item.price)}`).join("\n");
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const message = encodeURIComponent(
+        `Ciao, vorrei ordinare:\n${rows}\n\nTotale: ${money.format(total)}`
+      );
+
+      // Sostituisci il numero qui sotto con il tuo numero WhatsApp, senza + e senza spazi.
+      const whatsappNumber = "390000000000";
+      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    });
+
+    renderProducts();
+    updateCart();
+  </script>
 </body>
 </html>
