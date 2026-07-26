@@ -1,17 +1,13 @@
 Carica tutti i file del pacchetto nella cartella principale della repository GitHub.
 
 Aggiornamenti inclusi:
-- Instagram soltanto nella sezione Contatti e nel menu
-- nessun pulsante IG accanto al carrello
-- modulo ordine con nome, email, telefono, indirizzo e note
-- invio automatico dell'ordine a milanog91@gmail.com
-- il cliente non deve aprire WhatsApp o l'app Email
-- WhatsApp resta disponibile soltanto come contatto
+- carrello semplificato
+- nessun modulo ordine
+- il pulsante finale apre WhatsApp con prodotti e totale già compilati
+- il cliente deve soltanto premere Invia su WhatsApp
+- nuova email: Manila.colaci@gmail.com
+- nuova maglia verde Coffee Bones aggiunta alla sezione Man
+- Instagram resta nella sezione Contatti e nel menu
+- logo mantenuto come Logomanila.png
 
-IMPORTANTE — PRIMA ATTIVAZIONE EMAIL:
-Il primo ordine di prova farà arrivare a milanog91@gmail.com una mail di attivazione di FormSubmit.
-Apri quella mail e conferma l'indirizzo. Dopo la conferma, gli ordini successivi arriveranno automaticamente.
-
-IMPORTANTE SUL LOGO:
-mantieni il logo corretto con il nome esatto Logomanila.png.
 GitHub distingue maiuscole e minuscole.

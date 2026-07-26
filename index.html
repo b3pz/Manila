@@ -8,7 +8,7 @@
 <a class="collection-card" href="woman.html"><img src="ambient-skate.jpg" alt="Woman collection"><div class="collection-card-copy"><h3>Woman</h3><p>Urban Celestial Collection</p><span class="arrow">→</span></div></a>
 <a class="collection-card" href="kids.html"><img src="ambient-lab.jpg" alt="Kids collection"><div class="collection-card-copy"><h3>Kids</h3><p>Urban Play Laboratory</p><span class="arrow">→</span></div></a>
 </div></section>
-<section class="contact-strip" id="contatti"><div class="contact-mini"><a href="https://wa.me/393934927764" target="_blank" rel="noopener">WhatsApp <span>→</span></a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram <span>→</span></a><a href="mailto:milanog91@gmail.com">Email <span>→</span></a><a href="https://www.google.com/maps/search/?api=1&query=Figline+Valdarno" target="_blank" rel="noopener">Indicazioni <span>→</span></a></div></section></main><footer>Manila Dark Lab · Experiment 001 · Figline Valdarno</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer">
+<section class="contact-strip" id="contatti"><div class="contact-mini"><a href="https://wa.me/393934927764" target="_blank" rel="noopener">WhatsApp <span>→</span></a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram <span>→</span></a><a href="mailto:Manila.colaci@gmail.com">Email <span>→</span></a><a href="https://www.google.com/maps/search/?api=1&query=Figline+Valdarno" target="_blank" rel="noopener">Indicazioni <span>→</span></a></div></section></main><footer>Manila Dark Lab · Experiment 001 · Figline Valdarno</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer">
   <div class="drawer-head">
     <h2>Il tuo ordine</h2>
     <button class="close" id="cartClose" aria-label="Chiudi">×</button>
@@ -21,39 +21,7 @@
     <span id="cartTotal">€ 0,00</span>
   </div>
 
-  <form class="order-form" id="orderForm">
-    <label>
-      Nome e cognome
-      <input type="text" name="name" autocomplete="name" required>
-    </label>
-
-    <label>
-      Email
-      <input type="email" name="email" autocomplete="email" required>
-    </label>
-
-    <label>
-      Telefono
-      <input type="tel" name="phone" autocomplete="tel" required>
-    </label>
-
-    <label>
-      Indirizzo di consegna
-      <textarea name="address" rows="3" autocomplete="street-address" required></textarea>
-    </label>
-
-    <label>
-      Note
-      <textarea name="notes" rows="2" placeholder="Taglie, richieste o informazioni aggiuntive"></textarea>
-    </label>
-
-    <input type="hidden" name="_subject" value="Nuovo ordine Manila Dark Lab">
-    <input type="hidden" name="order" id="orderSummary">
-    <input type="hidden" name="total" id="orderTotal">
-
-    <button class="btn checkout" id="checkoutButton" type="submit">Conferma ordine</button>
-    <p class="form-note">L’ordine viene inviato direttamente a Manila Dark Lab. Non si aprirà WhatsApp o l’app Email.</p>
-    <p class="order-status" id="orderStatus" aria-live="polite"></p>
-  </form>
+  <button class="btn checkout" id="checkoutButton" type="button">Invia ordine su WhatsApp</button>
+  <p class="form-note">Si aprirà WhatsApp con il riepilogo già compilato. Il cliente dovrà soltanto premere Invia.</p>
 </aside><aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></div></aside><div class="toast" id="toast"></div><script src="script.js"></script></div>
 <script>document.getElementById("enterButton").addEventListener("click",()=>{document.getElementById("intro").classList.add("hidden");document.getElementById("site").classList.add("visible");document.body.classList.remove("locked");setTimeout(()=>document.getElementById("intro").remove(),900)});</script></body></html>
