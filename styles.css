@@ -75,3 +75,15 @@ footer{padding:38px 4vw;border-top:1px solid var(--line);text-align:center;color
   .contact-mini a:last-child{border-bottom:0!important}
   .social-btn{display:none}
 }
+
+.order-form{display:grid;gap:13px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.order-form label{display:grid;gap:7px;color:#bdbdbd;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
+.order-form input,.order-form textarea{
+  width:100%;border:1px solid var(--line);background:#111;color:var(--text);
+  padding:12px;outline:none;resize:vertical;font-size:14px;letter-spacing:normal;text-transform:none
+}
+.order-form input:focus,.order-form textarea:focus{border-color:#777}
+.form-note{margin:0;color:#777;font-size:10px;line-height:1.5}
+.order-status{min-height:18px;margin:0;color:#d7cfc2;font-size:11px;line-height:1.5}
+.checkout:disabled{opacity:.55;cursor:wait}
+.drawer{overflow-y:auto}

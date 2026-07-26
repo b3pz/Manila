@@ -27,5 +27,56 @@ function openPanel(p){p?.classList.add("open");overlay?.classList.add("show");do
 function showToast(m){if(!toast)return;toast.textContent=m;toast.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>toast.classList.remove("show"),1800)}
 document.addEventListener("click",e=>{const b=e.target.closest(".add");if(b)addToCart(b.dataset.group,b.dataset.id)});
 document.getElementById("cartOpen")?.addEventListener("click",()=>openPanel(cartDrawer));document.getElementById("cartClose")?.addEventListener("click",closePanels);document.getElementById("menuOpen")?.addEventListener("click",()=>openPanel(mobileMenu));document.getElementById("menuClose")?.addEventListener("click",closePanels);overlay?.addEventListener("click",closePanels);document.querySelectorAll(".mobile-links a").forEach(a=>a.addEventListener("click",closePanels));
-document.getElementById("checkoutButton")?.addEventListener("click",()=>{if(!cart.length){showToast("Il carrello è vuoto");return}const rows=cart.map(p=>`• ${p.name} — ${euro.format(p.price)}`).join("\n"),tot=cart.reduce((s,p)=>s+p.price,0),msg=encodeURIComponent(`Ciao Manila Dark Lab, vorrei ordinare:\n${rows}\n\nTotale: ${euro.format(tot)}`);window.open(`https://wa.me/393934927764?text=${msg}`,"_blank")});
+
+const orderForm=document.getElementById("orderForm");
+orderForm?.addEventListener("submit",async event=>{
+  event.preventDefault();
+
+  const status=document.getElementById("orderStatus");
+  const submitButton=document.getElementById("checkoutButton");
+
+  if(!cart.length){
+    showToast("Il carrello è vuoto");
+    status.textContent="Aggiungi almeno un prodotto prima di confermare.";
+    return;
+  }
+
+  const rows=cart.map((p,index)=>`${index+1}. ${p.name} — ${euro.format(p.price)}`).join("\n");
+  const total=cart.reduce((sum,p)=>sum+p.price,0);
+
+  document.getElementById("orderSummary").value=rows;
+  document.getElementById("orderTotal").value=euro.format(total);
+
+  submitButton.disabled=true;
+  submitButton.textContent="Invio in corso…";
+  status.textContent="";
+
+  const formData=new FormData(orderForm);
+
+  try{
+    const response=await fetch("https://formsubmit.co/ajax/milanog91@gmail.com",{
+      method:"POST",
+      headers:{"Accept":"application/json"},
+      body:formData
+    });
+
+    const result=await response.json();
+
+    if(!response.ok || result.success==="false"){
+      throw new Error("Invio non riuscito");
+    }
+
+    cart.length=0;
+    updateCart();
+    orderForm.reset();
+    status.textContent="Ordine inviato correttamente. Ti contatteremo appena possibile.";
+    showToast("Ordine inviato");
+  }catch(error){
+    status.textContent="Non è stato possibile inviare l’ordine. Riprova tra poco.";
+  }finally{
+    submitButton.disabled=false;
+    submitButton.textContent="Conferma ordine";
+  }
+});
+
 render("man","manProducts");render("woman","womanProducts");render("kids","kidsProducts");updateCart();

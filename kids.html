@@ -1,2 +1,49 @@
 <!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070707"><title>Kids — Manila Dark Lab</title><link rel="stylesheet" href="styles.css"></head><body><div class="noise"></div><div class="topline">Experiment 001 · Experimental Urban Apparel · Figline Valdarno</div>
-<header><button class="menu-btn" id="menuOpen">Menu</button><a class="brand" href="index.html"><img src="Logomanila.png" alt=""><span><strong>Manila Dark Lab</strong><small>Experiment 001</small></span></a><nav><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></nav><div class="header-actions"><a class="icon-btn social-btn" href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener" aria-label="Instagram">IG</a><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div></header><main><section class="category-hero"><img src="ambient-lab.jpg" alt="Kids collection"><div class="category-copy"><p class="kicker">Experiment 001</p><h1>Kids</h1><p>Urban play, skate culture e grafiche da laboratorio. Clicca su una fotografia per aprire la scheda dell'articolo.</p></div></section><section class="section"><div class="section-head"><div><p class="kicker">Drop 001</p><h2>Articoli</h2></div><p class="section-description">Tre prodotti demo selezionati per questa linea.</p></div><div class="products" id="kidsProducts"></div></section><section class="contact-strip"><div class="contact-mini"><a href="https://wa.me/393934927764" target="_blank" rel="noopener">WhatsApp <span>→</span></a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram <span>→</span></a><a href="mailto:milanog91@gmail.com">Email <span>→</span></a><a href="https://www.google.com/maps/search/?api=1&query=Figline+Valdarno" target="_blank" rel="noopener">Indicazioni <span>→</span></a></div></section></main><footer>Manila Dark Lab · Kids · Experiment 001</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Bag</h2><button class="close" id="cartClose">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span>Totale</span><span id="cartTotal">€ 0,00</span></div><button class="btn checkout" id="checkoutButton">Ordina su WhatsApp</button></aside><aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></div></aside><div class="toast" id="toast"></div><script src="script.js"></script></body></html>
+<header><button class="menu-btn" id="menuOpen">Menu</button><a class="brand" href="index.html"><img src="Logomanila.png" alt=""><span><strong>Manila Dark Lab</strong><small>Experiment 001</small></span></a><nav><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></nav><div class="header-actions"><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div></header><main><section class="category-hero"><img src="ambient-lab.jpg" alt="Kids collection"><div class="category-copy"><p class="kicker">Experiment 001</p><h1>Kids</h1><p>Urban play, skate culture e grafiche da laboratorio. Clicca su una fotografia per aprire la scheda dell'articolo.</p></div></section><section class="section"><div class="section-head"><div><p class="kicker">Drop 001</p><h2>Articoli</h2></div><p class="section-description">Tre prodotti demo selezionati per questa linea.</p></div><div class="products" id="kidsProducts"></div></section><section class="contact-strip"><div class="contact-mini"><a href="https://wa.me/393934927764" target="_blank" rel="noopener">WhatsApp <span>→</span></a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram <span>→</span></a><a href="mailto:milanog91@gmail.com">Email <span>→</span></a><a href="https://www.google.com/maps/search/?api=1&query=Figline+Valdarno" target="_blank" rel="noopener">Indicazioni <span>→</span></a></div></section></main><footer>Manila Dark Lab · Kids · Experiment 001</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h2>Il tuo ordine</h2>
+    <button class="close" id="cartClose" aria-label="Chiudi">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-total">
+    <span>Totale</span>
+    <span id="cartTotal">€ 0,00</span>
+  </div>
+
+  <form class="order-form" id="orderForm">
+    <label>
+      Nome e cognome
+      <input type="text" name="name" autocomplete="name" required>
+    </label>
+
+    <label>
+      Email
+      <input type="email" name="email" autocomplete="email" required>
+    </label>
+
+    <label>
+      Telefono
+      <input type="tel" name="phone" autocomplete="tel" required>
+    </label>
+
+    <label>
+      Indirizzo di consegna
+      <textarea name="address" rows="3" autocomplete="street-address" required></textarea>
+    </label>
+
+    <label>
+      Note
+      <textarea name="notes" rows="2" placeholder="Taglie, richieste o informazioni aggiuntive"></textarea>
+    </label>
+
+    <input type="hidden" name="_subject" value="Nuovo ordine Manila Dark Lab">
+    <input type="hidden" name="order" id="orderSummary">
+    <input type="hidden" name="total" id="orderTotal">
+
+    <button class="btn checkout" id="checkoutButton" type="submit">Conferma ordine</button>
+    <p class="form-note">L’ordine viene inviato direttamente a Manila Dark Lab. Non si aprirà WhatsApp o l’app Email.</p>
+    <p class="order-status" id="orderStatus" aria-live="polite"></p>
+  </form>
+</aside><aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></div></aside><div class="toast" id="toast"></div><script src="script.js"></script></body></html>
