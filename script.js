@@ -129,24 +129,51 @@ document.getElementById("menuClose")?.addEventListener("click",closePanels);
 overlay?.addEventListener("click",closePanels);
 document.querySelectorAll(".mobile-links a").forEach(link=>link.addEventListener("click",closePanels));
 
-document.getElementById("checkoutButton")?.addEventListener("click",()=>{
+document.getElementById("orderForm")?.addEventListener("submit",event=>{
+  event.preventDefault();
+
+  const status=document.getElementById("orderStatus");
+
   if(!cart.length){
     showToast("Il carrello è vuoto");
+    status.textContent="Aggiungi almeno un prodotto prima di continuare.";
     return;
   }
 
-  const rows=cart.map((p,index)=>`${index+1}. ${p.name} — ${euro.format(p.price)}`).join("\n");
-  const total=cart.reduce((sum,p)=>sum+p.price,0);
-  const message=encodeURIComponent(
-`Ciao Manila Dark Lab, vorrei ordinare:
+  const name=document.getElementById("customerName").value.trim();
+  const email=document.getElementById("customerEmail").value.trim();
+  const phone=document.getElementById("customerPhone").value.trim();
+  const address=document.getElementById("customerAddress").value.trim();
+  const notes=document.getElementById("customerNotes").value.trim();
 
+  if(!name || !email || !phone || !address){
+    status.textContent="Compila tutti i campi obbligatori.";
+    return;
+  }
+
+  const rows=cart.map((p,index)=>`${index+1}. ${p.name} — ${euro.format(p.price)}`).join("
+");
+  const total=cart.reduce((sum,p)=>sum+p.price,0);
+
+  const message=encodeURIComponent(
+`NUOVO ORDINE — MANILA DARK LAB
+
+DATI CLIENTE
+Nome: ${name}
+Email: ${email}
+Telefono: ${phone}
+Indirizzo: ${address}
+
+ARTICOLI
 ${rows}
 
-Totale: ${euro.format(total)}
+TOTALE: ${euro.format(total)}
 
-Potete indicarmi disponibilità, taglie e spedizione?`
+NOTE / TAGLIE
+${notes || "Nessuna nota"}`
   );
 
+  status.textContent="";
   window.open(`https://wa.me/393934927764?text=${message}`,"_blank");
 });
 

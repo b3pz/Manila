@@ -1,13 +1,21 @@
-Carica tutti i file del pacchetto nella cartella principale della repository GitHub.
+VERSIONE 5 — FORM + WHATSAPP
 
-Aggiornamenti inclusi:
-- carrello semplificato
-- nessun modulo ordine
-- il pulsante finale apre WhatsApp con prodotti e totale già compilati
-- il cliente deve soltanto premere Invia su WhatsApp
-- nuova email: Manila.colaci@gmail.com
-- nuova maglia verde Coffee Bones aggiunta alla sezione Man
-- Instagram resta nella sezione Contatti e nel menu
-- logo mantenuto come Logomanila.png
+Il cliente:
+1. aggiunge i prodotti al carrello;
+2. compila nome, email, telefono, indirizzo e note/taglie;
+3. preme “Continua su WhatsApp”;
+4. WhatsApp si apre con il riepilogo completo già compilato;
+5. il cliente deve soltanto premere Invia.
 
-GitHub distingue maiuscole e minuscole.
+Il messaggio contiene:
+- dati del cliente;
+- elenco articoli;
+- totale;
+- note e taglie.
+
+Contatti:
+- WhatsApp: +39 393 492 7764
+- Email: Manila.colaci@gmail.com
+
+Carica e sostituisci tutti i file nella repository.
+La versione usa styles.css?v=5 e script.js?v=5 per evitare la cache.
