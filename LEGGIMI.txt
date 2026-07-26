@@ -1,12 +1,18 @@
 Carica TUTTI i file di questa cartella nella cartella principale della repository GitHub.
 
-Il sito include:
+Aggiornamenti inclusi:
 - intro animata ENTER THE LAB
 - pagine Man, Woman e Kids
 - articoli cliccabili
 - carrello demo
-- WhatsApp 3383449189
+- WhatsApp +39 393 492 7764
+- Instagram @manilacolaci
 - email milanog91@gmail.com
 - indicazioni Figline Valdarno
+- pulsanti WhatsApp e Instagram nelle schede prodotto
 
-Non rinominare i file: GitHub distingue maiuscole e minuscole.
+IMPORTANTE SUL LOGO:
+sostituisci Logomanila.png con il logo originale corretto, mantenendo esattamente questo nome.
+Non usare uno screenshot dell'app Foto e non rinominare il file.
+
+GitHub distingue maiuscole e minuscole.
