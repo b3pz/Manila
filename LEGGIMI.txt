@@ -1,0 +1,14 @@
+CARICA NELLA STESSA CARTELLA DELLA REPOSITORY:
+
+index.html
+man.html
+woman.html
+kids.html
+product.html
+styles.css
+script.js
+Logomanila.png
+Skatemani.PNG
+
+Nota: Logomanila.png non è incluso perché il file non era disponibile in questa esecuzione.
+Usa esattamente maiuscole e minuscole indicate.

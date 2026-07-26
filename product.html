@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070707"><title>Prodotto — Manila Dark Lab</title><link rel="stylesheet" href="styles.css"></head><body>
+
+<div class="noise"></div>
+<div class="topline">Experiment 001 · Experimental Urban Apparel · Figline Valdarno</div>
+<header>
+  <button class="menu-btn" id="menuOpen">Menu</button>
+  <a class="brand" href="index.html">
+    <img src="Logomanila.png" alt="">
+    <span><strong>Manila Dark Lab</strong><small>Experiment 001</small></span>
+  </a>
+  <nav>
+    <a href="man.html">Man</a>
+    <a href="woman.html">Woman</a>
+    <a href="kids.html">Kids</a>
+    <a href="index.html#contatti">Contatti</a>
+  </nav>
+  <div class="header-actions"><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div>
+</header>
+
+<main><section class="product-detail">
+  <div class="product-detail-image"><img id="detailImage" src="Skatemani.PNG" alt="Prodotto Manila Dark Lab"></div>
+  <div class="product-detail-copy">
+    <a class="backlink" id="backLink" href="index.html">← Torna alla collezione</a>
+    <p class="kicker">Experiment 001</p>
+    <h1 id="detailName">Prodotto</h1>
+    <p id="detailTag"></p>
+    <div class="price" id="detailPrice"></div>
+    <label for="size" style="margin-top:24px;font-size:10px;letter-spacing:.15em;text-transform:uppercase">Taglia</label>
+    <select id="size"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+    <button class="btn" id="detailAdd">Aggiungi al carrello</button>
+    <p>Capo demo Manila Dark Lab. Vestibilità urban, stampa Experiment 001 e dettagli ispirati al laboratorio.</p>
+  </div>
+</section></main>
+<footer>Manila Dark Lab · Product Detail</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head"><h2>Bag</h2><button class="close" id="cartClose">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-total"><span>Totale</span><span id="cartTotal">€ 0,00</span></div>
+  <button class="btn checkout" id="checkoutButton">Ordina su WhatsApp</button>
+</aside>
+<aside class="mobile-menu" id="mobileMenu">
+  <div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div>
+  <div class="mobile-links">
+    <a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="index.html#contatti">Contatti</a>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+<script>
+const params=new URLSearchParams(location.search);
+const group=params.get("group")||"man";
+const id=params.get("id")||"man-1";
+const item=findProduct(group,id);
+if(item){
+  document.title=item.name+" — Manila Dark Lab";
+  document.getElementById("detailName").textContent=item.name;
+  document.getElementById("detailTag").textContent=item.tag;
+  document.getElementById("detailPrice").textContent=euro.format(item.price);
+  document.getElementById("detailImage").className=item.crop;
+  document.getElementById("backLink").href=group+".html";
+  document.getElementById("detailAdd").addEventListener("click",()=>addToCart(group,id));
+}
+</script></body></html>
