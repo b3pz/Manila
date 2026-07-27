@@ -1,5 +1,66 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070707"><title>Prodotto — Manila Dark Lab</title><link rel="stylesheet" href="styles.css?v=9"></head><body><div class="noise"></div><div class="topline">Experiment 001 · Experimental Urban Apparel · Figline Valdarno</div>
-<header><button class="menu-btn" id="menuOpen">Menu</button><a class="brand" href="index.html"><img src="Logomanila.png" alt=""><span><strong>Manila Dark Lab</strong><small>Experiment 001</small></span></a><nav><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></nav><div class="header-actions"><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div></header><main><section class="product-detail"><div class="product-detail-image"><img id="detailImage" src="" alt=""></div><div class="product-detail-copy"><a class="backlink" id="backLink" href="index.html">← Torna alla collezione</a><p class="kicker">Experiment 001</p><h1 id="detailName">Prodotto</h1><p id="detailTag"></p><div class="price" id="detailPrice"></div><label for="size" style="margin-top:24px;font-size:10px;letter-spacing:.15em;text-transform:uppercase">Taglia</label><select id="size"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select><div class="product-actions"><button class="btn" id="detailAdd">Aggiungi al carrello</button></div><p>Capo demo Manila Dark Lab. Vestibilità urban, stampa Experiment 001 e dettagli ispirati al laboratorio.</p></div></section></main><footer>Manila Dark Lab · Product Detail</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer">
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070707"><title>Prodotto — Manila Dark Lab</title><link rel="stylesheet" href="styles.css?v=9.3"></head><body><div class="noise"></div><div class="topline">Experiment 001 · Experimental Urban Apparel · Figline Valdarno</div>
+<header><button class="menu-btn" id="menuOpen">Menu</button><a class="brand" href="index.html"><img src="Logomanila.png" alt=""><span><strong>Manila Dark Lab</strong><small>Experiment 001</small></span></a><nav><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></nav><div class="header-actions"><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div></header><main class="product-page-v93">
+<section class="product-detail product-detail-v93">
+  <div class="product-gallery-v93">
+    <div class="product-detail-image"><img id="detailImage" src="" alt=""></div>
+    <div class="product-thumbs" id="productThumbs"></div>
+  </div>
+  <div class="product-detail-copy product-copy-v93">
+    <a class="backlink" id="backLink" href="index.html">← Torna alla collezione</a>
+    <p class="kicker">Series 001 · Experiment 001</p>
+    <h1 id="detailName">Prodotto</h1>
+    <p class="product-subline" id="detailTag"></p>
+    <div class="price product-price-v93" id="detailPrice"></div>
+    <div class="stock-line"><span class="stock-dot"></span><span id="detailAvailability">Disponibile</span></div>
+
+    <div class="option-block">
+      <div class="option-head"><span>Seleziona la taglia</span><button type="button" class="text-button" id="sizeGuideOpen">Guida taglie</button></div>
+      <div class="size-options" id="sizeOptions"></div>
+      <p class="selection-error" id="sizeError" aria-live="polite"></p>
+    </div>
+
+    <div class="option-block quantity-block">
+      <span class="option-label">Quantità</span>
+      <div class="quantity-selector">
+        <button type="button" id="qtyMinus" aria-label="Diminuisci quantità">−</button>
+        <output id="qtyValue">1</output>
+        <button type="button" id="qtyPlus" aria-label="Aumenta quantità">+</button>
+      </div>
+    </div>
+
+    <div class="product-actions"><button class="btn" id="detailAdd">Seleziona una taglia</button></div>
+
+    <div class="trust-strip">
+      <span>Spedizione 24/48h</span>
+      <span>Reso entro 14 giorni</span>
+      <span>Pagamento sicuro con PayPal*</span>
+    </div>
+    <p class="paypal-note">*Pagamento PayPal disponibile dopo la conferma dell’ordine su WhatsApp.</p>
+
+    <p class="product-description" id="detailDescription"></p>
+    <dl class="product-specs">
+      <div><dt>Vestibilità</dt><dd id="detailFit"></dd></div>
+      <div><dt>Materiale</dt><dd id="detailMaterial"></dd></div>
+      <div><dt>Colore</dt><dd id="detailColor"></dd></div>
+      <div><dt>Codice</dt><dd id="detailSku"></dd></div>
+    </dl>
+
+    <div class="product-accordions">
+      <details><summary>Lavaggio e cura</summary><p>Lavare a rovescio a 30 °C con colori simili. Non candeggiare. Non asciugare in asciugatrice. Stirare a bassa temperatura evitando direttamente la stampa.</p></details>
+      <details><summary>Spedizione e resi</summary><p>Preparazione indicativa in 24/48 ore lavorative. Le condizioni definitive di spedizione, cambio e reso vengono confermate durante l’ordine.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="size-modal" id="sizeGuide" aria-hidden="true">
+  <div class="size-modal-card">
+    <button type="button" class="close" id="sizeGuideClose" aria-label="Chiudi">×</button>
+    <p class="kicker">Fit reference</p><h2>Guida alle taglie</h2>
+    <div class="size-table-wrap"><table><thead><tr><th>Taglia</th><th>Torace</th><th>Lunghezza</th></tr></thead><tbody><tr><td>XS</td><td>48 cm</td><td>66 cm</td></tr><tr><td>S</td><td>52 cm</td><td>69 cm</td></tr><tr><td>M</td><td>56 cm</td><td>72 cm</td></tr><tr><td>L</td><td>60 cm</td><td>75 cm</td></tr><tr><td>XL</td><td>64 cm</td><td>78 cm</td></tr></tbody></table></div>
+    <p>Misure indicative del capo steso. Per una vestibilità meno ampia scegli una taglia in meno.</p>
+  </div>
+</div>
+</main><footer>Manila Dark Lab · Product Detail</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer">
   <div class="drawer-head">
     <h2>Il tuo ordine</h2>
     <button class="close" id="cartClose" aria-label="Chiudi">×</button>
@@ -44,40 +105,42 @@
     <p class="form-note">WhatsApp si aprirà con il riepilogo completo già compilato. Il cliente dovrà soltanto premere Invia.</p>
     <p class="order-status" id="orderStatus" aria-live="polite"></p>
   </form>
-</aside><aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></div></aside><div class="toast" id="toast"></div><script src="script.js?v=9"></script><script>
+</aside><aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></div></aside><div class="toast" id="toast"></div><script src="script.js?v=9.3"></script><script>
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const group = params.get("group") || "man";
   const productId = params.get("id") || "man-1";
   const product = findProduct(group, productId);
+  const $ = id => document.getElementById(id);
+  let selectedSize = "";
+  let quantity = 1;
 
-  const image = document.getElementById("detailImage");
-  const name = document.getElementById("detailName");
-  const tag = document.getElementById("detailTag");
-  const price = document.getElementById("detailPrice");
-  const backLink = document.getElementById("backLink");
-  const sizeSelect = document.getElementById("size");
-  const addButton = document.getElementById("detailAdd");
-
-  if (!product) {
-    name.textContent = "Prodotto non trovato";
-    addButton.disabled = true;
-    return;
-  }
+  if (!product) { $("detailName").textContent = "Prodotto non trovato"; $("detailAdd").disabled = true; return; }
 
   document.title = `${product.name} — Manila Dark Lab`;
-  image.src = product.image;
-  image.alt = product.name;
-  name.textContent = product.name;
-  tag.textContent = product.tag;
-  price.textContent = euro.format(product.price);
-  backLink.href = `${group}.html`;
+  $("detailImage").src = product.image; $("detailImage").alt = product.name;
+  $("detailName").textContent = product.name; $("detailTag").textContent = product.tag;
+  $("detailPrice").textContent = euro.format(product.price); $("backLink").href = `${group}.html`;
+  $("detailAvailability").textContent = product.availability || "Disponibile";
+  $("detailDescription").textContent = product.description || "Capo Manila Dark Lab della Series 001.";
+  $("detailFit").textContent = product.fit || "Regular"; $("detailMaterial").textContent = product.material || "Cotone";
+  $("detailColor").textContent = product.color || "—"; $("detailSku").textContent = product.sku || product.id.toUpperCase();
 
-  addButton.addEventListener("click", () => {
-    const selectedSize = sizeSelect.value;
-    if (addToCart(group, productId, selectedSize)) {
-      openPanel(cartDrawer);
-    }
-  });
+  const gallery = product.gallery || [product.image];
+  $("productThumbs").innerHTML = gallery.map((src,i)=>`<button class="product-thumb ${i===0?'active':''}" data-src="${src}"><img src="${src}" alt="Vista ${i+1} di ${product.name}"></button>`).join("");
+  $("productThumbs").querySelectorAll(".product-thumb").forEach(btn=>btn.addEventListener("click",()=>{ $("detailImage").src=btn.dataset.src; $("productThumbs").querySelectorAll(".product-thumb").forEach(x=>x.classList.remove("active")); btn.classList.add("active"); }));
+
+  const sizes = product.sizes || ["XS","S","M","L","XL"];
+  $("sizeOptions").innerHTML = sizes.map(size=>`<button type="button" class="size-chip" data-size="${size}">${size}</button>`).join("");
+  const refreshButton = () => { $("detailAdd").textContent = selectedSize ? `Aggiungi al bag · Taglia ${selectedSize} · Q.tà ${quantity}` : "Seleziona una taglia"; };
+  $("sizeOptions").querySelectorAll(".size-chip").forEach(btn=>btn.addEventListener("click",()=>{ selectedSize=btn.dataset.size; $("sizeError").textContent=""; $("sizeOptions").querySelectorAll(".size-chip").forEach(x=>x.classList.toggle("selected",x===btn)); refreshButton(); }));
+  $("qtyMinus").addEventListener("click",()=>{ quantity=Math.max(1,quantity-1); $("qtyValue").textContent=quantity; refreshButton(); });
+  $("qtyPlus").addEventListener("click",()=>{ quantity=Math.min(10,quantity+1); $("qtyValue").textContent=quantity; refreshButton(); });
+  $("detailAdd").addEventListener("click",()=>{ if(!selectedSize){ $("sizeError").textContent="Seleziona una taglia prima di continuare."; $("sizeOptions").scrollIntoView({behavior:"smooth",block:"center"}); return; } if(addToCart(group,productId,selectedSize,quantity)) openPanel(cartDrawer); });
+
+  const guide=$("sizeGuide");
+  const openGuide=()=>{guide.classList.add("show");guide.setAttribute("aria-hidden","false");document.body.classList.add("locked")};
+  const closeGuide=()=>{guide.classList.remove("show");guide.setAttribute("aria-hidden","true");document.body.classList.remove("locked")};
+  $("sizeGuideOpen").addEventListener("click",openGuide); $("sizeGuideClose").addEventListener("click",closeGuide); guide.addEventListener("click",e=>{if(e.target===guide)closeGuide()});
 });
 </script></body></html>

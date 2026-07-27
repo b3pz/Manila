@@ -1,20 +1,20 @@
 
 const catalog = {
   man: [
-    {id:"man-1",name:"Celestial Oversize Hoodie",price:89,tag:"Black / Heavyweight",image:"man-hoodie-celestial.jpg"},
-    {id:"man-2",name:"Atropa Skull Tee",price:45,tag:"Vintage Black / Oversize",image:"man-tee-skull.jpg"},
-    {id:"man-3",name:"Good News Hoodie",price:95,tag:"Black / Back Print",image:"man-hoodie-cross.jpg"},
-    {id:"man-4",name:"Coffee Bones Tee",price:42,tag:"Forest Green / Back Print",image:"man-tee-coffee-green.jpg"}
+    {id:"man-1",name:"Celestial Oversize Hoodie",price:89,tag:"Black / Heavyweight",image:"man-hoodie-celestial.jpg",sizes:["S","M","L","XL"],fit:"Oversize",material:"80% cotone, 20% poliestere",color:"Nero",availability:"Disponibile",sku:"MDL-M-H01",description:"Felpa pesante dal taglio oversize con grafica celestiale Experiment 001. Pensata per una vestibilità ampia e strutturata."},
+    {id:"man-2",name:"Atropa Skull Tee",price:45,tag:"Vintage Black / Oversize",image:"man-tee-skull.jpg",sizes:["S","M","L","XL"],fit:"Oversize",material:"100% cotone",color:"Nero vintage",availability:"Disponibile",sku:"MDL-M-T01",description:"T-shirt in cotone con mano compatta, lavaggio vintage e stampa Atropa Skull. Spalla scesa e volume rilassato."},
+    {id:"man-3",name:"Good News Hoodie",price:95,tag:"Black / Back Print",image:"man-hoodie-cross.jpg",sizes:["S","M","L","XL"],fit:"Relaxed",material:"80% cotone, 20% poliestere",color:"Nero",availability:"Ultimi pezzi",sku:"MDL-M-H02",description:"Hoodie premium con stampa posteriore Good News e costruzione relaxed. Interno morbido e cappuccio strutturato."},
+    {id:"man-4",name:"Coffee Bones Tee",price:42,tag:"Forest Green / Back Print",image:"man-tee-coffee-green.jpg",sizes:["S","M","L","XL"],fit:"Regular",material:"100% cotone",color:"Verde foresta",availability:"Disponibile",sku:"MDL-M-T02",description:"T-shirt verde foresta con grafica Coffee Bones sul retro. Vestibilità regolare e cotone confortevole."}
   ],
   woman: [
-    {id:"woman-1",name:"Lunar Alignment Tee",price:42,tag:"White / Oversize",image:"woman-tee-white.jpg"},
-    {id:"woman-2",name:"Moon Phases Tee",price:44,tag:"Black / Relaxed",image:"woman-tee-black.jpg"},
-    {id:"woman-3",name:"The Magician Tee",price:46,tag:"Vintage Black / Tarot",image:"woman-tee-tarot.jpg"}
+    {id:"woman-1",name:"Lunar Alignment Tee",price:42,tag:"White / Oversize",image:"woman-tee-white.jpg",sizes:["XS","S","M","L"],fit:"Oversize",material:"100% cotone",color:"Bianco",availability:"Disponibile",sku:"MDL-W-T01",description:"T-shirt bianca oversize con grafica Lunar Alignment. Linea ampia e spalla scesa per un look pulito e deciso."},
+    {id:"woman-2",name:"Moon Phases Tee",price:44,tag:"Black / Relaxed",image:"woman-tee-black.jpg",sizes:["XS","S","M","L"],fit:"Relaxed",material:"100% cotone",color:"Nero",availability:"Disponibile",sku:"MDL-W-T02",description:"T-shirt nera relaxed con illustrazione Moon Phases. Morbida, versatile e parte della Series 001."},
+    {id:"woman-3",name:"The Magician Tee",price:46,tag:"Vintage Black / Tarot",image:"woman-tee-tarot.jpg",sizes:["XS","S","M","L"],fit:"Oversize",material:"100% cotone",color:"Nero vintage",availability:"Ultimi pezzi",sku:"MDL-W-T03",description:"T-shirt oversize con grafica The Magician ispirata ai tarocchi. Trattamento vintage e stampa frontale."}
   ],
   kids: [
-    {id:"kids-1",name:"Mini Lab Graphic Tee",price:27,tag:"Kids / Graphic",image:"ambient-lab.jpg"},
-    {id:"kids-2",name:"Skate Experiment Hoodie",price:52,tag:"Kids / Soft Cotton",image:"ambient-coffee.jpg"},
-    {id:"kids-3",name:"Coffee Bones Crew",price:39,tag:"Kids / Play",image:"ambient-coffee.jpg"}
+    {id:"kids-1",name:"Mini Lab Graphic Tee",price:27,tag:"Kids / Graphic",image:"ambient-lab.jpg",sizes:["2-3","4-5","6-7","8-9"],fit:"Regular",material:"100% cotone",color:"Nero",availability:"Disponibile",sku:"MDL-K-T01",description:"T-shirt junior in cotone con grafica Mini Lab. Vestibilità comoda per l'uso quotidiano."},
+    {id:"kids-2",name:"Skate Experiment Hoodie",price:52,tag:"Kids / Soft Cotton",image:"ambient-coffee.jpg",sizes:["2-3","4-5","6-7","8-9"],fit:"Relaxed",material:"80% cotone, 20% poliestere",color:"Nero",availability:"Disponibile",sku:"MDL-K-H01",description:"Felpa junior morbida e resistente con ispirazione skate. Taglio relaxed e interno caldo."},
+    {id:"kids-3",name:"Coffee Bones Crew",price:39,tag:"Kids / Play",image:"ambient-coffee.jpg",sizes:["2-3","4-5","6-7","8-9"],fit:"Regular",material:"80% cotone, 20% poliestere",color:"Nero",availability:"Disponibile",sku:"MDL-K-C01",description:"Girocollo junior Coffee Bones, pensato per gioco e movimento con una vestibilità regolare."}
   ]
 };
 
@@ -82,25 +82,25 @@ function render(group, targetId) {
   }
 }
 
-function addToCart(group, id, size) {
+function addToCart(group, id, size, quantity = 1) {
   const product = findProduct(group, id);
-  if (!product) return false;
+  const qty = Math.max(1, Number(quantity) || 1);
+  if (!product || !size) return false;
 
-  cart.push({
-    ...product,
-    group,
-    size: size || "Non indicata"
-  });
+  const existing = cart.find(item => item.id === id && item.group === group && item.size === size);
+  if (existing) existing.quantity = (Number(existing.quantity) || 1) + qty;
+  else cart.push({ ...product, group, size, quantity: qty });
 
   saveCart();
   updateCart();
-  showToast(`${product.name} · ${size || "Taglia non indicata"} aggiunto`);
+  showToast(`${product.name} · ${size} · Q.tà ${qty} aggiunto`);
   return true;
 }
 
 function updateCart() {
   const count = document.getElementById("cartCount");
-  if (count) count.textContent = cart.length;
+  const itemCount = cart.reduce((sum, product) => sum + (Number(product.quantity) || 1), 0);
+  if (count) count.textContent = itemCount;
 
   const list = document.getElementById("cartItems");
   if (!list) return;
@@ -108,15 +108,19 @@ function updateCart() {
   if (!cart.length) {
     list.innerHTML = '<p class="empty">Il carrello è vuoto.</p>';
   } else {
-    list.innerHTML = cart.map((product, index) => `
-      <div class="cart-item">
-        <div>
+    list.innerHTML = cart.map((product, index) => {
+      const qty = Number(product.quantity) || 1;
+      return `
+      <div class="cart-item cart-item-v93">
+        <img src="${product.image}" alt="" class="cart-thumb">
+        <div class="cart-item-copy">
           <strong>${product.name}</strong>
-          <span>Taglia: ${product.size || "Non indicata"} · ${euro.format(product.price)}</span>
+          <span>Taglia: ${product.size || "Non indicata"}</span>
+          <span>Quantità: ${qty} · ${euro.format(product.price * qty)}</span>
         </div>
         <button class="remove" data-index="${index}" aria-label="Rimuovi ${product.name}">×</button>
-      </div>
-    `).join("");
+      </div>`;
+    }).join("");
 
     list.querySelectorAll(".remove").forEach(button => {
       button.addEventListener("click", () => {
@@ -128,9 +132,7 @@ function updateCart() {
   }
 
   const total = document.getElementById("cartTotal");
-  if (total) {
-    total.textContent = euro.format(cart.reduce((sum, product) => sum + product.price, 0));
-  }
+  if (total) total.textContent = euro.format(cart.reduce((sum, product) => sum + product.price * (Number(product.quantity) || 1), 0));
 }
 
 function openPanel(panel) {
@@ -188,10 +190,10 @@ document.getElementById("orderForm")?.addEventListener("submit", event => {
   }
 
   const rows = cart.map((product, index) =>
-    `${index + 1}. ${product.name} — Taglia ${product.size || "Non indicata"} — ${euro.format(product.price)}`
+    `${index + 1}. ${product.name} — Taglia ${product.size || "Non indicata"} — Q.tà ${Number(product.quantity) || 1} — ${euro.format(product.price * (Number(product.quantity) || 1))}`
   ).join("\n");
 
-  const total = cart.reduce((sum, product) => sum + product.price, 0);
+  const total = cart.reduce((sum, product) => sum + product.price * (Number(product.quantity) || 1), 0);
 
   const message = encodeURIComponent(
 `NUOVO ORDINE — MANILA DARK LAB
