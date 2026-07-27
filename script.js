@@ -13,7 +13,7 @@ const catalog = {
   ],
   kids: [
     {id:"kids-1",name:"Mini Lab Graphic Tee",price:27,tag:"Kids / Graphic",image:"ambient-lab.jpg"},
-    {id:"kids-2",name:"Skate Experiment Hoodie",price:52,tag:"Kids / Soft Cotton",image:"ambient-skate.jpg"},
+    {id:"kids-2",name:"Skate Experiment Hoodie",price:52,tag:"Kids / Soft Cotton",image:"ambient-coffee.jpg"},
     {id:"kids-3",name:"Coffee Bones Crew",price:39,tag:"Kids / Play",image:"ambient-coffee.jpg"}
   ]
 };
@@ -219,3 +219,38 @@ render("man", "manProducts");
 render("woman", "womanProducts");
 render("kids", "kidsProducts");
 updateCart();
+
+// v9: intro, reveal e header dinamico
+const intro = document.getElementById("intro");
+const site = document.getElementById("site");
+const enterButton = document.getElementById("enterButton");
+
+function enterLab() {
+  intro?.classList.add("hidden");
+  site?.classList.add("visible");
+  document.body.classList.remove("locked");
+  setTimeout(() => intro?.remove(), 900);
+}
+
+enterButton?.addEventListener("click", enterLab);
+
+if (!intro && site) site.classList.add("visible");
+
+const revealObserver = "IntersectionObserver" in window
+  ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 })
+  : null;
+
+document.querySelectorAll(".reveal").forEach(el => {
+  if (revealObserver) revealObserver.observe(el);
+  else el.classList.add("in-view");
+});
+
+const siteHeader = document.getElementById("siteHeader");
+window.addEventListener("scroll", () => siteHeader?.classList.toggle("scrolled", window.scrollY > 40), { passive: true });

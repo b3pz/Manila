@@ -1,57 +1,84 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070707"><title>Manila Dark Lab — Experiment 001</title><link rel="stylesheet" href="styles.css?v=7"></head><body class="locked">
-<section class="intro" id="intro"><div class="intro-inner"><div class="intro-status">Initializing experiment 001</div><img class="intro-logo" src="Logomanila.png" alt="Logo Manila Dark Lab"><h1>Manila Dark Lab</h1><p>Lab Series 001 · Experimental Urban Apparel</p><div class="loader"><span></span></div><button class="enter" id="enterButton"><span>Enter the lab →</span></button></div></section>
-<div class="site" id="site"><div class="noise"></div><div class="topline">Experiment 001 · Experimental Urban Apparel · Figline Valdarno</div>
-<header><button class="menu-btn" id="menuOpen">Menu</button><a class="brand" href="index.html"><img src="Logomanila.png" alt=""><span><strong>Manila Dark Lab</strong><small>Experiment 001</small></span></a><nav><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></nav><div class="header-actions"><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div></header><main><section class="hero"><div class="hero-copy"><p class="kicker">Lab Series 001 · Urban / Experimental / Premium</p><h1>Built in<br>the dark.</h1><p>Tre linee, un'unica identità: Man, Woman e Kids. Ogni articolo è un esperimento portato per strada.</p><div class="hero-actions"><a class="btn" href="#collezioni">Esplora le linee</a><a class="btn alt" href="#contatti">Contatti</a></div></div><div class="hero-art"><img src="Logomanila.png" alt="Logo Manila Dark Lab"></div></section>
-<div class="ticker"><div class="ticker-track"><span>Experiment 001</span><span>Dark Technical Minimal</span><span>Manila Dark Lab</span><span>Create Test Evolve</span><span>Experiment 001</span><span>Dark Technical Minimal</span><span>Manila Dark Lab</span><span>Create Test Evolve</span></div></div>
-<section class="section" id="collezioni"><div class="section-head"><div><p class="kicker">Collections</p><h2>Scegli la linea</h2></div><p class="section-description">Le fotografie ambientali introducono ogni categoria; dentro trovi gli articoli dedicati.</p></div><div class="collection-grid">
-<a class="collection-card" href="man.html"><img src="ambient-industrial.jpg" alt="Man collection"><div class="collection-card-copy"><h3>Man</h3><p>Industrial Skate Collection</p><span class="arrow">→</span></div></a>
-<a class="collection-card" href="woman.html"><img src="ambient-skate.jpg" alt="Woman collection"><div class="collection-card-copy"><h3>Woman</h3><p>Urban Celestial Collection</p><span class="arrow">→</span></div></a>
-<a class="collection-card" href="kids.html"><img src="ambient-lab.jpg" alt="Kids collection"><div class="collection-card-copy"><h3>Kids</h3><p>Urban Play Laboratory</p><span class="arrow">→</span></div></a>
-</div></section>
-<section class="contact-strip" id="contatti"><div class="contact-mini"><a href="https://wa.me/393934927764" target="_blank" rel="noopener">WhatsApp <span>→</span></a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram <span>→</span></a><a href="mailto:Manila.colaci@gmail.com">Email <span>→</span></a><a href="https://www.google.com/maps/search/?api=1&query=Figline+Valdarno" target="_blank" rel="noopener">Indicazioni <span>→</span></a></div></section></main><footer>Manila Dark Lab · Experiment 001 · Figline Valdarno</footer><div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer">
-  <div class="drawer-head">
-    <h2>Il tuo ordine</h2>
-    <button class="close" id="cartClose" aria-label="Chiudi">×</button>
-  </div>
-
-  <div class="cart-items" id="cartItems"></div>
-
-  <div class="cart-total">
-    <span>Totale</span>
-    <span id="cartTotal">€ 0,00</span>
-  </div>
-
-  <form class="order-form" id="orderForm">
-    <div class="form-grid">
-      <label>
-        Nome e cognome
-        <input type="text" id="customerName" name="name" autocomplete="name" required>
-      </label>
-
-      <label>
-        Email
-        <input type="email" id="customerEmail" name="email" autocomplete="email" required>
-      </label>
-
-      <label>
-        Telefono
-        <input type="tel" id="customerPhone" name="phone" autocomplete="tel" required>
-      </label>
-
-      <label class="full-field">
-        Indirizzo di consegna
-        <textarea id="customerAddress" name="address" rows="3" autocomplete="street-address" required></textarea>
-      </label>
-
-      <label class="full-field">
-        Note, taglie o richieste
-        <textarea id="customerNotes" name="notes" rows="3" placeholder="Esempio: Hoodie taglia L, Tee taglia M"></textarea>
-      </label>
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="Manila Dark Lab — experimental urban apparel. Lab Series 001.">
+  <title>Manila Dark Lab — Lab Series 001</title>
+  <link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body class="locked home-v9">
+  <section class="intro" id="intro" aria-label="Ingresso Manila Dark Lab">
+    <div class="intro-grid"></div>
+    <div class="intro-inner">
+      <div class="intro-status">System online · Series 001</div>
+      <img class="intro-logo" src="Logomanila.png" alt="Manila Dark Lab">
+      <p>Experimental Urban Apparel</p>
+      <div class="loader"><span></span></div>
+      <button class="enter" id="enterButton"><span>Enter the lab</span></button>
     </div>
+  </section>
 
-    <button class="btn checkout" id="checkoutButton" type="submit">Continua su WhatsApp</button>
-    <p class="form-note">WhatsApp si aprirà con il riepilogo completo già compilato. Il cliente dovrà soltanto premere Invia.</p>
-    <p class="order-status" id="orderStatus" aria-live="polite"></p>
-  </form>
-</aside><aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram</a><a href="index.html#contatti">Contatti</a></div></aside><div class="toast" id="toast"></div><script src="script.js?v=7"></script></div>
-<script>document.getElementById("enterButton").addEventListener("click",()=>{document.getElementById("intro").classList.add("hidden");document.getElementById("site").classList.add("visible");document.body.classList.remove("locked");setTimeout(()=>document.getElementById("intro").remove(),900)});</script></body></html>
+  <div class="site" id="site">
+    <div class="noise"></div>
+    <div class="topline">Lab Series 001 · Independent Urban Apparel · Figline Valdarno</div>
+
+    <header id="siteHeader">
+      <button class="menu-btn" id="menuOpen" aria-label="Apri menu">Menu</button>
+      <a class="brand" href="index.html" aria-label="Homepage Manila Dark Lab">
+        <img src="Logomanila.png" alt="">
+        <span><strong>Manila Dark Lab</strong><small>Lab Series 001</small></span>
+      </a>
+      <nav aria-label="Navigazione principale">
+        <a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a>
+        <a href="#manifesto">Manifesto</a><a href="#contatti">Contatti</a>
+      </nav>
+      <div class="header-actions"><button class="icon-btn" id="cartOpen">Bag <span id="cartCount">0</span></button></div>
+    </header>
+
+    <main>
+      <section class="v9-hero">
+        <div class="v9-hero-media"><img src="ambient-industrial.jpg" alt="Atmosfera industriale Manila Dark Lab"></div>
+        <div class="v9-hero-shade"></div>
+        <div class="v9-hero-copy reveal">
+          <p class="kicker">Lab Series 001 · Limited experiment</p>
+          <h1>Wear the<br><em>experiment.</em></h1>
+          <p class="v9-lead">Streetwear nato tra simboli oscuri, cultura skate e ricerca grafica. Ogni capo è una prova portata fuori dal laboratorio.</p>
+          <div class="hero-actions"><a class="btn" href="#drops">Scopri il drop</a><a class="btn alt" href="#manifesto">Il laboratorio</a></div>
+        </div>
+        <div class="v9-hero-code">MDL / 001<br>FVG · IT</div>
+        <a class="scroll-cue" href="#drops">Scroll ↓</a>
+      </section>
+
+      <div class="ticker"><div class="ticker-track"><span>Manila Dark Lab</span><span>Experimental Urban Apparel</span><span>Lab Series 001</span><span>Create · Test · Evolve</span><span>Manila Dark Lab</span><span>Experimental Urban Apparel</span><span>Lab Series 001</span><span>Create · Test · Evolve</span></div></div>
+
+      <section class="section v9-drops" id="drops">
+        <div class="section-head reveal"><div><p class="kicker">Current experiments</p><h2>Tre linee.<br>Una sola identità.</h2></div><p class="section-description">Scegli la linea ed entra nel catalogo. Ordini diretti tramite WhatsApp.</p></div>
+        <div class="collection-grid v9-grid">
+          <a class="collection-card reveal" href="man.html"><img src="ambient-industrial.jpg" alt="Collezione Man"><div class="card-index">01</div><div class="collection-card-copy"><p>Industrial / Skate</p><h3>Man</h3><span class="arrow">Explore →</span></div></a>
+          <a class="collection-card reveal" href="woman.html"><img src="ambient-coffee.jpg" alt="Collezione Woman"><div class="card-index">02</div><div class="collection-card-copy"><p>Celestial / Urban</p><h3>Woman</h3><span class="arrow">Explore →</span></div></a>
+          <a class="collection-card reveal" href="kids.html"><img src="ambient-lab.jpg" alt="Collezione Kids"><div class="card-index">03</div><div class="collection-card-copy"><p>Play / Laboratory</p><h3>Kids</h3><span class="arrow">Explore →</span></div></a>
+        </div>
+      </section>
+
+      <section class="manifesto" id="manifesto">
+        <div class="manifesto-mark reveal"><img src="Logomanila.png" alt="Manila Dark Lab"></div>
+        <div class="manifesto-copy reveal"><p class="kicker">About the lab</p><h2>Non seguiamo una formula.<br>La mettiamo alla prova.</h2><p>MANILA DARK LAB è un laboratorio indipendente di abbigliamento urbano. Iconografia mistica, superfici industriali e cultura di strada diventano capi pensati per essere vissuti, consumati e trasformati da chi li indossa.</p><div class="manifesto-meta"><span>Designed in Tuscany</span><span>Independent label</span><span>Series 001</span></div></div>
+      </section>
+
+      <section class="editorial reveal"><div><p class="kicker">Visual research</p><h2>From the lab<br>to the street.</h2></div><div class="editorial-images"><img src="ambient-coffee.jpg" alt="Dettaglio collezione"><img src="ambient-lab.jpg" alt="Ricerca visiva Manila Dark Lab"></div></section>
+
+      <section class="contact-strip" id="contatti"><div class="contact-mini"><a href="https://wa.me/393934927764" target="_blank" rel="noopener">WhatsApp <span>→</span></a><a href="https://www.instagram.com/manilacolaci?igsh=MXQ2cGt0MDZkYmJrdQ==" target="_blank" rel="noopener">Instagram <span>→</span></a><a href="mailto:Manila.colaci@gmail.com">Email <span>→</span></a><a href="https://www.google.com/maps/search/?api=1&query=Figline+Valdarno" target="_blank" rel="noopener">Figline Valdarno <span>→</span></a></div></section>
+    </main>
+
+    <footer><span>Manila Dark Lab © 2026</span><span>Lab Series 001 · Figline Valdarno</span></footer>
+
+    <div class="overlay" id="overlay"></div>
+    <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Il tuo ordine</h2><button class="close" id="cartClose" aria-label="Chiudi">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span>Totale</span><span id="cartTotal">€ 0,00</span></div><form class="order-form" id="orderForm"><div class="form-grid"><label>Nome e cognome<input type="text" id="customerName" name="name" autocomplete="name" required></label><label>Email<input type="email" id="customerEmail" name="email" autocomplete="email" required></label><label>Telefono<input type="tel" id="customerPhone" name="phone" autocomplete="tel" required></label><label class="full-field">Indirizzo di consegna<textarea id="customerAddress" name="address" rows="3" autocomplete="street-address" required></textarea></label><label class="full-field">Note, taglie o richieste<textarea id="customerNotes" name="notes" rows="3" placeholder="Esempio: Hoodie taglia L, Tee taglia M"></textarea></label></div><button class="btn checkout" id="checkoutButton" type="submit">Continua su WhatsApp</button><p class="form-note">WhatsApp si aprirà con il riepilogo già compilato.</p><p class="order-status" id="orderStatus" aria-live="polite"></p></form></aside>
+    <aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="#manifesto">Manifesto</a><a href="#contatti">Contatti</a></div></aside>
+    <div class="toast" id="toast"></div>
+    <script src="script.js?v=9"></script>
+  </div>
+</body>
+</html>

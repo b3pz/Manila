@@ -1,0 +1,19 @@
+MANILA DARK LAB — V9 ALPHA
+
+PRONTO PER GITHUB PAGES
+
+1. Estrai tutto il contenuto dello ZIP.
+2. Carica TUTTI i file nella root del repository GitHub.
+3. Verifica che index.html sia nella cartella principale, non dentro una sottocartella.
+4. Attendi 1-3 minuti e ricarica il sito.
+
+FUNZIONI INCLUSE
+- Nuova homepage premium v9
+- Intro animata
+- Cataloghi Man, Woman e Kids
+- Schede prodotto con scelta taglia
+- Carrello persistente
+- Modulo ordine tramite WhatsApp
+- Responsive smartphone/tablet
+
+Nota: l'immagine con il precedente marchio non viene richiamata dal sito.
