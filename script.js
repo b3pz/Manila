@@ -224,15 +224,29 @@ updateCart();
 const intro = document.getElementById("intro");
 const site = document.getElementById("site");
 const enterButton = document.getElementById("enterButton");
+const introVideo = document.getElementById("introVideo");
 
 function enterLab() {
   intro?.classList.add("hidden");
   site?.classList.add("visible");
   document.body.classList.remove("locked");
-  setTimeout(() => intro?.remove(), 900);
+  setTimeout(() => {
+    introVideo?.pause();
+    intro?.remove();
+  }, 900);
 }
 
 enterButton?.addEventListener("click", enterLab);
+
+// I browser possono bloccare l'autoplay in alcuni casi: il video resta comunque
+// visibile grazie all'immagine poster e riprova al primo tocco dell'utente.
+introVideo?.play().catch(() => {
+  const retryVideo = () => {
+    introVideo.play().catch(() => {});
+    window.removeEventListener("pointerdown", retryVideo);
+  };
+  window.addEventListener("pointerdown", retryVideo, { once: true });
+});
 
 if (!intro && site) site.classList.add("visible");
 

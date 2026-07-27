@@ -6,18 +6,22 @@
   <meta name="theme-color" content="#050505">
   <meta name="description" content="Manila Dark Lab — experimental urban apparel. Lab Series 001.">
   <title>Manila Dark Lab — Lab Series 001</title>
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=9.1">
 </head>
 <body class="locked home-v9">
-  <section class="intro" id="intro" aria-label="Ingresso Manila Dark Lab">
-    <div class="intro-grid"></div>
+  <section class="intro intro-video" id="intro" aria-label="Ingresso Manila Dark Lab">
+    <video class="intro-bg-video" id="introVideo" autoplay muted loop playsinline preload="auto" poster="ambient-skate.jpg" aria-hidden="true">
+      <source src="assets/video/manila-intro.mp4" type="video/mp4">
+    </video>
+    <div class="intro-video-shade"></div>
+    <div class="intro-vignette"></div>
     <div class="intro-inner">
       <div class="intro-status">System online · Series 001</div>
       <img class="intro-logo" src="Logomanila.png" alt="Manila Dark Lab">
       <p>Experimental Urban Apparel</p>
-      <div class="loader"><span></span></div>
       <button class="enter" id="enterButton"><span>Enter the lab</span></button>
     </div>
+    <button class="intro-sound" id="introSound" type="button" aria-label="Il video è senza audio">Video muted</button>
   </section>
 
   <div class="site" id="site">
@@ -78,7 +82,7 @@
     <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Il tuo ordine</h2><button class="close" id="cartClose" aria-label="Chiudi">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span>Totale</span><span id="cartTotal">€ 0,00</span></div><form class="order-form" id="orderForm"><div class="form-grid"><label>Nome e cognome<input type="text" id="customerName" name="name" autocomplete="name" required></label><label>Email<input type="email" id="customerEmail" name="email" autocomplete="email" required></label><label>Telefono<input type="tel" id="customerPhone" name="phone" autocomplete="tel" required></label><label class="full-field">Indirizzo di consegna<textarea id="customerAddress" name="address" rows="3" autocomplete="street-address" required></textarea></label><label class="full-field">Note, taglie o richieste<textarea id="customerNotes" name="notes" rows="3" placeholder="Esempio: Hoodie taglia L, Tee taglia M"></textarea></label></div><button class="btn checkout" id="checkoutButton" type="submit">Continua su WhatsApp</button><p class="form-note">WhatsApp si aprirà con il riepilogo già compilato.</p><p class="order-status" id="orderStatus" aria-live="polite"></p></form></aside>
     <aside class="mobile-menu" id="mobileMenu"><div class="drawer-head"><h2>Navigation</h2><button class="close" id="menuClose">×</button></div><div class="mobile-links"><a href="man.html">Man</a><a href="woman.html">Woman</a><a href="kids.html">Kids</a><a href="#manifesto">Manifesto</a><a href="#contatti">Contatti</a></div></aside>
     <div class="toast" id="toast"></div>
-    <script src="script.js?v=9"></script>
+    <script src="script.js?v=9.1"></script>
   </div>
 </body>
 </html>
