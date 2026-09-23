@@ -1,0 +1,12 @@
+MANILA DARK LAB — v9.1 VIDEO INTRO
+
+Questa versione integra il video Kling nell'introduzione iniziale.
+
+CARICAMENTO SU GITHUB
+1. Estrai questo ZIP.
+2. Carica TUTTI i file e le cartelle nella radice del repository.
+3. Mantieni la cartella assets/video/ e il file manila-intro.mp4.
+4. Sostituisci i file esistenti quando GitHub lo richiede.
+5. Attendi circa 1-3 minuti e aggiorna la pagina con Ctrl+F5.
+
+Il video è compresso e senza audio per ridurre il peso e favorire l'autoplay.

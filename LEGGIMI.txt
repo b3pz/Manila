@@ -1,0 +1,22 @@
+VERSIONE 7 — SCHEDA PRODOTTO CORRETTA
+
+Correzioni:
+- la fotografia del prodotto viene visualizzata correttamente;
+- nome, descrizione e prezzo vengono caricati correttamente;
+- rimosso il pulsante Instagram dalla scheda prodotto;
+- il cliente seleziona la taglia;
+- “Aggiungi al carrello” salva prodotto e taglia;
+- il carrello resta memorizzato passando da una pagina all’altra;
+- nel riepilogo WhatsApp compare la taglia di ogni articolo;
+- dopo l’aggiunta si apre direttamente il carrello.
+
+Carica e sostituisci almeno:
+index.html
+man.html
+woman.html
+kids.html
+product.html
+script.js
+styles.css
+
+La versione usa script.js?v=7 e styles.css?v=7 per evitare la cache.

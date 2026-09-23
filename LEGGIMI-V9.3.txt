@@ -1,0 +1,14 @@
+MANILA DARK LAB v9.3 — PRODUCT EXPERIENCE
+
+Novità:
+- Scheda prodotto premium
+- Scelta taglia obbligatoria
+- Quantità da 1 a 10
+- Carrello con taglia, quantità, miniatura e subtotale
+- Guida taglie
+- Specifiche prodotto, lavaggio, spedizione e resi
+- Indicazione: Pagamento sicuro con PayPal*
+- Nota trasparente: PayPal disponibile dopo conferma ordine su WhatsApp
+
+Caricamento GitHub:
+Sostituire tutto il contenuto del repository con i file presenti in questo archivio.
