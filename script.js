@@ -7,6 +7,8 @@
       const response=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/manila_products?select=*&published=eq.true&order=created_at.asc',{headers:{apikey:cfg.anonKey}});
       if(!response.ok)throw Error('Catalogo live non disponibile');
       const live=await response.json();
+      // Keep the existing storefront intact until products have been published in Supabase.
+      if(!Array.isArray(live)||live.length===0)throw Error('Nessun prodotto live: mantengo il catalogo statico');
       window.MANILA_CATALOG={man:[],woman:[],kids:[]};
       for(const item of live){
         if(!window.MANILA_CATALOG[item.category])continue;
