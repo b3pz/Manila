@@ -126,3 +126,9 @@ body #app [data-panel][hidden]{display:none!important}
 .camera-scan-button{display:block;margin:10px 0;background:#d6ed45;color:#111915;font-size:16px;font-weight:800;padding:15px 20px;min-height:54px;border:0;border-radius:10px;cursor:pointer;width:100%}
 .camera-scanner{margin:12px 0;padding:14px;border:1px solid #62745d;border-radius:12px;background:#151b18}
 .camera-scanner[hidden]{display:none!important}.camera-scanner-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.camera-scanner-top button{background:#354139;border:1px solid #808b80;border-radius:8px;color:#fff;padding:12px}.camera-scanner #cameraScanViewport{width:100%;max-width:600px;margin:auto;overflow:hidden;border-radius:8px}.camera-scanner video{width:100%!important;max-height:70vh;object-fit:cover}.camera-scanner p{margin:10px 0;line-height:1.5}
+
+/* Scanner compatto: solo nelle schermate operative */
+.global-scan{display:none;max-width:740px;margin:10px auto 18px;padding:12px 14px}
+body[data-manager-view="products"] .global-scan,body[data-manager-view="inventory"] .global-scan,body[data-manager-view="movements"] .global-scan,body[data-manager-view="labels"] .global-scan,body[data-manager-view="sales"] .global-scan,body[data-manager-view="gifts"] .global-scan,body[data-manager-view="returns"] .global-scan{display:block}
+.scan-inline{display:flex;align-items:stretch;gap:8px}.scan-inline #globalScan{flex:1;min-width:0;max-width:none;width:auto}.scan-inline .camera-scan-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:auto;white-space:nowrap;min-height:46px;min-width:118px;padding:8px 12px;margin:0;border-radius:8px;font-size:14px}.global-scan label{font-size:13px;margin-bottom:6px}.global-scan:has(#cameraScanner:not([hidden])){max-width:740px}
+@media(max-width:420px){.scan-inline .camera-scan-button{min-width:48px;padding:8px}.scan-inline .camera-scan-button span{display:none}}
