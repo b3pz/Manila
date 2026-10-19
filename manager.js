@@ -302,6 +302,9 @@ async function loadLegal(){
   const data=webOrderRows.filter(o=>{
    const historic=['spedito','annullato'].includes(o.status);
    if(filter==='active'&&historic||filter==='history'&&!historic)return false;
+   if(!['active','history','all'].includes(filter)&&o.status!==filter)return false;
+   const payFilter=$('webOrdersPaymentFilter').value;
+   if(payFilter!=='all'&&o.payment_status!==payFilter)return false;
    const items=(o.items||[]).map(i=>[i.name,i.code,i.size].join(' ')).join(' ');
    return !query||[o.id,o.id.slice(0,8),o.customer_name,o.customer_email,o.customer_phone,o.tracking_code,items].join(' ').toLocaleLowerCase('it-IT').includes(query);
   });
@@ -312,6 +315,7 @@ async function loadLegal(){
  $('webOrdersReload').onclick=()=>loadWebOrders();
  $('webOrdersSearch').addEventListener('input',renderWebOrders);
  $('webOrdersFilter').addEventListener('change',renderWebOrders);
+ $('webOrdersPaymentFilter').addEventListener('change',renderWebOrders);
  $('webOrdersMore').onclick=()=>loadWebOrders(true);
  function paint(){const q=$('search').value.trim().toLowerCase(),cat=$('categoryFilter').value;
   const filtered=rows.filter(r=>(!cat||r.category===cat)&&(!q||(r.name+' '+r.code).toLowerCase().includes(q)));
