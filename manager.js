@@ -12,7 +12,7 @@
  const getSizes=()=>{const o={};for(const line of $('sizes').value.split('\n')){if(!line.trim())continue;const m=line.trim().match(/^([^:]+):\s*(\d+)$/);if(!m)throw Error('Formato taglie non valido: usa M:4, una per riga');o[m[1].trim()]=Number(m[2]);}return o;};
  const nextCode=(cat,kind)=>{const pre=prefix(cat,kind);const nums=rows.filter(r=>r.code.startsWith(pre)).map(r=>Number(r.code.slice(2))).filter(Number.isFinite);return pre+String(Math.max(-1,...nums)+1).padStart(2,'0');};
  const check=async()=>{const {data,error}=await client.from('manila_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error||!data)throw Error('Utente autenticato ma non autorizzato. Aggiungi il suo UUID in manila_admins dal SQL Editor.');};
- async function refresh(){const {data,error}=await client.from('manila_products').select('*').order('created_at',{ascending:true});if(error)throw error;rows=(data||[]).filter(r=>!r.archived);paint();renderDemos();renderInventory();await renderMovements();await renderSales();await renderGifts();$('stats').textContent=rows.length+' prodotti · '+rows.filter(x=>x.published).length+' pubblicati';}
+ async function refresh(){const {data,error}=await client.from('manila_products').select('*').order('created_at',{ascending:true});if(error)throw error;rows=(data||[]).filter(r=>!r.archived);paint();renderInventory();await renderMovements();await renderSales();await renderGifts();$('stats').textContent=rows.length+' prodotti · '+rows.filter(x=>x.published).length+' pubblicati';}
 
  const euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(n)||0);
  const reportModel=()=>rows.map(p=>{const sizes=Object.entries(p.sizes||{}).map(([size,qty])=>({size,qty:Math.max(0,Number(qty)||0)}));const total=sizes.reduce((a,s)=>a+s.qty,0),low=Number($('lowThreshold').value)||0,target=Math.max(1,Number($('targetStock').value)||5);const order=sizes.filter(s=>s.qty<=low).map(s=>({size:s.size,qty:Math.max(0,target-s.qty)})).filter(s=>s.qty>0);return {p,sizes,total,order,needed:order.reduce((a,s)=>a+s.qty,0),status:!sizes.length?'Da censire':total===0?'Esaurito':order.length?'Scorta bassa':'Disponibile'};});
@@ -106,32 +106,5 @@ let movementsAll=[];
  const {error}=await client.rpc('manila_apply_stock_movement',{p_product_id:p.id,p_size:size,p_change:delta,p_note:note});
  if(error)throw error;await refresh();fill(rows.find(x=>x.id===p.id));$('movementForm').reset();notice('Movimento registrato e giacenza aggiornata.');
  }catch(err){notice(err.message,true);}});
- const demoItems=Object.entries(window.MANILA_CATALOG||{}).flatMap(([category,items])=>items.map(item=>({...item,category})));
- const isImported=item=>rows.some(r=>r.image_url===item.image||(r.name===item.name&&r.category===item.category));
- function renderDemos(){
-  const available=demoItems.filter(item=>!isImported(item));
-  $('demoList').innerHTML=available.map(item=>'<div class="item demo-item"><img src="'+safe(item.image)+'" alt=""><span><strong>'+safe(item.name)+'</strong><small>'+safe(label(item.category))+' · '+euro(item.price)+' · Già presente nel sito di prova</small></span></div>').join('')||'<p>Tutti gli articoli di prova sono già disponibili nell’elenco dei prodotti qui sopra.</p>';
-  $('importProducts').disabled=!available.length;
-  $('importProducts').textContent=available.length?'Rendi modificabili '+available.length+' articoli di prova':'Nessun articolo di prova da importare';
- }
- $('importProducts').onclick=async()=>{
-  try{
-   const missing=demoItems.filter(item=>!isImported(item));
-   if(!missing.length){notice('Tutti gli articoli di prova sono già presenti.');return;}
-   if(!confirm('Importare '+missing.length+' articoli già presenti nel sito? Le foto e i prezzi saranno mantenuti. Le taglie e le quantità resteranno da compilare.'))return;
-   const codes=new Set(rows.map(r=>r.code));
-   const batch=missing.map(item=>{
-    const kind=item.type||'tee',pre=prefix(item.category,kind);
-    let n=0,code;
-    do{code=pre+String(n++).padStart(2,'0');}while(codes.has(code));
-    codes.add(code);
-    return {code,name:item.name,category:item.category,kind,price:Number(item.price),description:item.description||'',image_url:item.image||null,sizes:{},published:true,featured:false,outlet:false};
-   });
-   const {error}=await client.from('manila_products').insert(batch);
-   if(error)throw error;
-   await refresh();
-   notice('Importati '+batch.length+' articoli con le foto originali. Ora selezionali nell’elenco per modificare nomi, prezzi, descrizioni e disponibilità.');
-  }catch(err){notice('Importazione non riuscita: '+err.message,true);}
- };
  const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);await loadPromo();await loadTheme();await loadSections();showView(location.hash.slice(1));}catch(err){notice(err.message,true);}}
 })();
