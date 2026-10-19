@@ -12,7 +12,7 @@
  const getSizes=()=>{const o={};for(const line of $('sizes').value.split('\n')){if(!line.trim())continue;const m=line.trim().match(/^([^:]+):\s*(\d+)$/);if(!m)throw Error('Formato taglie non valido: usa M:4, una per riga');o[m[1].trim()]=Number(m[2]);}return o;};
  const nextCode=(cat,kind)=>{const pre=prefix(cat,kind);const nums=rows.filter(r=>r.code.startsWith(pre)).map(r=>Number(r.code.slice(2))).filter(Number.isFinite);return pre+String(Math.max(-1,...nums)+1).padStart(2,'0');};
  const check=async()=>{const {data,error}=await client.from('manila_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error||!data)throw Error('Utente autenticato ma non autorizzato. Aggiungi il suo UUID in manila_admins dal SQL Editor.');};
- async function refresh(){const {data,error}=await client.from('manila_products').select('*').order('created_at',{ascending:true});if(error)throw error;rows=(data||[]).filter(r=>!r.archived);paint();renderInventory();await renderMovements();await renderSales();await renderGifts();$('stats').textContent=rows.length+' prodotti · '+rows.filter(x=>x.published).length+' pubblicati';}
+ async function refresh(){const {data,error}=await client.from('manila_products').select('*').order('created_at',{ascending:true});if(error)throw error;rows=(data||[]).filter(r=>!r.archived);paint();refreshLabelOptions();renderInventory();await renderMovements();await renderSales();await renderGifts();$('stats').textContent=rows.length+' prodotti · '+rows.filter(x=>x.published).length+' pubblicati';}
 
  const euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(n)||0);
  const reportModel=()=>rows.map(p=>{const sizes=Object.entries(p.sizes||{}).map(([size,qty])=>({size,qty:Math.max(0,Number(qty)||0)}));const total=sizes.reduce((a,s)=>a+s.qty,0),low=Number($('lowThreshold').value)||0,target=Math.max(1,Number($('targetStock').value)||5);const order=sizes.filter(s=>s.qty<=low).map(s=>({size:s.size,qty:Math.max(0,target-s.qty)})).filter(s=>s.qty>0);return {p,sizes,total,order,needed:order.reduce((a,s)=>a+s.qty,0),status:!sizes.length?'Da censire':total===0?'Esaurito':order.length?'Scorta bassa':'Disponibile'};});
@@ -62,9 +62,9 @@ let movementsAll=[];
  $('giftsPrint').onclick=()=>printSection('giftsPanel');
  $('giftForm').onsubmit=async e=>{e.preventDefault();try{const p=rows.find(r=>r.id===$('giftProduct').value);if(!p)throw Error('Seleziona un prodotto.');const {error}=await client.rpc('manila_record_gift',{p_product_id:p.id,p_size:$('giftSize').value.trim(),p_quantity:Number($('giftQty').value),p_unit_cost:$('giftCost').value===''?null:Number($('giftCost').value),p_shipping_cost:Number($('giftShipping').value),p_recipient:$('giftRecipient').value.trim(),p_note:$('giftNote').value.trim()});if(error)throw error;await refresh();$('giftForm').reset();$('giftQty').value=1;$('giftShipping').value=0;notice('Omaggio registrato: €0 incassati, giacenza scaricata.');}catch(err){notice(err.message,true);}};
 
- const views=['home','products','stockhub','inventory','movements','saleshub','sales','gifts','shopsettings','promotions','themes','sections','homephotos','legal','texts'];
- const parentView={inventory:'stockhub',movements:'stockhub',sales:'saleshub',gifts:'saleshub',promotions:'shopsettings',themes:'shopsettings',sections:'shopsettings',homephotos:'shopsettings',legal:'shopsettings',texts:'shopsettings',products:'home',stockhub:'home',saleshub:'home',shopsettings:'home'};
- const viewTitle={home:'Home',products:'Articoli',stockhub:'Magazzino',inventory:'Disponibilità e riordini',movements:'Entrate e uscite',saleshub:'Vendite',sales:'Registra vendita',gifts:'Omaggi',shopsettings:'Negozio online',promotions:'Promozioni',themes:'Aspetto del sito',sections:'Sezioni visibili',homephotos:'Foto della Home',legal:'Privacy e Cookie',texts:'Testi del sito'};
+ const views=['home','products','stockhub','inventory','movements','saleshub','sales','gifts','shopsettings','promotions','themes','sections','homephotos','legal','texts','labels'];
+ const parentView={inventory:'stockhub',labels:'stockhub',movements:'stockhub',sales:'saleshub',gifts:'saleshub',promotions:'shopsettings',themes:'shopsettings',sections:'shopsettings',homephotos:'shopsettings',legal:'shopsettings',texts:'shopsettings',products:'home',stockhub:'home',saleshub:'home',shopsettings:'home'};
+ const viewTitle={home:'Home',products:'Articoli',stockhub:'Magazzino',inventory:'Disponibilità e riordini',labels:'Cartellini e scansione',movements:'Entrate e uscite',saleshub:'Vendite',sales:'Registra vendita',gifts:'Omaggi',shopsettings:'Negozio online',promotions:'Promozioni',themes:'Aspetto del sito',sections:'Sezioni visibili',homephotos:'Foto della Home',legal:'Privacy e Cookie',texts:'Testi del sito'};
  function showView(v){if(!views.includes(v))v='home';
   document.querySelectorAll('[data-panel]').forEach(el=>el.hidden=el.dataset.panel!==v);
   document.querySelectorAll('.manager-tabs [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===v||b.dataset.view===(parentView[v]||'')));
@@ -169,6 +169,60 @@ async function loadLegal(){
   $('homePhotosStatus').textContent='Foto della Home salvate. Aggiorna il negozio per vedere le modifiche.';
   await loadHomePhotos();
  }catch(err){$('homePhotosStatus').textContent='Impossibile salvare: '+err.message;}finally{$('saveHomePhotos').disabled=false;}};
+
+ const code39Patterns={
+  '0':'nnnwwnwnn','1':'wnnwnnnnw','2':'nnwwnnnnw','3':'wnwwnnnnn','4':'nnnwwnnnw','5':'wnnwwnnnn','6':'nnwwwnnnn','7':'nnnwnnwnw','8':'wnnwnnwnn','9':'nnwwnnwnn',
+  'A':'wnnnnwnnw','B':'nnwnnwnnw','C':'wnwnnwnnn','D':'nnnnwwnnw','E':'wnnnwwnnn','F':'nnwnwwnnn','G':'nnnnnwwnw','H':'wnnnnwwnn','I':'nnwnnwwnn','J':'nnnnwwwnn',
+  'K':'wnnnnnnww','L':'nnwnnnnww','M':'wnwnnnnwn','N':'nnnnwnnww','O':'wnnnwnnwn','P':'nnwnwnnwn','Q':'nnnnnnwww','R':'wnnnnnwwn','S':'nnwnnnwwn','T':'nnnnwnwwn',
+  'U':'wwnnnnnnw','V':'nwwnnnnnw','W':'wwwnnnnnn','X':'nwnnwnnnw','Y':'wwnnwnnnn','Z':'nwwnwnnnn','-':'nwnnnnwnw','*':'nwnnwnwnn'
+ };
+ function barcode39(value){
+  let x=8,rects='';
+  for(const character of '*'+value+'*'){
+   const pattern=code39Patterns[character];
+   if(!pattern)throw Error('Codice non supportato: '+character);
+   for(let i=0;i<9;i++){const w=pattern[i]==='w'?5:2;if(i%2===0)rects+='<rect x="'+x+'" y="0" width="'+w+'" height="70"/>';x+=w;}x+=3;
+  }
+  return '<svg viewBox="0 0 '+(x+8)+' 70" xmlns="http://www.w3.org/2000/svg">'+rects+'</svg>';
+ }
+ function refreshLabelSizes(){
+  const p=rows.find(r=>r.id===$('labelProduct').value),sizes=Object.keys(p?.sizes||{});
+  $('labelSize').innerHTML=(sizes.length?sizes:['UNICA']).map(size=>'<option value="'+safe(size)+'">'+safe(size)+'</option>').join('');
+ }
+ function refreshLabelOptions(){
+  const el=$('labelProduct'),previous=el.value;
+  el.innerHTML=rows.map(p=>'<option value="'+safe(p.id)+'">'+safe(p.code+' — '+p.name)+'</option>').join('');
+  if(rows.some(p=>p.id===previous))el.value=previous;
+  refreshLabelSizes();
+ }
+ $('labelProduct').addEventListener('change',refreshLabelSizes);
+ $('labelPrint').onclick=()=>{
+  try{
+   const p=rows.find(r=>r.id===$('labelProduct').value);if(!p)throw Error('Seleziona un articolo.');
+   const size=$('labelSize').value||'UNICA',count=Math.max(1,Math.min(100,parseInt($('labelCopies').value,10)||1));
+   const normalizedSize=size.toUpperCase().replace(/[^A-Z0-9-]/g,'');
+   const sku=p.code+'-'+normalizedSize;
+   const bars=barcode39(sku);
+   const logo=new URL('logo-manila-dark-lab.jpeg',location.href).href;
+   const cards=Array.from({length:count},()=>'<article class="ticket"><img class="logo" src="'+safe(logo)+'" alt="Logo Manila Dark Lab"><strong class="name">'+safe(p.name)+'</strong><span>Taglia '+safe(size)+(p.color?' · '+safe(p.color):'')+'</span>'+bars+'<strong class="code">'+safe(sku)+'</strong><strong class="price">'+euro(p.price)+'</strong></article>').join('');
+   const css='@page{size:A4;margin:10mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#111}.sheet{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}.ticket{border:1px dashed #aaa;height:79mm;padding:5mm;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;break-inside:avoid}.logo{max-width:75%;height:20mm;object-fit:contain}.name{font-size:13px}.ticket span,.code{font-size:11px}.ticket svg{width:100%;height:17mm}.price{font-size:18px}';
+   const w=window.open('','_blank');if(!w)throw Error('Abilita i popup per stampare.');
+   w.document.write('<!doctype html><html lang="it"><head><meta charset="utf-8"><title>Cartellini Manila</title><style>'+css+'</style></head><body><div class="sheet">'+cards+'</div></body></html>');
+   w.document.close();
+   w.addEventListener('load',()=>{setTimeout(()=>w.print(),400)},{once:true});
+   $('labelResult').textContent='Cartellini generati. Scegli la stampante nella nuova finestra.';
+  }catch(err){$('labelResult').textContent=err.message;}
+ };
+ function findLabel(){
+  const scanned=$('labelLookup').value.trim().toUpperCase();
+  const p=rows.find(r=>scanned===r.code||scanned.startsWith(r.code+'-'));
+  if(!p){$('labelResult').textContent='Nessun articolo trovato: controlla il codice.';return;}
+  const size=scanned.startsWith(p.code+'-')?scanned.slice(p.code.length+1):'';
+  $('labelResult').innerHTML='<strong>'+safe(p.name)+'</strong> · '+safe(p.code)+' · '+safe(size||'Tutte le taglie')+' · '+euro(p.price)+'<p><button type="button" id="labelOpenProduct">Apri articolo</button></p>';
+  $('labelOpenProduct').onclick=()=>{showView('products');openArticle(p);};
+ }
+ $('labelFind').onclick=findLabel;
+ $('labelLookup').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();findLabel();}});
  function paint(){const q=$('search').value.trim().toLowerCase(),cat=$('categoryFilter').value;
   const filtered=rows.filter(r=>(!cat||r.category===cat)&&(!q||(r.name+' '+r.code).toLowerCase().includes(q)));
   $('list').innerHTML=filtered.map(r=>'<article class="product-tile"><img src="'+safe(r.image_url||'logo-manila-dark-lab.jpeg')+'" alt="Foto di '+safe(r.name)+'"><div class="tile-details"><strong>'+safe(r.name)+'</strong><span>'+safe(label(r.category))+' · '+euro(r.price)+'</span><span>'+Object.values(r.sizes||{}).reduce((a,n)=>a+Number(n||0),0)+' capi in magazzino</span><span class="tile-status">'+(r.published?'Visibile nel negozio':'Nascosto ai clienti')+'</span><div class="tile-actions"><button type="button" data-id="'+safe(r.id)+'" class="edit-item">✎ Modifica</button><button type="button" data-delete-id="'+safe(r.id)+'" class="tile-delete">Elimina</button></div></div></article>').join('')||'<p>Nessun articolo trovato. Prova a cambiare filtro.</p>';
