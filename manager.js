@@ -62,9 +62,21 @@ let movementsAll=[];
  $('giftsPrint').onclick=()=>printSection('giftsPanel');
  $('giftForm').onsubmit=async e=>{e.preventDefault();try{const p=rows.find(r=>r.id===$('giftProduct').value);if(!p)throw Error('Seleziona un prodotto.');const {error}=await client.rpc('manila_record_gift',{p_product_id:p.id,p_size:$('giftSize').value.trim(),p_quantity:Number($('giftQty').value),p_unit_cost:$('giftCost').value===''?null:Number($('giftCost').value),p_shipping_cost:Number($('giftShipping').value),p_recipient:$('giftRecipient').value.trim(),p_note:$('giftNote').value.trim()});if(error)throw error;await refresh();$('giftForm').reset();$('giftQty').value=1;$('giftShipping').value=0;notice('Omaggio registrato: €0 incassati, giacenza scaricata.');}catch(err){notice(err.message,true);}};
 
- const views=['home','inventory','products','movements','sales','gifts','promotions','themes','sections','homephotos'];
- function showView(v){if(!views.includes(v))v='home';document.querySelectorAll('[data-panel]').forEach(el=>el.hidden=el.dataset.panel!==v);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.body.dataset.managerView=v;location.hash=v;}
+ const views=['home','products','stockhub','inventory','movements','saleshub','sales','gifts','shopsettings','promotions','themes','sections','homephotos'];
+ const parentView={inventory:'stockhub',movements:'stockhub',sales:'saleshub',gifts:'saleshub',promotions:'shopsettings',themes:'shopsettings',sections:'shopsettings',homephotos:'shopsettings',products:'home',stockhub:'home',saleshub:'home',shopsettings:'home'};
+ const viewTitle={home:'Home',products:'Articoli',stockhub:'Magazzino',inventory:'Disponibilità e riordini',movements:'Entrate e uscite',saleshub:'Vendite',sales:'Registra vendita',gifts:'Omaggi',shopsettings:'Negozio online',promotions:'Promozioni',themes:'Aspetto del sito',sections:'Sezioni visibili',homephotos:'Foto della Home'};
+ function showView(v){if(!views.includes(v))v='home';
+  document.querySelectorAll('[data-panel]').forEach(el=>el.hidden=el.dataset.panel!==v);
+  document.querySelectorAll('.manager-tabs [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===v||b.dataset.view===(parentView[v]||'')));
+  document.body.dataset.managerView=v;
+  $('managerPageTitle').textContent=v==='home'?'':viewTitle[v];
+  $('managerBack').hidden=v==='home';
+  location.hash=v;
+  window.scrollTo({top:0,behavior:'instant'});
+ }
  document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+ $('managerBack').onclick=()=>showView(parentView[document.body.dataset.managerView]||'home');
+ window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(views.includes(v)&&document.body.dataset.managerView!==v)showView(v);});
  async function loadPromo(){const r=await client.from('manila_promotions').select('*').eq('id',1).maybeSingle();if(r.error){$('promoPreview').textContent='Esegui prima supabase/promotions.sql';return;}const p=r.data||{};$('promoName').value=p.name||'';$('promoPercent').value=p.percent||0;$('promoActive').checked=!!p.active;$('promoKind').value=p.kind||'percent';$('promoScope').value=p.scope||'all';}
  $('promoForm').onsubmit=async e=>{e.preventDefault();const percent=Number($('promoPercent').value),name=$('promoName').value.trim(),active=$('promoActive').checked;if(!Number.isInteger(percent)||percent<0||percent>100||active&&!name){notice('Inserisci un nome e uno sconto da 0 a 100.',true);return;}const r=await client.from('manila_promotions').upsert({id:1,name,percent,active,kind:$('promoKind').value,scope:$('promoScope').value});notice(r.error?r.error.message:'Promozione salvata.',!!r.error);};
  const themePalettes={original:['#222625','#d6ed45'],christmas:['#16352c','#f2c36a'],halloween:['#271b30','#ff973b'],pride:['#22243c','#e975af'],special:['#142e38','#73e5ee']};
