@@ -219,7 +219,28 @@
     } else {
       let size = p.sizes.length ? '' : 'Da confermare', quantity = 1;
       document.title = `${p.name} — Manila Dark Lab`;
-      $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;const images=[...new Set([p.image,...(p.gallery||[])])].filter(Boolean);const thumbs=$('detailThumbnails');if(thumbs&&images.length>1){thumbs.innerHTML=images.map((src,i)=>'<button type="button" data-photo="'+i+'"><img src="'+escape(src)+'" alt="Foto '+(i+1)+'"></button>').join('');thumbs.onclick=e=>{const b=e.target.closest('[data-photo]');if(b){$('detailImage').src=images[Number(b.dataset.photo)];$('detailImage').hidden=false;const video=$('detailVideo');if(video){video.pause();video.hidden=true;}}};}if(thumbs&&p.video_url){const videoButton=document.createElement('button');videoButton.type='button';videoButton.textContent='▶ Guarda il video';videoButton.onclick=()=>{const video=$('detailVideo');if(video){video.src=p.video_url;video.hidden=false;$('detailImage').hidden=true;video.play().catch(()=>{});}};thumbs.appendChild(videoButton);}
+      $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;const images=[...new Set([p.image,...(p.gallery||[])])].filter(Boolean);
+      const media=[...images.map(src=>({type:'image',src})),...(p.video_url?[{type:'video',src:p.video_url}]:[])];
+      const thumbs=$('detailThumbnails'),mainImage=$('detailImage'),video=$('detailVideo'),prev=$('mediaPrev'),next=$('mediaNext'),counter=$('mediaCounter');
+      let mediaIndex=0;
+      function showMedia(index){
+        if(!media.length)return;
+        mediaIndex=(index+media.length)%media.length;
+        const item=media[mediaIndex];
+        video.pause();
+        if(item.type==='video'){mainImage.hidden=true;video.hidden=false;if(video.src!==item.src)video.src=item.src;video.load();}
+        else{video.hidden=true;mainImage.hidden=false;mainImage.src=item.src;mainImage.alt=p.name+' — foto '+(mediaIndex+1);}
+        if(counter)counter.textContent=(mediaIndex+1)+' / '+media.length;
+        if(thumbs)thumbs.querySelectorAll('[data-media]').forEach(btn=>{const active=Number(btn.dataset.media)===mediaIndex;btn.classList.toggle('selected',active);btn.setAttribute('aria-current',active?'true':'false');});
+      }
+      if(thumbs)thumbs.innerHTML=media.map((item,i)=>'<button type="button" class="media-thumb" data-media="'+i+'" aria-label="'+(item.type==='video'?'Video del capo':'Foto '+(i+1))+'">'+(item.type==='video'?'<span class="media-play">▶</span><span>Video</span>':'<img src="'+escape(item.src)+'" alt="Foto '+(i+1)+'">')+'</button>').join('');
+      if(thumbs)thumbs.onclick=e=>{const btn=e.target.closest('[data-media]');if(btn)showMedia(Number(btn.dataset.media));};
+      if(prev)prev.onclick=()=>showMedia(mediaIndex-1);
+      if(next)next.onclick=()=>showMedia(mediaIndex+1);
+      if(media.length>0)showMedia(0);
+      if(prev)prev.hidden=media.length<2;
+      if(next)next.hidden=media.length<2;
+      if(counter)counter.hidden=media.length<2;
       $('backLink').href = `${p.group}.html`; $('backLink').textContent = `← ${p.group === 'man' ? 'Uomo' : 'Donna'} / Tutti i capi`;
       const fields = { detailName:p.name, detailTag:p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie e disponibilità da confermare', detailPrice:money(p.price), detailDescription:p.description, detailFit:p.fit, detailMaterial:p.material, detailColor:p.color, detailSku:p.sku, detailCategory:`MANILA DARK LAB / ${p.type === 'hoodie' ? 'FELPE' : 'T-SHIRT'}` };
       Object.entries(fields).forEach(([id,value]) => $(id).textContent = value);
