@@ -62,9 +62,9 @@ let movementsAll=[];
  $('giftsPrint').onclick=()=>printSection('giftsPanel');
  $('giftForm').onsubmit=async e=>{e.preventDefault();try{const p=rows.find(r=>r.id===$('giftProduct').value);if(!p)throw Error('Seleziona un prodotto.');const {error}=await client.rpc('manila_record_gift',{p_product_id:p.id,p_size:$('giftSize').value.trim(),p_quantity:Number($('giftQty').value),p_unit_cost:$('giftCost').value===''?null:Number($('giftCost').value),p_shipping_cost:Number($('giftShipping').value),p_recipient:$('giftRecipient').value.trim(),p_note:$('giftNote').value.trim()});if(error)throw error;await refresh();$('giftForm').reset();$('giftQty').value=1;$('giftShipping').value=0;notice('Omaggio registrato: €0 incassati, giacenza scaricata.');}catch(err){notice(err.message,true);}};
 
- const views=['home','products','stockhub','inventory','movements','saleshub','sales','gifts','shopsettings','promotions','themes','sections','homephotos'];
- const parentView={inventory:'stockhub',movements:'stockhub',sales:'saleshub',gifts:'saleshub',promotions:'shopsettings',themes:'shopsettings',sections:'shopsettings',homephotos:'shopsettings',products:'home',stockhub:'home',saleshub:'home',shopsettings:'home'};
- const viewTitle={home:'Home',products:'Articoli',stockhub:'Magazzino',inventory:'Disponibilità e riordini',movements:'Entrate e uscite',saleshub:'Vendite',sales:'Registra vendita',gifts:'Omaggi',shopsettings:'Negozio online',promotions:'Promozioni',themes:'Aspetto del sito',sections:'Sezioni visibili',homephotos:'Foto della Home'};
+ const views=['home','products','stockhub','inventory','movements','saleshub','sales','gifts','shopsettings','promotions','themes','sections','homephotos','legal','texts'];
+ const parentView={inventory:'stockhub',movements:'stockhub',sales:'saleshub',gifts:'saleshub',promotions:'shopsettings',themes:'shopsettings',sections:'shopsettings',homephotos:'shopsettings',legal:'shopsettings',texts:'shopsettings',products:'home',stockhub:'home',saleshub:'home',shopsettings:'home'};
+ const viewTitle={home:'Home',products:'Articoli',stockhub:'Magazzino',inventory:'Disponibilità e riordini',movements:'Entrate e uscite',saleshub:'Vendite',sales:'Registra vendita',gifts:'Omaggi',shopsettings:'Negozio online',promotions:'Promozioni',themes:'Aspetto del sito',sections:'Sezioni visibili',homephotos:'Foto della Home',legal:'Privacy e Cookie',texts:'Testi del sito'};
  function showView(v){if(!views.includes(v))v='home';
   document.querySelectorAll('[data-panel]').forEach(el=>el.hidden=el.dataset.panel!==v);
   document.querySelectorAll('.manager-tabs [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===v||b.dataset.view===(parentView[v]||'')));
@@ -91,7 +91,62 @@ let movementsAll=[];
  const homeCards=[['man','Uomo','ambient-industrial.jpg'],['woman','Donna','woman-tee-tarot.jpg'],['kids','Kids','']];
  let homePhotosConfig={};
  const homeInputs={};
- async function loadHomePhotos(){
+async function loadSiteTexts(){
+ const save=$('saveSiteTexts');save.disabled=true;$('siteTextStatus').textContent='Caricamento testi…';
+ try{
+  const defs=window.MANILA_SITE_TEXT_FIELDS||{};
+  let markup='';
+  const titles={home:'Home',shop:'Shop',man:'Uomo',woman:'Donna',kids:'Kids',product:'Scheda prodotto'};
+  for(const [page,fields] of Object.entries(defs)){
+   const path=page==='home'?'index.html':page+'.html';
+   const res=await fetch(path,{cache:'no-store'});if(!res.ok)throw Error('Non riesco a leggere '+path);
+   const doc=new DOMParser().parseFromString(await res.text(),'text/html');
+   markup+='<h3>'+titles[page]+'</h3>';
+   for(const [key,selector,label] of fields){
+    const el=doc.querySelector(selector);
+    const fallback=(el?.textContent||'').replace(/\\s+/g,' ').trim().replace(/↗$/,'').trim();
+    markup+='<label class="site-text-row"><span>'+safe(label)+'</span><textarea rows="2" data-text-key="'+safe(key)+'" placeholder="'+safe(fallback)+'"></textarea></label>';
+   }
+  }
+  $('siteTextFields').innerHTML=markup;
+  const {data,error}=await client.from('manila_site_texts').select('key,value');
+  if(error)throw Error('Per attivare i testi esegui supabase/site-texts.sql su Supabase. '+error.message);
+  for(const row of data||[]){const field=Array.from(document.querySelectorAll('[data-text-key]')).find(e=>e.dataset.textKey===row.key);if(field)field.value=row.value;}
+  save.disabled=false;$('siteTextStatus').textContent='Modifica i campi che vuoi cambiare e premi Salva.';
+ }catch(err){$('siteTextStatus').textContent=err.message;}
+}
+$('saveSiteTexts').onclick=async()=>{const btn=$('saveSiteTexts');btn.disabled=true;try{
+ const entries=[...document.querySelectorAll('[data-text-key]')].filter(e=>e.value.trim()).map(e=>({key:e.dataset.textKey,value:e.value.trim(),updated_at:new Date().toISOString()}));
+ if(!entries.length)throw Error('Inserisci almeno un testo da personalizzare.');
+ const {error}=await client.from('manila_site_texts').upsert(entries);if(error)throw error;
+ $('siteTextStatus').textContent='Testi salvati. Ricarica il negozio per vedere le modifiche.';
+}catch(err){$('siteTextStatus').textContent=err.message;}finally{btn.disabled=false;}};
+async function loadLegal(){
+  const save=$('legalSave');save.disabled=true;$('legalStatus').textContent='Caricamento informative…';
+  try{
+   for(const [slug,id,file] of [['privacy','legalPrivacy','privacy.html'],['cookies','legalCookies','cookies.html']]){
+    const res=await fetch(file,{cache:'no-store'});if(!res.ok)throw Error('Non riesco a caricare '+file);
+    const html=await res.text();const doc=new DOMParser().parseFromString(html,'text/html');
+    $(id).value=doc.getElementById('legalFallback')?.textContent?.trim()||'';
+   }
+   const {data,error}=await client.from('manila_legal_pages').select('slug,content');
+   if(error)throw new Error('Esegui supabase/legal-pages.sql su Supabase. '+error.message);
+   for(const item of data||[]){const id=item.slug==='privacy'?'legalPrivacy':item.slug==='cookies'?'legalCookies':null;if(id&&item.content)$(id).value=item.content;}
+   save.disabled=false;$('legalStatus').textContent='Le informative sono pronte. Salva per pubblicare le modifiche.';
+  }catch(err){$('legalStatus').textContent=err.message;}
+ }
+ $('legalSave').onclick=async()=>{
+  $('legalSave').disabled=true;
+  try{
+   for(const [slug,id] of [['privacy','legalPrivacy'],['cookies','legalCookies']]){
+    const content=$(id).value.trim();if(content.length<150)throw Error('Testo troppo breve per '+slug+'.');
+    const {error}=await client.from('manila_legal_pages').upsert({slug,content,updated_at:new Date().toISOString()});if(error)throw error;
+   }
+   $('legalStatus').textContent='Informative aggiornate. Sono ora visibili sul sito.';
+  }catch(err){$('legalStatus').textContent='Impossibile salvare: '+err.message;}
+  finally{$('legalSave').disabled=false;}
+ };
+  async function loadHomePhotos(){
   $('saveHomePhotos').disabled=true;
   $('homePhotosStatus').textContent='Caricamento immagini in corso…';
   const {data,error}=await client.from('manila_home_photos').select('*');
@@ -130,7 +185,7 @@ let movementsAll=[];
  function fill(p){current=p?.id||null;editingVideo=p?.video_url||null;$('productVideo').value='';showVideo();editingImages=Array.isArray(p?.images)&&p.images.length?p.images.slice(0,3):(p?.image_url?[p.image_url]:[]);updatePhotoGallery();$('editorTitle').textContent=p?'Modifica '+p.code:'Nuovo prodotto';$('category').value=p?.category||'man';$('kind').value=p?.kind||'tee';$('code').value=p?.code||'';$('name').value=p?.name||'';$('price').value=p?.price??19.90;$('description').value=p?.description||'';$('image_url').value=p?.image_url||'';$('sizes').value=Object.entries(p?.sizes||{}).map(([s,n])=>s+':'+n).join('\n');$('published').checked=!!p?.published;$('featured').checked=!!p?.featured;$('outlet').checked=!!p?.outlet;$('deleteProduct').hidden=!p;$('movements').textContent='';if(p)history(p.id);}
  async function history(id){const {data}=await client.from('manila_stock_movements').select('*').eq('product_id',id).order('created_at',{ascending:false}).limit(15);$('movements').innerHTML=(data||[]).map(m=>'<div>'+safe(new Date(m.created_at).toLocaleString('it-IT'))+' · '+safe(m.size)+' · '+safe(m.change>0?'+':'')+safe(m.change)+' · '+safe(m.note)+'</div>').join('');}
  async function upload(file){if(!file)return null;if(file.size>10485760||!['image/jpeg','image/png','image/webp'].includes(file.type))throw Error('Foto non valida (max 10 MB, JPG/PNG/WebP).');const ext=file.name.split('.').pop().toLowerCase();const path='products/'+crypto.randomUUID()+'.'+ext;const {error}=await client.storage.from('manila-products').upload(path,file,{contentType:file.type,upsert:false});if(error)throw error;return client.storage.from('manila-products').getPublicUrl(path).data.publicUrl;}
- $('loginForm').addEventListener('submit',async e=>{e.preventDefault();notice('Accesso in corso...');const {data,error}=await client.auth.signInWithPassword({email:$('email').value,password:$('password').value});if(error){notice(error.message,true);return;}user=data.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();closeArticle();await loadPromo();await loadTheme();await loadSections();await loadHomePhotos();showView(location.hash.slice(1));notice('Accesso effettuato.');}catch(err){await client.auth.signOut();notice(err.message,true);}});
+ $('loginForm').addEventListener('submit',async e=>{e.preventDefault();notice('Accesso in corso...');const {data,error}=await client.auth.signInWithPassword({email:$('email').value,password:$('password').value});if(error){notice(error.message,true);return;}user=data.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();closeArticle();await loadPromo();await loadTheme();await loadSections();await loadHomePhotos();await loadLegal();await loadSiteTexts();showView(location.hash.slice(1));notice('Accesso effettuato.');}catch(err){await client.auth.signOut();notice(err.message,true);}});
  $('logout').onclick=async()=>{await client.auth.signOut();location.reload();};
  $('newProduct').onclick=()=>openArticle(null);
  $('search').oninput=paint;$('categoryFilter').onchange=paint;

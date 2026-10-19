@@ -104,3 +104,5 @@ body #app [data-panel][hidden],body #app #editor[hidden],body #app [data-panel="
 body[data-manager-view="home"] .manager-tabs{display:none}
 body #app [data-panel][hidden]{display:none!important}
 @media(max-width:660px){.manager-tabs{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;gap:7px;padding:10px 12px}.manager-tabs button{white-space:nowrap;min-height:45px;padding:10px 12px}.home-tiles{grid-template-columns:1fr;gap:12px}.home-tiles button{min-height:106px}.manager-context{padding:0 12px}.home-welcome h2{font-size:32px}}
+
+.legal-editor label,.site-text-row{display:block;margin:14px 0}.legal-editor textarea,.site-text-row textarea{display:block;box-sizing:border-box;width:100%;margin:6px 0 14px;padding:12px;background:#202820;color:#f1f3eb;border:1px solid #566054;border-radius:9px;line-height:1.55;font:inherit}.site-text-row textarea:focus,.legal-editor textarea:focus{outline:2px solid #d6ed45;outline-offset:2px}.site-text-row span{font-weight:700}#siteTextFields h3{margin:30px 0 10px;border-bottom:1px solid #4c544a;padding-bottom:9px}
