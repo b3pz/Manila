@@ -220,7 +220,7 @@
       let size = p.sizes.length ? '' : 'Da confermare', quantity = 1;
       document.title = `${p.name} — Manila Dark Lab`;
       $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;const images=[...new Set([p.image,...(p.gallery||[])])].filter(Boolean);
-      const media=[...images.map(src=>({type:'image',src})),...(p.video_url?[{type:'video',src:p.video_url}]:[])];
+      const media=[...(p.video_url?[{type:'video',src:p.video_url}]:[]),...images.map(src=>({type:'image',src}))];
       const thumbs=$('detailThumbnails'),mainImage=$('detailImage'),video=$('detailVideo'),prev=$('mediaPrev'),next=$('mediaNext'),counter=$('mediaCounter');
       let mediaIndex=0;
       function showMedia(index){
@@ -228,7 +228,7 @@
         mediaIndex=(index+media.length)%media.length;
         const item=media[mediaIndex];
         video.pause();
-        if(item.type==='video'){mainImage.hidden=true;video.hidden=false;if(video.src!==item.src)video.src=item.src;video.load();}
+        if(item.type==='video'){mainImage.hidden=true;video.hidden=false;video.muted=true;video.loop=true;video.autoplay=true;video.playsInline=true;video.setAttribute('playsinline','');if(video.src!==item.src)video.src=item.src;video.play().catch(()=>{});}
         else{video.hidden=true;mainImage.hidden=false;mainImage.src=item.src;mainImage.alt=p.name+' — foto '+(mediaIndex+1);}
         if(counter)counter.textContent=(mediaIndex+1)+' / '+media.length;
         if(thumbs)thumbs.querySelectorAll('[data-media]').forEach(btn=>{const active=Number(btn.dataset.media)===mediaIndex;btn.classList.toggle('selected',active);btn.setAttribute('aria-current',active?'true':'false');});
