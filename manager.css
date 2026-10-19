@@ -79,3 +79,5 @@ body[data-manager-view="home"] .manager-tabs{display:none}
 
 /* Critical: hidden screens must never leak into another screen on mobile. */
 body #app [data-panel][hidden],body #app #editor[hidden],body #app [data-panel="products"] > .panel[hidden]{display:none!important}
+
+.advanced-photo-path{display:none!important}.tile-actions{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:auto}.tile-actions button{min-height:45px;border-radius:7px;font-size:14px}.tile-actions .tile-delete{background:#53302f;color:#fff;border:1px solid #a35d59}.tile-actions .edit-item{margin-top:0}@media(max-width:530px){.tile-actions{grid-template-columns:1fr}.tile-actions button{min-height:41px}}
