@@ -128,5 +128,5 @@ let movementsAll=[];
    notice('Importati '+batch.length+' articoli con le foto originali. Ora selezionali nell’elenco per modificare nomi, prezzi, descrizioni e disponibilità.');
   }catch(err){notice('Importazione non riuscita: '+err.message,true);}
  };
- const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);}catch(err){notice(err.message,true);}}
+ const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);showView(location.hash.slice(1));}catch(err){notice(err.message,true);}}
 })();
