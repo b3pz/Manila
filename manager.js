@@ -80,17 +80,21 @@ let movementsAll=[];
  let homePhotosConfig={};
  const homeInputs={};
  async function loadHomePhotos(){
+  $('saveHomePhotos').disabled=true;
+  $('homePhotosStatus').textContent='Caricamento immagini in corso…';
   const {data,error}=await client.from('manila_home_photos').select('*');
-  if(error){$('homePhotosStatus').textContent='Per attivare le foto della Home esegui supabase/home-photos.sql su Supabase.';return;}
+  if(error){$('homePhotosStatus').textContent='Impossibile caricare le immagini. Verifica che supabase/home-photos.sql sia stato eseguito su Supabase. Dettaglio: '+error.message;return;}
   homePhotosConfig=Object.fromEntries((data||[]).map(item=>[item.section,item.image_url]));
   $('homePhotosGrid').innerHTML=homeCards.map(([key,name,fallback])=>'<div class="home-photo-card"><h3>'+name+'</h3><img id="homePreview_'+key+'" src="'+safe(homePhotosConfig[key]||fallback||'logo-manila-dark-lab.jpeg')+'" alt="Foto '+name+'"><label>Scegli una nuova foto<input type="file" accept="image/jpeg,image/png,image/webp" id="homeFile_'+key+'"></label><button type="button" class="secondary" data-restore-home="'+key+'">Ripristina foto originale</button></div>').join('');
+  $('homePhotosStatus').textContent='Seleziona le foto da cambiare e premi Salva.';
+  $('saveHomePhotos').disabled=false;
   for(const [key] of homeCards){const input=$('homeFile_'+key);input.onchange=()=>{const f=input.files[0];if(f){const img=$('homePreview_'+key);if(img.dataset.previewUrl)URL.revokeObjectURL(img.dataset.previewUrl);img.dataset.previewUrl=URL.createObjectURL(f);img.src=img.dataset.previewUrl;}};}
  }
  $('homePhotosGrid').onclick=e=>{const b=e.target.closest('[data-restore-home]');if(!b)return;const key=b.dataset.restoreHome;homePhotosConfig[key]=null;$('homeFile_'+key).value='';const img=$('homePreview_'+key);if(img.dataset.previewUrl)URL.revokeObjectURL(img.dataset.previewUrl);img.src=homeCards.find(c=>c[0]===key)[2]||'logo-manila-dark-lab.jpeg';};
  $('saveHomePhotos').onclick=async()=>{try{
   $('saveHomePhotos').disabled=true;
   for(const [key] of homeCards){
-   const file=$('homeFile_'+key).files[0];
+   const field=$('homeFile_'+key);if(!field)throw Error('La pagina non è ancora pronta. Ricaricala e riprova.');const file=field.files[0];
    if(file)homePhotosConfig[key]=await upload(file);
    const {error}=await client.from('manila_home_photos').upsert({section:key,image_url:homePhotosConfig[key]||null,updated_at:new Date().toISOString()});
    if(error)throw error;
@@ -143,5 +147,5 @@ let movementsAll=[];
  const {error}=await client.rpc('manila_apply_stock_movement',{p_product_id:p.id,p_size:size,p_change:delta,p_note:note});
  if(error)throw error;await refresh();fill(rows.find(x=>x.id===p.id));$('movementForm').reset();notice('Movimento registrato e giacenza aggiornata.');
  }catch(err){notice(err.message,true);}});
- const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);await loadPromo();await loadTheme();await loadSections();showView(location.hash.slice(1));}catch(err){notice(err.message,true);}}
+ const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);await loadPromo();await loadTheme();await loadSections();await loadHomePhotos();showView(location.hash.slice(1));}catch(err){notice(err.message,true);}}
 })();
