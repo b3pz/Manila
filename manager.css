@@ -109,3 +109,15 @@ body #app [data-panel][hidden]{display:none!important}
 
 /* Cartellini e scanner */
 .label-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:18px 0 24px}.label-controls label{display:flex;flex:1 1 180px;flex-direction:column;gap:6px}.label-controls select,.label-controls input,.label-controls>input{min-height:46px;max-width:100%;background:#222922;border:1px solid #59645a;color:#f2f5eb;border-radius:8px;padding:10px}.label-controls button{min-height:46px}.label-controls>input{flex:1 1 220px}#labelResult{padding:12px 0;min-height:40px}
+
+/* Scanner unico, resi e richieste sito */
+.global-scan{margin:10px auto;max-width:1160px;padding:12px;border:1px solid #4d584e;border-radius:10px;background:#1d261f}
+.global-scan label{display:block;font-weight:700;margin-bottom:6px}
+.global-scan input{width:100%;box-sizing:border-box;min-height:46px;background:#303931;border:1px solid #7d8b7f;border-radius:7px;color:white;padding:10px}
+.scan-result{display:block;width:100%;text-align:left;background:#303931;color:white;margin:6px 0;padding:9px;border:1px solid #566056}
+#globalScanResult{padding:7px 0}#globalScanResult button{margin:5px}
+.web-orders-list{display:grid;gap:18px;margin:20px 0}
+.web-order{border:1px solid #576159;border-radius:12px;padding:18px;overflow-wrap:anywhere}
+.web-order p{line-height:1.5}.web-order label{display:inline-grid;gap:6px;min-width:160px;max-width:100%;margin:8px}
+.web-order select,.web-order input{max-width:100%;background:#283229;color:#fff;padding:10px;border:1px solid #59635a}
+.web-order button{margin:8px}.label-controls input,.label-controls select{width:100%}
