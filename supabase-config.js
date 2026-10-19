@@ -1,5 +1,5 @@
-// Public Supabase project settings only. NEVER put service_role or secrets here.
+// Public credentials only. Row Level Security must be enabled in Supabase.
 window.MANILA_SUPABASE = {
-  url: "",
-  anonKey: ""
+  url: "https://gvrjdoozwcozrsoltkyy.supabase.co",
+  anonKey: "sb_publishable_T-60p1H1gzcDifJ_4LwKNg_o-drzVGd"
 };
