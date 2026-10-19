@@ -81,3 +81,5 @@ body[data-manager-view="home"] .manager-tabs{display:none}
 body #app [data-panel][hidden],body #app #editor[hidden],body #app [data-panel="products"] > .panel[hidden]{display:none!important}
 
 .advanced-photo-path{display:none!important}.tile-actions{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:auto}.tile-actions button{min-height:45px;border-radius:7px;font-size:14px}.tile-actions .tile-delete{background:#53302f;color:#fff;border:1px solid #a35d59}.tile-actions .edit-item{margin-top:0}@media(max-width:530px){.tile-actions{grid-template-columns:1fr}.tile-actions button{min-height:41px}}
+
+.section-toggle{display:block;margin:14px 0;padding:16px;border:1px solid #48504b;border-radius:12px;font-size:17px}.section-toggle input{width:22px;height:22px;margin-right:12px}#sectionsPanel{max-width:770px;margin:auto}

@@ -8,13 +8,13 @@
       if(!response.ok)throw Error('Catalogo live non disponibile');
       const live=await response.json();
       // Keep the existing storefront intact until products have been published in Supabase.
-      if(!Array.isArray(live)||live.length===0)throw Error('Nessun prodotto live: mantengo il catalogo statico');
+      if(!Array.isArray(live))throw Error('Catalogo live non valido');
       window.MANILA_CATALOG={man:[],woman:[],kids:[]};
       for(const item of live){
         if(!window.MANILA_CATALOG[item.category])continue;
-        const sizes=Object.keys(item.sizes||{}).filter(k=>Number(item.sizes[k])>0);
+        if(item.archived)continue;const sizes=Object.keys(item.sizes||{}).filter(k=>Number(item.sizes[k])>0);
         window.MANILA_CATALOG[item.category].push({
-          id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',
+          id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',gallery:Array.isArray(item.images)&&item.images.length?item.images:[item.image_url].filter(Boolean),outlet:!!item.outlet,
           sizes,fit:'Da confermare',material:'Da confermare',color:'',sku:item.code,
           description:item.description||'',type:item.kind,availability:sizes.length?'Disponibile':'Su richiesta'
         });
@@ -22,11 +22,18 @@
     } catch(err){console.warn('Manila: catalogo statico di riserva',err);}
   }
   let promotion=null;
-  if(cfg.url&&cfg.anonKey){try{const r=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/manila_promotions?select=name,percent&active=eq.true&id=eq.1',{headers:{apikey:cfg.anonKey}});if(r.ok){const found=await r.json();if(found.length)promotion=found[0];}}catch(e){console.warn('Promozione non disponibile',e);}}
+  if(cfg.url&&cfg.anonKey){try{const r=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/manila_promotions?select=name,percent,scope,kind&active=eq.true&id=eq.1',{headers:{apikey:cfg.anonKey}});if(r.ok){const found=await r.json();if(found.length)promotion=found[0];}}catch(e){console.warn('Promozione non disponibile',e);}}
+  let sectionVisibility={man:true,woman:true,kids:true,outlet:false};
+  if(cfg.url&&cfg.anonKey){try{const res=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/manila_sections?select=section,visible',{headers:{apikey:cfg.anonKey}});if(res.ok){for(const r of await res.json())sectionVisibility[r.section]=r.visible;}}catch(e){console.warn('Sezioni non disponibili',e);}}
+  const isOutlet=new URLSearchParams(location.search).get('outlet')==='1';
   const catalog=window.MANILA_CATALOG||{};
-  const products=Object.entries(catalog).flatMap(([group,items])=>items.map(p=>({...p,group,type:p.type||(/hoodie/i.test(p.name)?'hoodie':'tee'),originalPrice:Number(p.price),price:promotion?Math.round(Number(p.price)*(100-promotion.percent))/100:Number(p.price)})));
+  const products=Object.entries(catalog).flatMap(([group,items])=>items.map(p=>({...p,group,type:p.type||(/hoodie/i.test(p.name)?'hoodie':'tee'),originalPrice:Number(p.price),price:promotion&&promotion.kind!=='3x2'&&(promotion.scope==='all'||promotion.scope===group||promotion.scope==='outlet'&&p.outlet)?Math.round(Number(p.price)*(100-promotion.percent))/100:Number(p.price)})));
 
   const $ = id => document.getElementById(id);
+  document.querySelectorAll('a[href="man.html"],a[href="woman.html"],a[href="kids.html"]').forEach(a=>{const k=a.getAttribute('href').replace('.html','');if(!sectionVisibility[k])a.hidden=true;});
+  document.querySelectorAll('.desktop-nav, .mobile-menu, .mobile-menu nav, footer nav').forEach(nav=>{if(sectionVisibility.outlet&&!nav.querySelector('a[href="shop.html?outlet=1"]')){const a=document.createElement('a');a.href='shop.html?outlet=1';a.textContent='Outlet';nav.appendChild(a);}});
+  if(isOutlet){document.title='Outlet — Manila Dark Lab';}
+
   const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(value);
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const productURL = p => `product.html?id=${encodeURIComponent(p.id)}&group=${encodeURIComponent(p.group)}`;
@@ -135,7 +142,7 @@
   if (grid) {
     let filter = 'all';
     function renderCatalog() {
-      let shown = products.filter(p => (grid.dataset.group === 'shop' || p.group === grid.dataset.group) && (filter === 'all' || p.type === filter));
+      let shown = products.filter(p => (isOutlet?sectionVisibility.outlet&&p.outlet:(grid.dataset.group === 'shop'?sectionVisibility[p.group]:sectionVisibility[p.group]&&p.group===grid.dataset.group)) && (filter === 'all' || p.type === filter));
       const sort = $('sortProducts').value;
       if (sort === 'price-asc') shown.sort((a,b) => a.price - b.price);
       if (sort === 'price-desc') shown.sort((a,b) => b.price - a.price);
@@ -150,7 +157,14 @@
     $('resetFilters').addEventListener('click', () => { filter = 'all'; renderCatalog(); });
     renderCatalog();
   }
-  function getTotal() { return cart.reduce((sum,item) => sum + products.find(p => p.id === item.id).price * item.quantity,0); }
+  function getTotal() {
+    const units=cart.flatMap(item=>{const p=products.find(p=>p.id===item.id);return p?Array.from({length:item.quantity},()=>p):[];});
+    const cents=units.reduce((sum,p)=>sum+Math.round(p.price*100),0);
+    if(!promotion||promotion.kind!=='3x2')return cents/100;
+    const eligible=units.filter(p=>promotion.scope==='all'||promotion.scope===p.group||promotion.scope==='outlet'&&p.outlet).map(p=>Math.round(p.price*100)).sort((a,b)=>a-b);
+    const freeCount=Math.floor(eligible.length/3);
+    return (cents-eligible.slice(0,freeCount).reduce((sum,v)=>sum+v,0))/100;
+  }
   function renderCart() {
     const count = cart.reduce((sum,p) => sum + p.quantity,0);
     $('cartCount').textContent = count;
@@ -192,7 +206,7 @@
     const rows = cart.map(item => { const p = products.find(p => p.id === item.id); return `• ${p.name} (${p.sku}) — taglia ${item.size}, quantità ${item.quantity} — ${money(p.price * item.quantity)}`; }).join('\n');
     const quote = shippingQuote();
     const shippingSummary = `Destinazione: ${quote.zone?.label || 'Da indicare'}\nSpedizione: ${quote.feeCents === null ? 'Da confermare' : money(quote.feeCents / 100)}\nTotale: ${quote.totalCents === null ? 'Da confermare, spedizione ancora da definire' : money(quote.totalCents / 100)}`;
-    const message = `Ciao Manila!${name ? ` Sono ${name}.` : ''} Mi interessano questi capi:\n\n${rows}\n\nSubtotale capi: ${money(getTotal())}\n${shippingSummary}\nHo visto l’anteprima del sito: potete confermarmi disponibilità, prezzi e spedizione?${notes ? `\n\n${notes}` : ''}`;
+    const message = `Ciao Manila!${name ? ` Sono ${name}.` : ''} Mi interessano questi capi:\n\n${rows}\n\nSubtotale capi dopo promozioni: ${money(getTotal())}\n${shippingSummary}\nHo visto l’anteprima del sito: potete confermarmi disponibilità, prezzi e spedizione?${notes ? `\n\n${notes}` : ''}`;
     window.open(`https://wa.me/393934927764?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   });
   if ($('productDetail')) {
@@ -205,7 +219,7 @@
     } else {
       let size = p.sizes.length ? '' : 'Da confermare', quantity = 1;
       document.title = `${p.name} — Manila Dark Lab`;
-      $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;
+      $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;const images=[...new Set([p.image,...(p.gallery||[])])].filter(Boolean);const thumbs=$('detailThumbnails');if(thumbs&&images.length>1){thumbs.innerHTML=images.map((src,i)=>'<button type="button" data-photo="'+i+'"><img src="'+escape(src)+'" alt="Foto '+(i+1)+'"></button>').join('');thumbs.onclick=e=>{const b=e.target.closest('[data-photo]');if(b)$('detailImage').src=images[Number(b.dataset.photo)];};}
       $('backLink').href = `${p.group}.html`; $('backLink').textContent = `← ${p.group === 'man' ? 'Uomo' : 'Donna'} / Tutti i capi`;
       const fields = { detailName:p.name, detailTag:p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie e disponibilità da confermare', detailPrice:money(p.price), detailDescription:p.description, detailFit:p.fit, detailMaterial:p.material, detailColor:p.color, detailSku:p.sku, detailCategory:`MANILA DARK LAB / ${p.type === 'hoodie' ? 'FELPE' : 'T-SHIRT'}` };
       Object.entries(fields).forEach(([id,value]) => $(id).textContent = value);

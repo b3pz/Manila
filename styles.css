@@ -1755,3 +1755,5 @@ html[data-manila-theme="christmas"] .hero-sticker::after{content:" ✦";color:va
 html[data-manila-theme="halloween"] .hero-sticker::after{content:" ✦";color:var(--acid)}
 html[data-manila-theme="pride"] .brand-strip{background:linear-gradient(90deg,#e75b69,#efb953,#6fbc8d,#6a8fe4,#ba79d1);color:#161a18}
 html[data-manila-theme="special"] .hero-sticker{box-shadow:0 0 25px #70e8ee66}
+
+.detail-thumbnails{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap}.detail-thumbnails button{border:1px solid var(--line);background:var(--deep);padding:3px;cursor:pointer}.detail-thumbnails img{width:78px;height:100px;object-fit:cover}a[hidden]{display:none!important}
