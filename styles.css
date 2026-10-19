@@ -1737,3 +1737,10 @@ input,textarea,.shipping-estimate select { background:var(--deep); }
 
 /* Fotografie originali del Drive, separate dal catalogo dimostrativo */
 .manila-original-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px;margin-top:26px}.manila-original-gallery figure{margin:0;min-width:0}.manila-original-gallery img{width:100%;height:320px;object-fit:cover;display:block;border-radius:2px}.manila-original-gallery figcaption{padding-top:8px;font-size:12px;letter-spacing:.08em;opacity:.65}
+
+/* Consistent vector-like navigation icon and decorative mark on mobile/desktop */
+.menu-bars { width:23px; height:18px; display:flex; flex-direction:column; justify-content:space-between; }
+.menu-bars span { display:block; height:2px; width:100%; background:currentColor; border-radius:1px; }
+.strip-star { display:inline-flex; align-items:center; justify-content:center; flex:none; }
+.strip-star svg { display:block; width:28px; height:28px; }
+@media(max-width:760px) { .menu-button { min-height:44px; min-width:44px; padding:10px; } .menu-bars { width:22px; height:17px; } .strip-star svg { width:23px; height:23px; } }
