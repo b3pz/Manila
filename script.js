@@ -1,7 +1,7 @@
 'use strict';
 (() => {
   const catalog = window.MANILA_CATALOG || {};
-  const products = Object.entries(catalog).flatMap(([group, items]) => items.map(p => ({ ...p, group, type: /hoodie/i.test(p.name) ? 'hoodie' : 'tee' })));
+  const products = Object.entries(catalog).flatMap(([group, items]) => items.map(p => ({ ...p, group, type: p.type || (/hoodie/i.test(p.name) ? 'hoodie' : 'tee') })));
   const $ = id => document.getElementById(id);
   const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(value);
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -71,7 +71,7 @@
     value.forEach(item => {
       if (!item || typeof item !== 'object') return;
       const product = products.find(p => p.id === item.id);
-      if (!product || !product.sizes.includes(item.size) || !Number.isInteger(item.quantity) || item.quantity < 1) return;
+      if (!product || !(product.sizes.length ? product.sizes.includes(item.size) : item.size === 'Da confermare') || !Number.isInteger(item.quantity) || item.quantity < 1) return;
       const existing = cleaned.find(p => p.id === item.id && p.size === item.size);
       if (existing) existing.quantity = Math.min(MAX_QTY, existing.quantity + item.quantity);
       else cleaned.push({ id: product.id, size: item.size, quantity: Math.min(MAX_QTY, item.quantity) });
@@ -104,7 +104,7 @@
   document.querySelectorAll('[data-nav]').forEach(a => { if (a.dataset.nav === document.body.dataset.page) a.setAttribute('aria-current', 'page'); });
 
   function card(p, index) {
-    return `<article class="product-card"><a href="${productURL(p)}"><div class="product-image demo-crop"><img src="${escape(p.image)}" alt="${escape(p.name)} — ${escape(p.color)}" loading="lazy" width="738" height="1600"><span class="product-index">${p.type === 'hoodie' ? 'FELPA' : 'T-SHIRT'} / ${String(index + 1).padStart(2,'0')}</span><span class="product-view" aria-hidden="true">↗</span></div><div class="product-info"><p class="product-type">${escape(p.color)} · ${escape(p.fit)}</p><h3>${escape(p.name)}</h3><div class="product-bottom"><span>${money(p.price)}</span><span>Scopri il capo ↗</span></div></div></a></article>`;
+    return `<article class="product-card"><a href="${productURL(p)}"><div class="product-image demo-crop"><img src="${escape(p.image)}" alt="${escape(p.name)} — ${escape(p.color)}" loading="lazy" width="738" height="1600"><span class="product-index">${p.type === 'hoodie' ? 'FELPA' : 'T-SHIRT'} / ${String(index + 1).padStart(2,'0')}</span><span class="product-view" aria-hidden="true">↗</span></div><div class="product-info"><p class="product-type">${escape(p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie da confermare')}</p><h3>${escape(p.name)}</h3><div class="product-bottom"><span>${money(p.price)}</span><span>Scopri il capo ↗</span></div></div></a></article>`;
   }
   if ($('featuredProducts')) $('featuredProducts').innerHTML = [products[0],products[4],products[3],products[6]].filter(Boolean).map(card).join('');
   const grid = $('catalogProducts');
@@ -141,7 +141,7 @@
     }
     $('cartItems').innerHTML = cart.map((item,index) => {
       const p = products.find(p => p.id === item.id);
-      return `<article class="cart-item"><a class="cart-thumb demo-crop" href="${productURL(p)}" aria-label="Vedi ${escape(p.name)}"><img src="${escape(p.image)}" alt=""></a><div><h3><a href="${productURL(p)}">${escape(p.name)}</a></h3><p>${escape(p.color)} · Taglia ${escape(item.size)}</p><div class="cart-item-bottom"><div class="quantity-selector cart-quantity"><button data-action="minus" data-index="${index}" aria-label="Riduci quantità di ${escape(p.name)}, taglia ${escape(item.size)}" ${item.quantity <= 1 ? 'disabled' : ''}>−</button><output aria-label="Quantità">${item.quantity}</output><button data-action="plus" data-index="${index}" aria-label="Aumenta quantità di ${escape(p.name)}, taglia ${escape(item.size)}" ${item.quantity >= MAX_QTY ? 'disabled' : ''}>+</button></div><strong>${money(p.price * item.quantity)}</strong></div><button class="remove-item" data-action="remove" data-index="${index}" aria-label="Rimuovi ${escape(p.name)}, taglia ${escape(item.size)}">Rimuovi</button></div></article>`;
+      return `<article class="cart-item"><a class="cart-thumb demo-crop" href="${productURL(p)}" aria-label="Vedi ${escape(p.name)}"><img src="${escape(p.image)}" alt=""></a><div><h3><a href="${productURL(p)}">${escape(p.name)}</a></h3><p>${escape(p.sizes.length ? `${p.color} · Taglia ${item.size}` : 'Taglia da confermare')}</p><div class="cart-item-bottom"><div class="quantity-selector cart-quantity"><button data-action="minus" data-index="${index}" aria-label="Riduci quantità di ${escape(p.name)}, taglia ${escape(item.size)}" ${item.quantity <= 1 ? 'disabled' : ''}>−</button><output aria-label="Quantità">${item.quantity}</output><button data-action="plus" data-index="${index}" aria-label="Aumenta quantità di ${escape(p.name)}, taglia ${escape(item.size)}" ${item.quantity >= MAX_QTY ? 'disabled' : ''}>+</button></div><strong>${money(p.price * item.quantity)}</strong></div><button class="remove-item" data-action="remove" data-index="${index}" aria-label="Rimuovi ${escape(p.name)}, taglia ${escape(item.size)}">Rimuovi</button></div></article>`;
     }).join('');
   }
   $('cartItems').addEventListener('click', event => {
@@ -179,11 +179,11 @@
       $('productDetail').innerHTML = '<div class="not-found"><p class="eyebrow">QUESTO CAPO NON È QUI</p><h1>Facciamo un altro giro?</h1><p>Il link potrebbe essere cambiato. Tutti i capi sono nello shop.</p><a class="button dark" href="shop.html">Torna allo shop ↗</a></div>';
       $('relatedSection').hidden = true;
     } else {
-      let size = '', quantity = 1;
+      let size = p.sizes.length ? '' : 'Da confermare', quantity = 1;
       document.title = `${p.name} — Manila Dark Lab`;
       $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;
       $('backLink').href = `${p.group}.html`; $('backLink').textContent = `← ${p.group === 'man' ? 'Uomo' : 'Donna'} / Tutti i capi`;
-      const fields = { detailName:p.name, detailTag:`${p.color} · ${p.fit}`, detailPrice:money(p.price), detailDescription:p.description, detailFit:p.fit, detailMaterial:p.material, detailColor:p.color, detailSku:p.sku, detailCategory:`MANILA DARK LAB / ${p.type === 'hoodie' ? 'FELPE' : 'T-SHIRT'}` };
+      const fields = { detailName:p.name, detailTag:p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie e disponibilità da confermare', detailPrice:money(p.price), detailDescription:p.description, detailFit:p.fit, detailMaterial:p.material, detailColor:p.color, detailSku:p.sku, detailCategory:`MANILA DARK LAB / ${p.type === 'hoodie' ? 'FELPE' : 'T-SHIRT'}` };
       Object.entries(fields).forEach(([id,value]) => $(id).textContent = value);
       $('sizeOptions').innerHTML = p.sizes.map(size => `<button type="button" class="size-chip" aria-pressed="false" data-size="${escape(size)}">${escape(size)}</button>`).join('');
       $('sizeOptions').addEventListener('click', event => {
@@ -194,7 +194,7 @@
       const updateQty = delta => { quantity = Math.max(1,Math.min(MAX_QTY,quantity + delta)); $('qtyValue').textContent = quantity; $('qtyMinus').disabled = quantity <= 1; $('qtyPlus').disabled = quantity >= MAX_QTY; };
       $('qtyMinus').addEventListener('click', () => updateQty(-1)); $('qtyPlus').addEventListener('click', () => updateQty(1));
       $('detailAdd').addEventListener('click', () => {
-        if (!size) { $('sizeError').textContent = 'Prima scegli la taglia che vuoi provare.'; $('sizeOptions').querySelector('button').focus(); return; }
+        if (p.sizes.length && !size) { $('sizeError').textContent = 'Prima scegli la taglia che vuoi provare.'; $('sizeOptions').querySelector('button').focus(); return; }
         const existing = cart.find(item => item.id === p.id && item.size === size);
         if (existing && existing.quantity + quantity > MAX_QTY) { $('sizeError').textContent = `Puoi aggiungere al massimo ${MAX_QTY} capi per taglia. Nel carrello ce ne sono già ${existing.quantity}.`; return; }
         if (existing) existing.quantity += quantity; else cart.push({ id:p.id, size, quantity });
