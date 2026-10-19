@@ -1,5 +1,24 @@
 'use strict';
-(() => {
+(async () => {
+  // Live products load only after Supabase is configured; otherwise the existing catalog remains intact.
+  const cfg=window.MANILA_SUPABASE||{};
+  if(cfg.url&&cfg.anonKey){
+    try {
+      const response=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/manila_products?select=*&published=eq.true&order=created_at.asc',{headers:{apikey:cfg.anonKey}});
+      if(!response.ok)throw Error('Catalogo live non disponibile');
+      const live=await response.json();
+      window.MANILA_CATALOG={man:[],woman:[],kids:[]};
+      for(const item of live){
+        if(!window.MANILA_CATALOG[item.category])continue;
+        const sizes=Object.keys(item.sizes||{}).filter(k=>Number(item.sizes[k])>0);
+        window.MANILA_CATALOG[item.category].push({
+          id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',
+          sizes,fit:'Da confermare',material:'Da confermare',color:'',sku:item.code,
+          description:item.description||'',type:item.kind,availability:sizes.length?'Disponibile':'Su richiesta'
+        });
+      }
+    } catch(err){console.warn('Manila: catalogo statico di riserva',err);}
+  }
   const catalog = window.MANILA_CATALOG || {};
   const products = Object.entries(catalog).flatMap(([group, items]) => items.map(p => ({ ...p, group, type: p.type || (/hoodie/i.test(p.name) ? 'hoodie' : 'tee') })));
   const $ = id => document.getElementById(id);
