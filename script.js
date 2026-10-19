@@ -15,7 +15,7 @@
         if(item.archived)continue;const sizes=Object.keys(item.sizes||{}).filter(k=>Number(item.sizes[k])>0);
         window.MANILA_CATALOG[item.category].push({
           id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',gallery:Array.isArray(item.images)&&item.images.length?item.images:[item.image_url].filter(Boolean),video_url:item.video_url||null,outlet:!!item.outlet,
-          sizes,fit:'Da confermare',material:'Da confermare',color:'',sku:item.code,
+          sizes,stock:item.sizes||{},fit:'Da confermare',material:'Da confermare',color:'',sku:item.code,
           description:item.description||'',type:item.kind,availability:sizes.length?'Disponibile':'Su richiesta'
         });
       }
@@ -135,7 +135,7 @@
   document.querySelectorAll('[data-nav]').forEach(a => { if (a.dataset.nav === document.body.dataset.page) a.setAttribute('aria-current', 'page'); });
 
   function card(p, index) {
-    return `<article class="product-card"><a href="${productURL(p)}"><div class="product-image demo-crop"><img src="${escape(p.image)}" alt="${escape(p.name)} — ${escape(p.color)}" loading="lazy" width="738" height="1600"><span class="product-index">${p.type === 'hoodie' ? 'FELPA' : 'T-SHIRT'} / ${String(index + 1).padStart(2,'0')}</span><span class="product-view" aria-hidden="true">↗</span></div><div class="product-info"><p class="product-type">${escape(p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie da confermare')}</p><h3>${escape(p.name)}</h3><div class="product-bottom"><span>${money(p.price)}</span><span>Scopri il capo ↗</span></div></div></a></article>`;
+    return `<article class="product-card"><a href="${productURL(p)}"><div class="product-image demo-crop"><img src="${escape(p.image)}" alt="${escape(p.name)} — ${escape(p.color)}" loading="lazy" width="738" height="1600"><span class="product-index">${p.type === 'hoodie' ? 'FELPA' : 'T-SHIRT'} / ${String(index + 1).padStart(2,'0')}</span><span class="product-view" aria-hidden="true">↗</span>${p.outlet?'<span class="shop-product-badge">OUTLET</span>':p.price<p.originalPrice?'<span class="shop-product-badge">OFFERTA</span>':''}</div><div class="product-info"><p class="product-type">${escape(p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie da confermare')}</p><h3>${escape(p.name)}</h3><div class="product-bottom"><span>${p.price<p.originalPrice?`<del class="old-price">${money(p.originalPrice)}</del> `:''}${money(p.price)}</span><span>Scopri il capo ↗</span></div></div></a></article>`;
   }
   if ($('featuredProducts')) $('featuredProducts').innerHTML = [products[0],products[4],products[3],products[6]].filter(Boolean).map(card).join('');
   const grid = $('catalogProducts');
@@ -172,6 +172,7 @@
     $('cartCheckout').hidden = !cart.length;
     $('paypalStatus').hidden = true;
     $('cartTotal').textContent = money(getTotal());
+    const promoLabel=$('cartPromotion');if(promoLabel){const original=cart.reduce((sum,item)=>{const p=products.find(x=>x.id===item.id);return sum+(p?p.originalPrice*item.quantity:0);},0);const saving=Math.max(0,Math.round((original-getTotal())*100)/100);promoLabel.hidden=!saving;promoLabel.textContent=saving?'Risparmi '+money(saving)+(promotion?.name?' con '+promotion.name:''):'';}
     renderShipping();
     if (!cart.length) {
       $('cartItems').innerHTML = '<div class="cart-empty"><div class="empty-symbol" aria-hidden="true">↗</div><h3>Ancora tutto da scegliere.</h3><p>Il tuo prossimo capo ti aspetta nello shop.</p><a class="button dark" href="shop.html">Fai un giro nello shop <span>↗</span></a></div>';
@@ -244,6 +245,7 @@
       $('backLink').href = `${p.group}.html`; $('backLink').textContent = `← ${p.group === 'man' ? 'Uomo' : 'Donna'} / Tutti i capi`;
       const fields = { detailName:p.name, detailTag:p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie e disponibilità da confermare', detailPrice:money(p.price), detailDescription:p.description, detailFit:p.fit, detailMaterial:p.material, detailColor:p.color, detailSku:p.sku, detailCategory:`MANILA DARK LAB / ${p.type === 'hoodie' ? 'FELPE' : 'T-SHIRT'}` };
       Object.entries(fields).forEach(([id,value]) => $(id).textContent = value);
+      const oldPrice=$('detailOriginalPrice');if(oldPrice){oldPrice.textContent=p.price<p.originalPrice?money(p.originalPrice):'';oldPrice.hidden=!(p.price<p.originalPrice);}const stockLabel=$('detailStock');if(stockLabel)stockLabel.textContent=p.sizes.length?'Disponibile nelle taglie indicate':'Disponibilità da confermare prima dell’ordine';
       $('sizeOptions').innerHTML = p.sizes.map(size => `<button type="button" class="size-chip" aria-pressed="false" data-size="${escape(size)}">${escape(size)}</button>`).join('');
       $('sizeOptions').addEventListener('click', event => {
         const button = event.target.closest('[data-size]'); if (!button) return;
