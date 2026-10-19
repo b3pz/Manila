@@ -13,3 +13,5 @@
 }
 
 .manager-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.manager-tabs button.active{background:#d6ed45;color:#171d12}[data-panel][hidden]{display:none!important}#promoPanel{max-width:850px}
+
+.theme-preview{border:1px solid #647069;padding:35px 20px;text-align:center;font-weight:800;font-size:24px;letter-spacing:.05em}.manager-tabs button{min-height:44px}

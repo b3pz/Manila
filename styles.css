@@ -1744,3 +1744,14 @@ input,textarea,.shipping-estimate select { background:var(--deep); }
 .strip-star { display:inline-flex; align-items:center; justify-content:center; flex:none; }
 .strip-star svg { display:block; width:28px; height:28px; }
 @media(max-width:760px) { .menu-button { min-height:44px; min-width:44px; padding:10px; } .menu-bars { width:22px; height:17px; } .strip-star svg { width:23px; height:23px; } }
+
+/* Dark Lab Manager seasonal visual themes; original styling stays the default. */
+html[data-manila-theme="christmas"]{--paper:#19352c;--deep:#11251f;--surface:#29473b;--acid:#efc66c;--line:#4c725f;--on-acid:#18261b}
+html[data-manila-theme="halloween"]{--paper:#291e30;--deep:#1b1423;--surface:#382a41;--acid:#ff9b3d;--line:#69536e;--on-acid:#241726}
+html[data-manila-theme="pride"]{--paper:#24243d;--deep:#18182c;--surface:#333451;--acid:#f58ec1;--line:#65647f;--on-acid:#22172c}
+html[data-manila-theme="special"]{--paper:#162c36;--deep:#10212b;--surface:#25404b;--acid:#70e8ee;--line:#52727b;--on-acid:#123039}
+html[data-manila-theme] .announcement{border-bottom:2px solid var(--acid)}
+html[data-manila-theme="christmas"] .hero-sticker::after{content:" ✦";color:var(--acid)}
+html[data-manila-theme="halloween"] .hero-sticker::after{content:" ✦";color:var(--acid)}
+html[data-manila-theme="pride"] .brand-strip{background:linear-gradient(90deg,#e75b69,#efb953,#6fbc8d,#6a8fe4,#ba79d1);color:#161a18}
+html[data-manila-theme="special"] .hero-sticker{box-shadow:0 0 25px #70e8ee66}
