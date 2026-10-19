@@ -121,3 +121,8 @@ body #app [data-panel][hidden]{display:none!important}
 .web-order p{line-height:1.5}.web-order label{display:inline-grid;gap:6px;min-width:160px;max-width:100%;margin:8px}
 .web-order select,.web-order input{max-width:100%;background:#283229;color:#fff;padding:10px;border:1px solid #59635a}
 .web-order button{margin:8px}.label-controls input,.label-controls select{width:100%}
+
+/* iPhone-first camera barcode scanner */
+.camera-scan-button{display:block;margin:10px 0;background:#d6ed45;color:#111915;font-size:16px;font-weight:800;padding:15px 20px;min-height:54px;border:0;border-radius:10px;cursor:pointer;width:100%}
+.camera-scanner{margin:12px 0;padding:14px;border:1px solid #62745d;border-radius:12px;background:#151b18}
+.camera-scanner[hidden]{display:none!important}.camera-scanner-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.camera-scanner-top button{background:#354139;border:1px solid #808b80;border-radius:8px;color:#fff;padding:12px}.camera-scanner #cameraScanViewport{width:100%;max-width:600px;margin:auto;overflow:hidden;border-radius:8px}.camera-scanner video{width:100%!important;max-height:70vh;object-fit:cover}.camera-scanner p{margin:10px 0;line-height:1.5}

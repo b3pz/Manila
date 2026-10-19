@@ -226,6 +226,39 @@ async function loadLegal(){
 
  function populateReturnProducts(){const el=$('returnProduct'),previous=el.value;el.innerHTML=rows.map(p=>'<option value="'+safe(p.id)+'">'+safe(p.code+' — '+p.name)+'</option>').join('');if(rows.some(p=>p.id===previous))el.value=previous;}
  const scanInput=$('globalScan'),scanResults=$('globalScanResult');
+ let cameraScannerInstance=null,cameraScanning=false,cameraStarting=false;
+ const cameraBox=$('cameraScanner'),cameraStatus=$('cameraScanStatus');
+ async function stopCameraScan(){
+  cameraBox.hidden=true;
+  const scanner=cameraScannerInstance;
+  cameraScannerInstance=null;
+  if(scanner){try{if(cameraScanning||cameraStarting)await scanner.stop();}catch(e){}try{scanner.clear();}catch(e){}}
+  cameraScanning=false;cameraStarting=false;
+ }
+ $('cameraScanOpen').onclick=async()=>{
+  if(cameraStarting||cameraScanning)return;
+  cameraBox.hidden=false;cameraStatus.textContent='Apertura fotocamera…';
+  if(!window.isSecureContext){cameraStatus.textContent='La fotocamera richiede una connessione HTTPS.';return;}
+  if(!window.Html5Qrcode){cameraStatus.textContent='Lettore non disponibile. Controlla la connessione Internet e riprova.';return;}
+  try{
+   cameraStarting=true;
+   const scanner=new window.Html5Qrcode('cameraScanViewport',{formatsToSupport:[window.Html5QrcodeSupportedFormats.CODE_39],verbose:false});
+   cameraScannerInstance=scanner;
+   await scanner.start({facingMode:'environment'},{fps:12,qrbox:{width:280,height:140},aspectRatio:1.333},decoded=>{
+    const code=String(decoded||'').trim().replace(/^\*|\*$/g,'').toUpperCase();
+    if(!/^([FT][UDK])[0-9]{2,}-[A-Z0-9-]+$/.test(code))return;
+    scanInput.value=code;
+    lookupScan();
+    cameraStatus.textContent='Codice letto: '+code;
+    stopCameraScan();
+   },()=>{});
+   cameraScanning=true;cameraStatus.textContent='Inquadra il codice del cartellino e tieni fermo il telefono.';
+  }catch(e){cameraStatus.textContent='Impossibile usare la fotocamera: '+(e.message||e)+'. Controlla i permessi di Safari.';if(cameraScannerInstance){try{cameraScannerInstance.clear();}catch(e){}}cameraScannerInstance=null;}
+  finally{cameraStarting=false;}
+ };
+ $('cameraScanClose').onclick=stopCameraScan;
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopCameraScan();});
+ 
  function lookupScan(){
   const q=scanInput.value.trim().toUpperCase();
   if(!q){scanResults.textContent='';return;}
