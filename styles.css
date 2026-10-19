@@ -1771,3 +1771,5 @@ html[data-manila-theme="special"] .hero-sticker{box-shadow:0 0 25px #70e8ee66}
 
 /* Informative privacy e cookie */
 .legal-header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:25px max(20px,calc((100% - 1000px)/2));background:#171c18;color:#f3f5ef}.legal-header a{color:#d6ed45;text-decoration:none}.legal-content{max-width:870px;margin:45px auto 85px;padding:0 22px}.legal-content h1{font-size:clamp(38px,6vw,72px);line-height:1.1;margin-bottom:32px}.legal-content #legalText{white-space:pre-line;line-height:1.85;font-size:16px;overflow-wrap:break-word}.legal-footer{border-top:1px solid #4b554b;display:flex;flex-wrap:wrap;gap:24px;padding:28px max(20px,calc((100% - 1000px)/2))}.legal-footer a,.site-footer .footer-bottom a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+.developer-credit{display:inline-block;font-size:11px;letter-spacing:.055em;opacity:.85;white-space:nowrap}.developer-credit strong{font-weight:800;color:#d6ed45}.site-footer .footer-bottom{flex-wrap:wrap;gap:10px 18px}.legal-footer .developer-credit,.checkout-footer .developer-credit{margin-left:auto}
