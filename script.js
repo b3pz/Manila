@@ -15,7 +15,7 @@
         if(item.archived)continue;const sizes=Object.keys(item.sizes||{}).filter(k=>Number(item.sizes[k])>0);
         window.MANILA_CATALOG[item.category].push({
           id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',gallery:Array.isArray(item.images)&&item.images.length?item.images:[item.image_url].filter(Boolean),video_url:item.video_url||null,outlet:!!item.outlet,
-          sizes,stock:item.sizes||{},fit:'Da confermare',material:'Da confermare',color:'',sku:item.code,
+          sizes,stock:item.sizes||{},fit:item.fit||'Da confermare',material:item.material||'Da confermare',color:item.color||'Da confermare',sku:item.code,
           description:item.description||'',type:item.kind,availability:sizes.length?'Disponibile':'Su richiesta'
         });
       }
