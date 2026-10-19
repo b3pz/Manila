@@ -53,3 +53,26 @@
 body[data-manager-view="home"] .manager-tabs{display:none}
 @media(max-width:780px){.home-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.home-tiles{grid-template-columns:1fr}.home-tiles button{min-height:115px;padding:18px;display:grid;grid-template-columns:54px 1fr;align-items:center}.home-tiles button small{grid-column:2}.home-tiles button strong{align-self:end}}
+
+/* Vendite: leggibilità e flusso guidato */
+#salesPanel{max-width:1120px;margin:0 auto}
+#salesPanel>.section-head{flex-wrap:wrap}
+#salesPanel .inventory-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#salesPanel .inventory-stat{padding:20px;border-radius:12px}
+#salesPanel .inventory-stat strong{font-size:clamp(24px,3vw,34px)}
+.sale-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+#saleForm{max-width:740px;width:100%;margin:0 auto;padding:clamp(20px,3vw,34px);border-radius:15px}
+#saleForm h3{font-size:25px;margin:0 0 12px}
+.sale-step{font-size:18px;font-weight:750;color:#d6ed45;margin:26px 0 12px;border-top:1px solid #48504b;padding-top:16px}
+#saleForm label{font-size:15px;line-height:1.5}
+#saleForm input,#saleForm select{min-height:49px;font-size:16px;border-radius:8px}
+.sale-extra{padding:16px;border:1px solid #48504b;border-radius:10px;margin:18px 0}
+.sale-extra summary{cursor:pointer;font-weight:700;padding:8px}
+.sale-extra label{margin-top:16px}
+.sale-estimate{display:flex;flex-direction:column;gap:8px;border-radius:13px;background:#171f19;border:1px solid #d6ed45;padding:22px;margin:20px 0}
+.sale-estimate strong{font-size:34px;color:#d6ed45}
+.sale-estimate small{color:#b0b7b0}
+#saleForm .sale-save{width:100%;min-height:58px;font-size:17px;border-radius:9px}
+.sales-history{background:#222625;border:1px solid #48504b;padding:20px;border-radius:12px}
+.sales-history h3{font-size:23px}
+@media(max-width:760px){#salesPanel .inventory-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
