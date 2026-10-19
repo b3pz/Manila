@@ -239,9 +239,9 @@ async function loadLegal(){
   $('labelProduct').value=p.id;refreshLabelSizes();
   if(size&&Array.from($('labelSize').options).some(o=>o.value.toUpperCase()===size))$('labelSize').value=Array.from($('labelSize').options).find(o=>o.value.toUpperCase()===size).value;
   $('search').value=p.code;paint();$('categoryFilter').value='';
-  scanResults.innerHTML='<strong>'+safe(p.code+' — '+p.name)+'</strong> · '+safe(size||'Tutte le taglie')+'<p><button type="button" id="scanOpen">Apri articolo</button> <button type="button" id="scanSale">Vendita</button> <button type="button" id="scanReturn">Reso</button> <button type="button" id="scanGift">Omaggio</button></p>';
+  scanResults.innerHTML='<strong>'+safe(p.code+' — '+p.name)+'</strong> · '+safe(size||'Tutte le taglie')+'<p><button type="button" id="scanOpen">Apri articolo</button> <button type="button" id="scanSale">Vendita</button> <button type="button" id="scanReturn">Reso</button> <button type="button" id="scanGift">Omaggio</button> <button type="button" id="scanMovement">Carico / scarico</button></p>';
   $('scanOpen').onclick=()=>{showView('products');openArticle(p);};
-  $('scanSale').onclick=()=>showView('sales');$('scanReturn').onclick=()=>showView('returns');$('scanGift').onclick=()=>showView('gifts');
+  $('scanSale').onclick=()=>showView('sales');$('scanReturn').onclick=()=>showView('returns');$('scanGift').onclick=()=>showView('gifts');$('scanMovement').onclick=()=>{showView('products');openArticle(p);if(size)$('movementSize').value=size;$('movementForm').scrollIntoView({behavior:'smooth',block:'center'});};
  }
  scanInput.addEventListener('input',lookupScan);
  scanInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();lookupScan();}});
@@ -308,5 +308,5 @@ async function loadLegal(){
  const {error}=await client.rpc('manila_apply_stock_movement',{p_product_id:p.id,p_size:size,p_change:delta,p_note:note});
  if(error)throw error;await refresh();fill(rows.find(x=>x.id===p.id));$('movementForm').reset();notice('Movimento registrato e giacenza aggiornata.');
  }catch(err){notice(err.message,true);}});
- const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);await loadPromo();await loadTheme();await loadSections();await loadHomePhotos();await loadLegal();await loadSiteTexts();showView(location.hash.slice(1));}catch(err){notice(err.message,true);}}
+ const {data:{session}}=await client.auth.getSession();if(session?.user){user=session.user;try{await check();$('loginBox').hidden=true;$('app').hidden=false;$('identity').textContent=user.email;await refresh();fill(null);await loadPromo();await loadTheme();await loadSections();await loadHomePhotos();await loadLegal();await loadSiteTexts();await loadReturns();await loadWebOrders();showView(location.hash.slice(1));}catch(err){notice(err.message,true);}}
 })();
