@@ -14,7 +14,7 @@
         if(!window.MANILA_CATALOG[item.category])continue;
         if(item.archived)continue;const sizes=Object.keys(item.sizes||{}).filter(k=>Number(item.sizes[k])>0);
         window.MANILA_CATALOG[item.category].push({
-          id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',gallery:Array.isArray(item.images)&&item.images.length?item.images:[item.image_url].filter(Boolean),outlet:!!item.outlet,
+          id:item.code,name:item.name,price:Number(item.price),image:item.image_url||'logo-manila-dark-lab.jpeg',gallery:Array.isArray(item.images)&&item.images.length?item.images:[item.image_url].filter(Boolean),video_url:item.video_url||null,outlet:!!item.outlet,
           sizes,fit:'Da confermare',material:'Da confermare',color:'',sku:item.code,
           description:item.description||'',type:item.kind,availability:sizes.length?'Disponibile':'Su richiesta'
         });
@@ -219,7 +219,7 @@
     } else {
       let size = p.sizes.length ? '' : 'Da confermare', quantity = 1;
       document.title = `${p.name} — Manila Dark Lab`;
-      $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;const images=[...new Set([p.image,...(p.gallery||[])])].filter(Boolean);const thumbs=$('detailThumbnails');if(thumbs&&images.length>1){thumbs.innerHTML=images.map((src,i)=>'<button type="button" data-photo="'+i+'"><img src="'+escape(src)+'" alt="Foto '+(i+1)+'"></button>').join('');thumbs.onclick=e=>{const b=e.target.closest('[data-photo]');if(b)$('detailImage').src=images[Number(b.dataset.photo)];};}
+      $('detailImage').src = p.image; $('detailImage').alt = `${p.name} — ${p.color}`;const images=[...new Set([p.image,...(p.gallery||[])])].filter(Boolean);const thumbs=$('detailThumbnails');if(thumbs&&images.length>1){thumbs.innerHTML=images.map((src,i)=>'<button type="button" data-photo="'+i+'"><img src="'+escape(src)+'" alt="Foto '+(i+1)+'"></button>').join('');thumbs.onclick=e=>{const b=e.target.closest('[data-photo]');if(b){$('detailImage').src=images[Number(b.dataset.photo)];$('detailImage').hidden=false;const video=$('detailVideo');if(video){video.pause();video.hidden=true;}}};}if(thumbs&&p.video_url){const videoButton=document.createElement('button');videoButton.type='button';videoButton.textContent='▶ Guarda il video';videoButton.onclick=()=>{const video=$('detailVideo');if(video){video.src=p.video_url;video.hidden=false;$('detailImage').hidden=true;video.play().catch(()=>{});}};thumbs.appendChild(videoButton);}
       $('backLink').href = `${p.group}.html`; $('backLink').textContent = `← ${p.group === 'man' ? 'Uomo' : 'Donna'} / Tutti i capi`;
       const fields = { detailName:p.name, detailTag:p.sizes.length ? `${p.color} · ${p.fit}` : 'Taglie e disponibilità da confermare', detailPrice:money(p.price), detailDescription:p.description, detailFit:p.fit, detailMaterial:p.material, detailColor:p.color, detailSku:p.sku, detailCategory:`MANILA DARK LAB / ${p.type === 'hoodie' ? 'FELPE' : 'T-SHIRT'}` };
       Object.entries(fields).forEach(([id,value]) => $(id).textContent = value);

@@ -83,3 +83,5 @@ body #app [data-panel][hidden],body #app #editor[hidden],body #app [data-panel="
 .advanced-photo-path{display:none!important}.tile-actions{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:auto}.tile-actions button{min-height:45px;border-radius:7px;font-size:14px}.tile-actions .tile-delete{background:#53302f;color:#fff;border:1px solid #a35d59}.tile-actions .edit-item{margin-top:0}@media(max-width:530px){.tile-actions{grid-template-columns:1fr}.tile-actions button{min-height:41px}}
 
 .section-toggle{display:block;margin:14px 0;padding:16px;border:1px solid #48504b;border-radius:12px;font-size:17px}.section-toggle input{width:22px;height:22px;margin-right:12px}#sectionsPanel{max-width:770px;margin:auto}
+
+.video-upload{border:1px solid #48504b;padding:18px;border-radius:12px;margin:20px 0}.video-upload input{max-width:100%}.video-upload video{width:100%;max-height:370px;margin:15px 0}.video-upload p{color:#b0b7b0}.gallery-photo button[data-cover="0"]{background:#313b32;color:#d6ed45;border:1px solid #d6ed45;cursor:default}
