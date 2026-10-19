@@ -35,3 +35,21 @@
 @media(max-width:630px){[data-panel="products"] .product-list{grid-template-columns:1fr 1fr;gap:10px}.product-tile>img{height:165px}.tile-details{padding:12px}.tile-details>strong{font-size:14px}.tile-details .edit-item{font-size:13px;padding:12px 6px}}
 
 .photo-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0}.gallery-photo{display:flex;flex-direction:column;gap:8px;padding:8px;border:1px solid #48504b;border-radius:9px}.gallery-photo img{width:100%;height:170px;object-fit:contain;background:#151a16}.gallery-photo button{font-size:12px}
+
+/* Easy dashboard: one action per page */
+.manager-home{max-width:1080px;margin:0 auto;padding:16px 0 50px}
+.home-welcome{text-align:center;padding:38px 12px 24px}
+.home-welcome .eyebrow{font-size:12px;letter-spacing:.2em;color:#d6ed45}
+.home-welcome h2{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0}
+.home-welcome>p:last-child{color:#b0b7b0}
+.home-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.home-tiles button{background:#161a18;color:#f1f2ed;border:1px solid #48504b;border-radius:16px;padding:26px 18px;text-align:left;min-height:174px;display:flex;flex-direction:column;gap:9px}
+.home-tiles button:hover,.home-tiles button:focus-visible{border-color:#d6ed45;outline:2px solid #d6ed45}
+.home-tiles button strong{font-size:19px}
+.home-tiles button small{font-size:13px;color:#b0b7b0;line-height:1.4}
+.home-icon{width:48px;height:48px;background:#d6ed45;color:#171d12;border-radius:12px;display:grid;place-items:center;font-size:27px;font-weight:900}
+.manager-tabs{position:sticky;top:0;z-index:20;background:#222625;padding:12px 0}
+.manager-tabs button{border-radius:9px;font-size:13px}
+body[data-manager-view="home"] .manager-tabs{display:none}
+@media(max-width:780px){.home-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.home-tiles{grid-template-columns:1fr}.home-tiles button{min-height:115px;padding:18px;display:grid;grid-template-columns:54px 1fr;align-items:center}.home-tiles button small{grid-column:2}.home-tiles button strong{align-self:end}}
