@@ -11,3 +11,5 @@
  body[data-print="giftsPanel"] #overview,body[data-print="giftsPanel"] #movimenti-globali,body[data-print="giftsPanel"] #salesPanel{display:none!important}
  .inventory-dashboard{page-break-after:auto!important;break-after:auto!important}
 }
+
+.manager-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.manager-tabs button.active{background:#d6ed45;color:#171d12}[data-panel][hidden]{display:none!important}#promoPanel{max-width:850px}

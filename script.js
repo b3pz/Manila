@@ -21,8 +21,11 @@
       }
     } catch(err){console.warn('Manila: catalogo statico di riserva',err);}
   }
-  const catalog = window.MANILA_CATALOG || {};
-  const products = Object.entries(catalog).flatMap(([group, items]) => items.map(p => ({ ...p, group, type: p.type || (/hoodie/i.test(p.name) ? 'hoodie' : 'tee') })));
+  let promotion=null;
+  if(cfg.url&&cfg.anonKey){try{const r=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/manila_promotions?select=name,percent&active=eq.true&id=eq.1',{headers:{apikey:cfg.anonKey}});if(r.ok){const found=await r.json();if(found.length)promotion=found[0];}}catch(e){console.warn('Promozione non disponibile',e);}}
+  const catalog=window.MANILA_CATALOG||{};
+  const products=Object.entries(catalog).flatMap(([group,items])=>items.map(p=>({...p,group,type:p.type||(/hoodie/i.test(p.name)?'hoodie':'tee'),originalPrice:Number(p.price),price:promotion?Math.round(Number(p.price)*(100-promotion.percent))/100:Number(p.price)})));
+
   const $ = id => document.getElementById(id);
   const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(value);
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
